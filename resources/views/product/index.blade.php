@@ -106,27 +106,30 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="{{ asset(env('FILE_URL')."")}}" alt="">
-                        </div>
-                        <h2><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h2>
-                        <div class="product-carousel-price">
-                            {{ $product->price }}
-                        </div>  
+                           @if(count($product->productImage) > 0)
+                           <img width="195" height="243" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                           @endif
+                           {{-- <img src="{{ asset(env('FILE_URL')."3bJUFTriPEPh2O81G4wxq48j534BkHbivjoK7VC4.jpeg")}}" alt=""> --}}
+                       </div>
+                       <h2><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h2>
+                       <div class="product-carousel-price">
+                        {{ $product->price }}
+                    </div>  
 
-                        <div class="product-option-shop">
-                            <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                        </div>                 
-                    </div>
+                    <div class="product-option-shop">
+                        <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                    </div>                 
                 </div>
-                @endforeach
-                @else
-                <div class="col-md-12">
-                    <h2>ไม่พบข้อมูล</h2>                  
-                </div>       
-                @endif
             </div>
+            @endforeach
+            @else
+            <div class="col-md-12">
+                <h2>ไม่พบข้อมูล</h2>                  
+            </div>       
+            @endif
         </div>
     </div>
+</div>
 </div>
 
 <div class="row">

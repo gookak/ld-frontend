@@ -15,12 +15,12 @@ class CreateCustomerTable extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('firstname', 200)->nullable()->comment('ชื่อ');
-            $table->string('lastname', 200)->nullable()->comment('นามสกุล');
-            $table->string('tel', 100)->nullable()->comment('เบอร์ติดต่อ');
-            $table->string('image', 100)->nullable()->comment('รูป');
+            // $table->string('email')->unique();
+            // $table->string('password');
+            // $table->string('firstname', 200)->nullable()->comment('ชื่อ');
+            // $table->string('lastname', 200)->nullable()->comment('นามสกุล');
+            // $table->string('tel', 100)->nullable()->comment('เบอร์ติดต่อ');
+            // $table->string('image', 100)->nullable()->comment('รูป');
             $table->timestamps();
         });
     }
