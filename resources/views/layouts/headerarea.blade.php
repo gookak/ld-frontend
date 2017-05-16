@@ -1,21 +1,27 @@
 <div class="container">
     <div class="row">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div> 
-        <div class="navbar-collapse collapse" id="navbar-collapse">
+
+            <!-- Branding Image -->
+                    {{-- <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a> --}}
+        </div>
+
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/product?category_id=1">Product</a></li>
-                <li><a href="/cart">Cart</a></li>
+                &nbsp;
             </ul>
-            
+
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -24,18 +30,13 @@
                 <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> Register</a></li>
                 @else
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle open-menu" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->firstname }} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="" style="padding: 3px 20px;">
-                                <i class="fa fa-user"></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('logout') }}" style="padding: 3px 20px;" 
+                            <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 <i class="fa fa-power-off"></i> Logout
@@ -50,5 +51,5 @@
                 @endif
             </ul>
         </div>
-    </div>  
+    </div>
 </div>

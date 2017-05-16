@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ustora Demo</title>
+    <title>L&D Com</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -24,7 +24,7 @@
 
     <!-- Css mobile -->
     {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
-      {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
+    {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery.mobile-1.4.5.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('themes/ustora/mycustom.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery-ui.css') }}">
@@ -77,49 +77,10 @@
 
   </head>
   <body>
+    {{-- <div class="header-area">
+        @include('layouts.headerarea')
+    </div> --}} <!-- End header area -->
 
-    <div class="header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="user-menu">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="header-right">
-                        <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">INR</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">German</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End header area -->
-    
     <div class="site-branding-area">
         <div class="container">
             <div class="row">
@@ -128,28 +89,25 @@
                         <h1><a href="./"><img src="{{ asset('themes/ustora/img/logo.png') }}"></a></h1>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 cart-reload">
-                @if(Session::has('cart'))
+                    @if(Session::has('cart'))
                     <div class="shopping-item">
                         <a href="/cart">Cart - <span class="cart-amunt">{{Session::has('cart') ? Session::get('cart')->totalPrice : '' }}</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">{{Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span></a>
                     </div>
-                @endif
+                    @endif
                 </div>
             </div>
         </div>
     </div> <!-- End site branding area -->
-    
+
     <div class="mainmenu-area">
-        <div class="container">
-            <div class="row">
-                @include('layouts.navbar')
-            </div>
-        </div>
+        @include('layouts.navbar')
     </div> <!-- End mainmenu area -->
-    
+
     @yield('content')
-    
+
+
     <div class="footer-top-area">
         <div class="container">
             <div class="row">
@@ -165,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">User Navigation </h2>
@@ -178,7 +136,7 @@
                         </ul>                        
                     </div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">Categories</h2>
@@ -191,7 +149,7 @@
                         </ul>                        
                     </div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-newsletter">
                         <h2 class="footer-wid-title">Newsletter</h2>
@@ -207,7 +165,7 @@
             </div>
         </div>
     </div> <!-- End footer top area -->
-    
+
     <div class="footer-bottom-area">
         <div class="container">
             <div class="row">
@@ -216,7 +174,7 @@
                         <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="footer-card-icon">
                         <i class="fa fa-cc-discover"></i>

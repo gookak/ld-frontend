@@ -26,20 +26,24 @@ class ProductController extends Controller
 
         $category_list = Category::all();
         $category = Category::find($request->input('category_id'));
-        $tbl_product = DB::table('product');
-
+        $category_current = Category::find($categoryId);
         $maxprice = Product::max('price');
         // $minprice = Product::where('category_id', $categoryId)->min('price');
+        // $tbl_product = DB::table('product');
+
+        $tbl_product = Product::where('category_id', 'like', $categoryId);
+
+        
 
         if ($name) {
             $tbl_product = $tbl_product->where('name', 'like', '%' . $name . '%');
         }
 
-        if ($categoryId) {
-            $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
-        }else{
-            $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
-        }
+        // if ($categoryId) {
+        //     $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
+        // }else{
+        //     $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
+        // }
 
         if ($price_min || $price_max) {
             $tbl_product = $tbl_product->whereBetween('price', [$price_min, $price_max]);
@@ -53,12 +57,13 @@ class ProductController extends Controller
             $tbl_product = $tbl_product->orderBy('price','asc');
         }
 
-        $category_current = Category::find($categoryId);
-        $products = $tbl_product->paginate(2);
+        
+        $products = $tbl_product->paginate(20);
 
-        // dd($products);
+        // $products = Product::where('category_id', 'like', $categoryId)->paginate(2);
+        // dd($products[0]->productImage);
 
-        return view('product.index',compact('products','category_list','category_current','maxprice','minprice'));
+        return view('product.index',compact('products','category_list','category_current','maxprice'));
     }
 
 
