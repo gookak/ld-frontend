@@ -53,63 +53,6 @@
                                                 </label>
                                                 <textarea cols="5" rows="2" id="address_1" name="address_1" class="input-text "></textarea>
                                             </div>
-
-                                            <div class="form-row form-row-wide address-field col-md-6">
-                                                <label for="subdistrict">แขวง <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" id="subdistrict" name="subdistrict" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-first address-field col-md-6">
-                                                <label for="district">ตำบล <abbr title="required" class="required">*</abbr></label>
-                                                <input type="text" id="district" name="district" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-first address-field col-md-6">
-                                                <label for="province">จังหวัด <abbr title="required" class="required">*</abbr></label>
-                                                <input type="text" id="province" name="province" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-last address-field col-md-6">
-                                                <label for="postcode">Postcode <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" id="postcode" name="postcode" class="input-text ">
-                                            </div>
-                                        </div>
-                                        </br>
-                                        <div class="different_address">
-                                            <h3 id="ship-to-different-address">
-                                                <label>Ship to a different address?</label>
-                                                <input type="checkbox" name="different_address" class="input-checkbox" id="different-address">
-                                            </h3>
-
-                                            <div class="form-row form-row-wide address-field col-md-12">
-                                                <label for="different_address_1">Address <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <textarea cols="5" rows="2" id="different_address_1" name="different_address_1" class="input-text "></textarea>
-                                            </div>
-
-                                            <div class="form-row form-row-wide address-field col-md-6">
-                                                <label for="different_subdistrict">แขวง <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" id="different_subdistrict" name="different_subdistrict" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-first address-field col-md-6">
-                                                <label for="different_district">ตำบล <abbr title="required" class="required">*</abbr></label>
-                                                <input type="text" id="different_district" name="different_district" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-first address-field col-md-6">
-                                                <label for="different_province">จังหวัด <abbr title="required" class="required">*</abbr></label>
-                                                <input type="text" id="different_province" name="different_province" class="input-text ">
-                                            </div>
-
-                                            <div class="form-row form-row-last address-field col-md-6">
-                                                <label for="different_postcode">Postcode <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" id="different_postcode" name="postcode" class="input-text ">
-                                            </div>
                                         </div>
 
                                         <div id="order_comments_field" class="form-row notes col-md-12">
