@@ -1,0 +1,27 @@
+.ui-slider .ui-slider-handle:focus 
+{ 
+  outline: none;
+}
+
+@media (min-width: 768px)
+{
+	.list-group-collapse.collapse {
+	    display: block!important;
+	    height: auto!important;
+	    padding-bottom: 0;
+	    overflow: visible!important;
+	}
+
+	.search-collapse.collapse {
+	    display: block!important;
+	    height: auto!important;
+	    padding-bottom: 0;
+	    overflow: visible!important;
+	}
+}
+
+.sub-menu-title {
+    color: #fead53 !important;
+    font-size: 25px;
+    text-transform: uppercase;
+}
