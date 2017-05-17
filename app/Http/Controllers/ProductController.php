@@ -23,7 +23,7 @@ class ProductController extends Controller
         $price_min = $request->input('price_min');
         $price_max = $request->input('price_max');
         $sortby = $request->input('sortby');
-
+        
         $category_list = Category::all();
         $category = Category::find($request->input('category_id'));
         $category_current = Category::find($categoryId);
@@ -58,7 +58,7 @@ class ProductController extends Controller
         }
 
         
-        $products = $tbl_product->paginate(20);
+        $products = $tbl_product->paginate(15);
 
         // $products = Product::where('category_id', 'like', $categoryId)->paginate(2);
         // dd($products[0]->productImage);

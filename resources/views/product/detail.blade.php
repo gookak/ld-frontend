@@ -84,13 +84,23 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 <div class="product-main-img">
-                                    <img src="{{ asset('themes/ustora/img/product-2.jpg') }}" alt="">
+                                {{-- <div class="img-resize"> --}}
+                                    @if(count($product->productImage) > 0)
+                                    <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                    @else
+                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                    @endif
+                                    {{-- </div> --}}
+                                    {{-- <img src="{{ asset('themes/ustora/img/product-2.jpg') }}" alt=""> --}}
                                 </div>
 
                                 <div class="product-gallery">
-                                    <img src="{{ asset('themes/ustora/img/product-thumb-1.jpg') }}" alt="">
+                                @foreach($product->productImage as $productImage)
+                                <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                @endforeach
+                                    {{-- <img src="{{ asset('themes/ustora/img/product-thumb-1.jpg') }}" alt="">
                                     <img src="{{ asset('themes/ustora/img/product-thumb-2.jpg') }}" alt="">
-                                    <img src="{{ asset('themes/ustora/img/product-thumb-3.jpg') }}" alt="">
+                                    <img src="{{ asset('themes/ustora/img/product-thumb-3.jpg') }}" alt=""> --}}
                                 </div>
                             </div>
                         </div>

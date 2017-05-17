@@ -30,7 +30,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="" style="padding: 3px 20px;">
+                            <a href="/profile" style="padding: 3px 20px;">
                                 <i class="fa fa-user"></i> Profile
                             </a>
                         </li>
