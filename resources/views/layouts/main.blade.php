@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="{{ asset('themes/ustora/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.css') }}">
 
+    <!-- Validator -->
+    <link rel="stylesheet" href="{{ asset('themes/ustora/css/bootstrapValidator.min.css') }}" />
+
     
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -74,6 +77,12 @@
       <!-- Slider -->
       <script type="text/javascript" src="{{ asset('themes/ustora/js/bxslider.min.js') }}"></script>
       <script type="text/javascript" src="{{ asset('themes/ustora/js/script.slider.js') }}"></script>
+
+      <!-- Validator -->
+      <script src="{{ asset('themes/ustora/js/bootstrapValidator.min.js') }}"></script>
+
+      <!-- Cutom.js -->
+      <script src="{{ asset('themes/ustora/custom.js') }}"></script>
 
   </head>
   <body>

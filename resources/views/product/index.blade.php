@@ -49,7 +49,10 @@
                         <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
                         <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
                     </p>
-                    <button type="submit"><i class="fa fa-search"></i> Search</button>
+                    </br>
+                    <p class="form-row">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                    </p>
                 </form>
             </div>
 
@@ -103,23 +106,33 @@
             <div class="productlist">
                 @if ($products->count())
                 @foreach($products as $product)
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-shop-product">
+                <div class="col-md-4 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="img-resize">
+                               @if(count($product->productImage) > 0)
+                               <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                               @else
+                               <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                               @endif
+                            </div>
+                            <div class="caption">
+                                <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
+                                <p>{{ $product->price }}</p>
+                                <p><button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a></p>
+                            </div>
+                        </div>
+                    {{-- <div class="single-shop-product">
                         <div class="product-upper">
                            @if(count($product->productImage) > 0)
                            <img width="195" height="243" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
                            @endif
-                           {{-- <img src="{{ asset(env('FILE_URL')."3bJUFTriPEPh2O81G4wxq48j534BkHbivjoK7VC4.jpeg")}}" alt=""> --}}
-                       </div>
-                       <h2><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h2>
-                       <div class="product-carousel-price">
-                        {{ $product->price }}
-                    </div>  
-
-                    <div class="product-option-shop">
-                        <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                    </div>                 
-                </div>
+                        </div>
+                           <h2><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h2>
+                           <div class="product-carousel-price">{{ $product->price }}</div>  
+                        <div class="product-option-shop">
+                            <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                        </div>                 
+                    </div> --}}
             </div>
             @endforeach
             @else

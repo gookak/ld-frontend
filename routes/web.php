@@ -11,10 +11,14 @@
 |
 */
 
+Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
-// Route::get('/product', 'ProductController@index');
+Route::get('/home', 'HomeController@index');
+
+Route::get('/profile', 'ProfileController@index');
+Route::put('/profile/edit/{userId}', 'ProfileController@update');
 
 Route::get('/product', 'ProductController@index');
 
@@ -32,10 +36,10 @@ Route::get('/cart/removeItem/{productId}', 'CartController@removeItem');
 
 
 Route::get('/checkout', 'CheckoutController@index');
+
+Route::post('/address/add', 'AddressController@store');
+Route::put('/address/edit/{addressId}', 'AddressController@update');
 // Route::get('/', function () {
 //     return view('home');
 // });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

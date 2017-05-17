@@ -712,13 +712,15 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     padding: 10px;
 }
 input[type="submit"], button[type=submit] {
-    background: none repeat scroll 0 0 #5a88ca;
+    /*background: none repeat scroll 0 0 #5a88ca;*/
     border: medium none;
     color: #fff;
-    padding: 11px 20px;
+    /*padding: 11px 20px;*/
     text-transform: uppercase;
 }
-input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
+input[type="submit"]:hover, button[type=submit]:hover {
+  /*background-color: #222*/
+}
 .single-sidebar input[type="text"] {
     margin-bottom: 10px;
     width: 100%;

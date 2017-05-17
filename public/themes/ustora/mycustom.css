@@ -29,3 +29,15 @@
 .mainmenu-area .nav > li > a.open-menu:focus {
 	color: #6e6a6a !important;
 }
+
+div.img-resize img {
+height: 200px;
+width: auto;
+}
+ 
+div.img-resize {
+width: auto;
+height: 200px;
+overflow: hidden;
+text-align: center;
+}
