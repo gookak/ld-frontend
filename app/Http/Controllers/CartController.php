@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\Cart;
+use App\User;
+use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Cookie\CookieJar;
 use App\Http\Requests;
 use DB;
 use Session;
+use Illuminate\Support\Facades\Auth;
 use Cookie;
 class CartController extends Controller
 {
@@ -87,11 +90,16 @@ class CartController extends Controller
         // if(Session::has('cart')){
         //     return view('cart.index',compact('products => null'));
         // }
+        $user_id = Auth::id();
+        $profile = User::find($user_id);
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
+        $totalQty = $cart->totalQty;
+        $totalPrice = $cart->totalPrice;
 
-        return view('cart.index',['products' => $cart->items, 'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice]);
+        // return view('cart.index',['products' => $cart->items, 'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice]);
+        return view('cart.index',compact('profile','products','totalQty','totalPrice'));
     }
 
     public function removeItem($productId) {

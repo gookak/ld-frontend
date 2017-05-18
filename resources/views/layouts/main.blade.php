@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/ustora/css/colorbox.css') }}">
 
     <!-- Validator -->
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/bootstrapValidator.min.css') }}" />
@@ -83,6 +84,7 @@
 
       <!-- Cutom.js -->
       <script src="{{ asset('themes/ustora/custom.js') }}"></script>
+      <script src="{{ asset('themes/ustora/js/jquery.colorbox-min.js') }}"></script>
 
   </head>
   <body>

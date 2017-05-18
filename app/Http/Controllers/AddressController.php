@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Response;
 use DB;
 use Illuminate\Support\Facades\Auth;
-//use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
 
 class AddressController extends Controller
@@ -77,6 +76,39 @@ class AddressController extends Controller
             $msgerror = 'บันทึกข้อมูลเรียบร้อย';
         }
         $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        return Response::json($data);
+    }
+
+    public function getAddress(Request $request)
+    {
+        $status = 200;
+
+        $addressId = $request->input('addressId');
+
+        $ad = Address::find($addressId);
+
+        
+        $data = ['status' => $status,'address' => $ad];
+        return Response::json($data);
+    }
+
+    public function destroy(address $addressId)
+    {
+        $status = 200;
+        $msgerror = "";
+        DB::beginTransaction();
+        try{
+            $ad = $addressId->delete();
+        } catch (\Exception $ex) {
+            $status = 500;
+            $msgerror = $ex->getMessage();
+            DB::rollback();
+        }
+        DB::commit();
+        if ($msgerror == "") {
+            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+        }
+        $data = ['status' => $status, 'msgerror' => $msgerror];
         return Response::json($data);
     }
 }
