@@ -20,56 +20,56 @@
             <div class="col-md-3">
 
                 <div class="single-sidebar">
-                        <div class="sub-menu-title">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            Search Products
-                        </div>
-                        <form id="search" action="/product" class="search-collapse collapse" method="GET">
-                            <p class="form-row">
-                                <label for="name">ชื่อสินค้า</label>
-                                <input type="text" id="name" name="name" class="input-text form-control" placeholder="Name products..." value="{{Request::input('name')? Request::input('name') : null}}">  
-                            </p>
-                            <p class="form-row">
-                                <label for="category_id">ประเภทสินค้า</label>
-                                <select id="category_id" name="category_id" class="form-control">
-                                    <option value="">เลือกประเภท...</option>
-                                    @foreach($category_list as $category)
-                                    <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
-                                    @endforeach
-                                </select>
-                            </p>
-                            <p class="form-row">
-                                <label>ราคา: <span id="price"></span></label>
-                                <div id="slider-range"></div>
-                                <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
-                                <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
-                            </p>
-                            <button type="submit"><i class="fa fa-search"></i> Search</button>
-                        </form>
+                    <div class="sub-menu-title">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        Search Products
+                    </div>
+                    <form id="search" action="/product" class="search-collapse collapse" method="GET">
+                        <p class="form-row">
+                            <label for="name">ชื่อสินค้า</label>
+                            <input type="text" id="name" name="name" class="input-text form-control" placeholder="Name products..." value="{{Request::input('name')? Request::input('name') : null}}">  
+                        </p>
+                        <p class="form-row">
+                            <label for="category_id">ประเภทสินค้า</label>
+                            <select id="category_id" name="category_id" class="form-control">
+                                <option value="">เลือกประเภท...</option>
+                                @foreach($category_list as $category)
+                                <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </p>
+                        <p class="form-row">
+                            <label>ราคา: <span id="price"></span></label>
+                            <div id="slider-range"></div>
+                            <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
+                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
+                        </p>
+                        <button type="submit"><i class="fa fa-search"></i> Search</button>
+                    </form>
+                </div>
+
+                <div class="single-sidebar">
+                    <div class="sub-menu-title">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        ประเภทสินค้า
                     </div>
 
-                    <div class="single-sidebar">
-                        <div class="sub-menu-title">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            ประเภทสินค้า
-                        </div>
-                       
-                        <div class="list-group list-group-collapse collapse">
-                            @foreach($category_list as $category)
-                            <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
-                            @endforeach
-                        </div>
+                    <div class="list-group list-group-collapse collapse">
+                        @foreach($category_list as $category)
+                        <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
+                        @endforeach
                     </div>
+                </div>
             </div>
 
             <div class="col-md-9">
@@ -83,25 +83,51 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="product-images">
-                                <div class="product-main-img">
-                                {{-- <div class="img-resize"> --}}
-                                    @if(count($product->productImage) > 0)
-                                    <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                                    @else
+                                @if(count($product->productImage) > 0)
+                                @foreach($product->productImage as $key=>$productImage)
+                                @if($key == 0)
+                                <div class="product-main-img ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                    </a>
+                                </div>
+                                @else
+
+                                <div class="product-gallery ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                    </a>
+                                </div>
+                                @endif
+                                @endforeach
+                                @else
+                                <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
                                     <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                </a>
+                                @endif
+
+
+
+
+                                {{-- <div class="product-main-img ace-thumbnails clearfix">
+                                    @if(count($product->productImage) > 0)
+                                    <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
+                                    <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                    </a>
+                                    @else
+                                    <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
+                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                    </a>
                                     @endif
-                                    {{-- </div> --}}
-                                    {{-- <img src="{{ asset('themes/ustora/img/product-2.jpg') }}" alt=""> --}}
                                 </div>
 
-                                <div class="product-gallery">
-                                @foreach($product->productImage as $productImage)
-                                <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                @endforeach
-                                    {{-- <img src="{{ asset('themes/ustora/img/product-thumb-1.jpg') }}" alt="">
-                                    <img src="{{ asset('themes/ustora/img/product-thumb-2.jpg') }}" alt="">
-                                    <img src="{{ asset('themes/ustora/img/product-thumb-3.jpg') }}" alt=""> --}}
-                                </div>
+                                <div class="product-gallery ace-thumbnails clearfix">
+                                    @foreach($product->productImage as $productImage)
+                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                    </a>
+                                    @endforeach
+                                </div> --}}
                             </div>
                         </div>
 
@@ -113,15 +139,15 @@
                                 </div>    
 
                                 {{-- <form name="cartAdd" action="/product" method="GET"> --}}
-                                    <input type="hidden" value="{{$product->id}}" name="productid">
-                                    <div class="quantity">
-                                       <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
-                                    </div>
-                                   <button class="add_to_cart_button add_item_cart" type="submit">Add to cart</button>
-                                {{-- </form>    --}}
+                                <input type="hidden" value="{{$product->id}}" name="productid">
+                                <div class="quantity">
+                                 <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
+                             </div>
+                             <button class="add_to_cart_button add_item_cart" type="submit">Add to cart</button>
+                             {{-- </form>    --}}
 
-                                <div class="product-inner-category">
-                                    <p>Category: <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
+                             <div class="product-inner-category">
+                                <p>Category: <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
                                     {{-- Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. --}} </p>
                                 </div> 
 
@@ -302,8 +328,41 @@
             var qty =  $("input[name=qty]").val();
             $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
                 $(".cart-reload").load("/product .shopping-item");
+                $(".shoppingcart").load("/product span.cart-item");
             });
         });
+
+        var $overflow = '';
+        var colorbox_params = {
+            rel: 'colorbox',
+            reposition:true,
+            scalePhotos:true,
+            scrolling:false,
+            previous:'<i class="ace-icon fa fa-arrow-left"></i>',
+            next:'<i class="ace-icon fa fa-arrow-right"></i>',
+            close:'&times;',
+            current:'{current} of {total}',
+            maxWidth:'100%',
+            maxHeight:'100%',
+            onOpen:function(){
+                $overflow = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
+            },
+            onClosed:function(){
+                document.body.style.overflow = $overflow;
+            },
+            onComplete:function(){
+                $.colorbox.resize();
+            }
+        };
+
+        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+    $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
+    
+    
+    $(document).one('ajaxloadstart.page', function(e) {
+        $('#colorbox, #cboxOverlay').remove();
     });
+});
 </script>
 @endsection

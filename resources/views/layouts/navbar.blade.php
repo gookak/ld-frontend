@@ -13,12 +13,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/product?category_id=1">Product</a></li>
-                <li><a href="/cart">Cart</a></li>
             </ul>
             
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
+                @if(Session::has('cart'))
+                <li>
+                    <a href="/cart">ตระกร้า&nbsp;&nbsp;
+                        @if(Session::has('cart'))
+                            <span class="shoppingcart" >
+                                <span class="badge alert-info cart-item">
+                                    {{Session::get('cart')->totalQty}}
+                                </span>
+                            </span>
+                        @endif
+                    </a>
+                </li>
+                @endif
                 @if (Auth::guest())
                 <li><a href="{{ route('login') }}"><i class="fa fa-key"></i> Login</a></li>
                 <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> Register</a></li>

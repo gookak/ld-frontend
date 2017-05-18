@@ -49,78 +49,80 @@
                         <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
                         <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
                     </p>
-                    </br>
-                    <p class="form-row">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
-                    </p>
-                </form>
+                </br>
+                <p class="form-row">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                </p>
+            </form>
+        </div>
+
+        <div class="single-sidebar">
+            <div class="sub-menu-title">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                ประเภทสินค้า
             </div>
 
-            <div class="single-sidebar">
-                <div class="sub-menu-title">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    ประเภทสินค้า
+            <div class="list-group list-group-collapse collapse">
+                @foreach($category_list as $category)
+                <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="product-breadcroumb">
+                    <a href="/">Home</a>
+                    <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
                 </div>
-
-                <div class="list-group list-group-collapse collapse">
-                    @foreach($category_list as $category)
-                    <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
-                    @endforeach
+            </div>
+            <div class="col-sm-6 text-right">
+                <div>
+                    <form name="sortby" action="/product" method="GET">
+                        <input type="hidden" name="name" value="{{Request::input('name')}}">
+                        <input type="hidden" name="category_id" value="{{Request::input('category_id')}}">
+                        <input type="hidden" name="price_min" value="{{Request::input('price_min')}}">
+                        <input type="hidden" name="price_max" value="{{Request::input('price_max')}}">
+                        <label class="col-xs-12 col-sm-6" for="sortby">เรียงตาม</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <select id="sortby" name="sortby" class="form-control">
+                                <option value="latest" {{Request::input('sortby') == "latest"? "selected" : null}}>ล่าสุด</option>
+                                <option value="pricedesc" {{Request::input('sortby') == "pricedesc"? "selected" : null}}>ราคาสูงสุด-ต่ำสุด</option>
+                                <option value="priceasc" {{Request::input('sortby') == "priceasc"? "selected" : null}}>ราคาต่าสุด-สูงสุด</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="product-breadcroumb">
-                        <a href="/">Home</a>
-                        <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
-                    </div>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <div>
-                        <form name="sortby" action="/product" method="GET">
-                            <input type="hidden" name="name" value="{{Request::input('name')}}">
-                            <input type="hidden" name="category_id" value="{{Request::input('category_id')}}">
-                            <input type="hidden" name="price_min" value="{{Request::input('price_min')}}">
-                            <input type="hidden" name="price_max" value="{{Request::input('price_max')}}">
-                            <label class="col-xs-12 col-sm-6" for="sortby">เรียงตาม</label>
-                            <div class="col-xs-12 col-sm-6">
-                                <select id="sortby" name="sortby" class="form-control">
-                                    <option value="latest" {{Request::input('sortby') == "latest"? "selected" : null}}>ล่าสุด</option>
-                                    <option value="pricedesc" {{Request::input('sortby') == "pricedesc"? "selected" : null}}>ราคาสูงสุด-ต่ำสุด</option>
-                                    <option value="priceasc" {{Request::input('sortby') == "priceasc"? "selected" : null}}>ราคาต่าสุด-สูงสุด</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
+    </br>
+    <div class="row product">
+        <div class="productlist">
+            @if ($products->count())
+            @foreach($products as $product)
+            <div class="col-md-4 col-sm-6">
+                <div class="ace-thumbnails clearfix thumbnail">
+                    <div class="img-resize">
+                        <a href="/productDetail/{{$product->id}}"> 
+                           @if(count($product->productImage) > 0)
+                           <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                           @else
+                           <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                           @endif
+                       </a>
+                   </div>
+                   <div class="caption">
+                    <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
+                    <p>{{ $product->price }}</p>
+                    <p><button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a></p>
                 </div>
             </div>
-        </br>
-        <div class="row product">
-            <div class="productlist">
-                @if ($products->count())
-                @foreach($products as $product)
-                <div class="col-md-4 col-sm-6">
-                        <div class="thumbnail">
-                            <div class="img-resize">
-                               @if(count($product->productImage) > 0)
-                               <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                               @else
-                               <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
-                               @endif
-                            </div>
-                            <div class="caption">
-                                <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
-                                <p>{{ $product->price }}</p>
-                                <p><button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a></p>
-                            </div>
-                        </div>
                     {{-- <div class="single-shop-product">
                         <div class="product-upper">
                            @if(count($product->productImage) > 0)
@@ -133,16 +135,16 @@
                             <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
                         </div>                 
                     </div> --}}
+                </div>
+                @endforeach
+                @else
+                <div class="col-md-12">
+                    <h2>ไม่พบข้อมูล</h2>                  
+                </div>       
+                @endif
             </div>
-            @endforeach
-            @else
-            <div class="col-md-12">
-                <h2>ไม่พบข้อมูล</h2>                  
-            </div>       
-            @endif
         </div>
     </div>
-</div>
 </div>
 
 <div class="row">
@@ -223,6 +225,7 @@
             // var qty =  $(this).data("qty");
             $.get("/cart/addProduct/"+productId,function(data){
                 $(".cart-reload").load("/product .shopping-item");
+                $(".shoppingcart").load("/product span.cart-item");
             });
 
         });

@@ -22,10 +22,6 @@ Route::put('/profile/edit/{userId}', 'ProfileController@update');
 
 Route::get('/product', 'ProductController@index');
 
-// Route::get('/product/{category_id}', 'ProductController@searchCategory');
-
-// Route::get('/product/search', 'ProductController@search');
-
 Route::get('/productDetail/{id}', 'ProductController@productDetail');
 
 Route::get('/cart', 'CartController@showCart');
@@ -36,10 +32,11 @@ Route::get('/cart/removeItem/{productId}', 'CartController@removeItem');
 
 
 Route::get('/checkout', 'CheckoutController@index');
+Route::post('/checkout/add', 'CheckoutController@store');
 
+Route::get('/address/get', 'AddressController@getAddress');
 Route::post('/address/add', 'AddressController@store');
 Route::put('/address/edit/{addressId}', 'AddressController@update');
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/address/delete/{addressId}', 'AddressController@destroy');
+
 
