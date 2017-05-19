@@ -13,6 +13,7 @@
     </div>
 </div>
 </br>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="clearfix">
@@ -53,7 +54,7 @@
                                     <div class="form-group">
                                      <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
                                      <div class="col-sm-4">
-                                        <input class="form-control" id="tel" name="tel" maxlength="10" type="text" id="form-field-first" value="{{$profile->tel}}"/>
+                                        <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$profile->tel}}"/>
                                     </div>
                                     {{-- <div class="form-group">
                                         <label for="oldpass" class="col-sm-2 control-label">รหัสผ่านเก่า</label>
@@ -136,7 +137,7 @@
                         <div class="form-group">
                             <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="tel" name="tel" maxlength="10" type="text"/>
+                                <input class="form-control" id="tel" name="tel" type="text"/>
                             </div>
                         </div>
                         <div class="col-sm-offset-2">
@@ -185,7 +186,7 @@
                         <div class="form-group">
                             <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="tel" name="tel" type="text" maxlength="10" id="form-field-first" value="{{$address->tel}}"/>
+                                <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$address->tel}}"/>
                             </div>
                         </div>
                         <div class="col-sm-offset-2">
@@ -242,7 +243,7 @@
                     max: 5,
                     message: 'กรอกรหัสไปรษณีย์อย่างน้อย 5 ตัว'
                 },
-                numberic: {
+                integer: {
                     message: 'กรอกเป็นตัวเลข'
                 }
             }
@@ -251,14 +252,6 @@
             validators: {
                 notEmpty: {
                     message: 'กรุณากรอกเบอร์โทร'
-                },
-                stringLength: {
-                    min: 9,
-                    max: 10,
-                    message: 'กรอกเบอร์โทรอย่างน้อย 9 ตัว'
-                },
-                numberic: {
-                    message: 'กรอกเป็นตัวเลข'
                 }
             }
         }
@@ -317,7 +310,7 @@ $('.edit-address').bootstrapValidator({
                     max: 5,
                     message: 'กรอกรหัสไปรษณีย์อย่างน้อย 5 ตัว'
                 },
-                numberic: {
+                integer: {
                     message: 'กรอกเป็นตัวเลข'
                 }
             }
@@ -326,14 +319,6 @@ $('.edit-address').bootstrapValidator({
             validators: {
                 notEmpty: {
                     message: 'กรุณากรอกเบอร์โทร'
-                },
-                stringLength: {
-                    min: 9,
-                    max: 10,
-                    message: 'กรอกเบอร์โทรอย่างน้อย 9 ตัว'
-                },
-                numberic: {
-                    message: 'กรอกเป็นตัวเลข'
                 }
             }
         }
@@ -379,14 +364,6 @@ $('#edit-profile').bootstrapValidator({
             validators: {
                 notEmpty: {
                     message: 'กรุณากรอกเบอร์โทร'
-                },
-                stringLength: {
-                    min: 9,
-                    max: 10,
-                    message: 'กรอกเบอร์โทรอย่างน้อย 9 ตัว'
-                },
-                numberic: {
-                    message: 'กรอกเป็นตัวเลข'
                 }
             }
         }

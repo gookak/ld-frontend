@@ -31,12 +31,16 @@ Route::get('/cart/reduceProduct/{productId}', 'CartController@reduceByOne');
 Route::get('/cart/removeItem/{productId}', 'CartController@removeItem');
 
 
-Route::get('/checkout', 'CheckoutController@index');
+// Route::get('/checkout', 'CheckoutController@index');
 Route::post('/checkout/add', 'CheckoutController@store');
 
 Route::get('/address/get', 'AddressController@getAddress');
 Route::post('/address/add', 'AddressController@store');
 Route::put('/address/edit/{addressId}', 'AddressController@update');
 Route::get('/address/delete/{addressId}', 'AddressController@destroy');
+
+Route::get('/order', 'OrderController@index');
+
+Route::get('/orderDetail/{orderId}', 'OrderDetailController@index');
 
 
