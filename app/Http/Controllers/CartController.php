@@ -26,14 +26,19 @@ class CartController extends Controller
     public function addItem (CookieJar $cookieJar,Request $request, $productId){
 
         $product = Product::find($productId);
+        $image = "";
+        if(count($product->productImage)){
+            $image = $product->productImage[0]->fileupload->filename;
+        }
         $qty = $request->input('qty')? $request->input('qty') : 1;
+
 
 
         /* Cart by Session */
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product,$product->id,$qty);
+        $cart->add($product,$product->id,$qty,$image);
         $request->session()->put('cart',$cart);
 
         // dd($request->session()->get('cart'));    

@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-             <div class="single-sidebar">
+               <div class="single-sidebar">
                 <div class="sub-menu-title">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -110,52 +110,45 @@
                 <div class="ace-thumbnails clearfix thumbnail">
                     <div class="img-resize">
                         <a href="/productDetail/{{$product->id}}"> 
-                           @if(count($product->productImage) > 0)
-                           <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                           @else
-                           <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
-                           @endif
-                       </a>
-                   </div>
-                   <div class="caption">
+                         @if(count($product->productImage) > 0)
+                         <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                         @else
+                         <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                         @endif
+                     </a>
+                 </div>
+                 <div class="caption">
                     <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
                     <p>{{ $product->price }}</p>
-                    <p><button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a></p>
+                    <p>
+                        @if($product->balance > 0)
+                            <button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> 
+                        @endif
+                        <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a>
+                    </p>
                 </div>
-            </div>
-                    {{-- <div class="single-shop-product">
-                        <div class="product-upper">
-                           @if(count($product->productImage) > 0)
-                           <img width="195" height="243" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                           @endif
-                        </div>
-                           <h2><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h2>
-                           <div class="product-carousel-price">{{ $product->price }}</div>  
-                        <div class="product-option-shop">
-                            <button class="add_to_cart_button add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                        </div>                 
-                    </div> --}}
-                </div>
-                @endforeach
-                @else
-                <div class="col-md-12">
-                    <h2>ไม่พบข้อมูล</h2>                  
-                </div>       
-                @endif
             </div>
         </div>
+        @endforeach
+        @else
+        <div class="col-md-12">
+            <h2>ไม่พบข้อมูล</h2>                  
+        </div>       
+        @endif
     </div>
+</div>
+</div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <div class="product-pagination text-center">
-         {{--  {{ $products->appends(Request::only('category'))->appends(Request::only('search'))->render() }} --}}
+           {{--  {{ $products->appends(Request::only('category'))->appends(Request::only('search'))->render() }} --}}
 
-         {{ $products->appends(Request::all())->render() }}
+           {{ $products->appends(Request::all())->render() }}
 
 
-         {{-- {{ $products->appends(Request::only('search'))->links() }} --}}
+           {{-- {{ $products->appends(Request::only('search'))->links() }} --}}
                                    {{--  <nav>
                                       <ul class="pagination">
                                         <li>
@@ -224,7 +217,7 @@
                 var productId = $(this).data("productid");
             // var qty =  $(this).data("qty");
             $.get("/cart/addProduct/"+productId,function(data){
-                $(".cart-reload").load("/product .shopping-item");
+                // $(".cart-reload").load("/product .shopping-item");
                 $(".shoppingcart").load("/product span.cart-item");
             });
 

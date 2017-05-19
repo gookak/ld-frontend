@@ -25,22 +25,22 @@ class CheckoutController extends Controller
         // $this->middleware('auth');
     }
 
-    public function index(){
+    // public function index(){
 
-        $user_id = Auth::id();
-        // echo $user_id;
-        $profile = User::find($user_id);
+    //     $user_id = Auth::id();
+    //     // echo $user_id;
+    //     $profile = User::find($user_id);
 
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        $products = $cart->items;
-        $totalQty = $cart->totalQty;
-        $totalPrice = $cart->totalPrice;
+    //     $oldCart = Session::get('cart');
+    //     $cart = new Cart($oldCart);
+    //     $products = $cart->items;
+    //     $totalQty = $cart->totalQty;
+    //     $totalPrice = $cart->totalPrice;
 
-        // return view('checkout.index',['products' => $cart->items, 'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice]);
+    //     // return view('checkout.index',['products' => $cart->items, 'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice]);
 
-        return view('checkout.index',compact('profile','products','totalQty','totalPrice'));
-    }
+    //     return view('checkout.index',compact('profile','products','totalQty','totalPrice'));
+    // }
 
     public function store(Request $request)
     {
@@ -60,17 +60,31 @@ class CheckoutController extends Controller
         $totalQty = $cart->totalQty;
         $totalPrice = $cart->totalPrice;
 
-
         DB::beginTransaction();
         try{
+
+            if(count($products)){
+                $i=1;
+                foreach ($products as $product) {
+                    $productbal = Product::find($product['item']['id']);
+                    $over = $productbal->balance - $product['qty'];
+                    if($over < 0){
+                        $i == 1 ? $msgerror = $msgerror."สินค้าหมด</br>" : null;
+                        $msgerror = $msgerror.$i.". ".$productbal->name." เหลือสินค้า ".$productbal->balance." ชิ้น </br>" ;
+                   }
+                   $i++;
+               }
+           }
+
+           if($msgerror == ""){
             if(!$addressId){
                 Address::create([
-                'user_id' => $user_id,
-                'fullname' => $fullname,
-                'detail' => $detail,
-                'postcode' => $postcode,
-                'tel' => $tel
-                ]);
+                    'user_id' => $user_id,
+                    'fullname' => $fullname,
+                    'detail' => $detail,
+                    'postcode' => $postcode,
+                    'tel' => $tel
+                    ]);
             }
             $or = Order::create([
                 'transportstatus_id' => 1,
@@ -91,33 +105,40 @@ class CheckoutController extends Controller
                         'number' => $product['qty'],
                         'price' => $product['item']['price']
                         ]);
+
+                    $pb = Product::find($product['item']['id']);
+                    $balance = $pb->balance - $product['qty'];
+                    Product::where('id', $pb->id)->update(['balance' => $balance]);
                 }
             }
             Session::forget('cart');
-        } catch (\Exception $ex) {
-            DB::rollback();
-            $status = 500;
-            $msgerror = $ex->getMessage();
+        }else{
+            $status = 501;
         }
-        DB::commit();
-        if ($msgerror == "") {
-            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
-        }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home"];
-        return Response::json($data);
+    } catch (\Exception $ex) {
+        DB::rollback();
+        $status = 500;
+        $msgerror = $ex->getMessage();
     }
+    DB::commit();
+    if ($msgerror == "") {
+        $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+    }
+    $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home"];
+    return Response::json($data);
+}
 
-    public function GeraHash($qtd){ 
+public function GeraHash($qtd){ 
     //Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 
-        $Caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
-        $QuantidadeCaracteres = strlen($Caracteres); 
-        $QuantidadeCaracteres--; 
+    $Caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
+    $QuantidadeCaracteres = strlen($Caracteres); 
+    $QuantidadeCaracteres--; 
 
-        $Hash=NULL; 
-        for($x=1;$x<=$qtd;$x++){ 
-            $Posicao = rand(0,$QuantidadeCaracteres); 
-            $Hash .= substr($Caracteres,$Posicao,1); 
-        } 
-        return $Hash; 
+    $Hash=NULL; 
+    for($x=1;$x<=$qtd;$x++){ 
+        $Posicao = rand(0,$QuantidadeCaracteres); 
+        $Hash .= substr($Caracteres,$Posicao,1); 
     } 
+    return $Hash; 
+} 
 }

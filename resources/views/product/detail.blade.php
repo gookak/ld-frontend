@@ -84,50 +84,27 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 @if(count($product->productImage) > 0)
-                                @foreach($product->productImage as $key=>$productImage)
-                                @if($key == 0)
-                                <div class="product-main-img ace-thumbnails clearfix">
-                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                    </a>
-                                </div>
-                                @else
+                                    @foreach($product->productImage as $key=>$productImage)
+                                        @if($key == 0)
+                                            <div class="product-main-img ace-thumbnails clearfix">
+                                                <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                                </a>
+                                            </div>
+                                        @else
 
-                                <div class="product-gallery ace-thumbnails clearfix">
-                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                    </a>
-                                </div>
-                                @endif
-                                @endforeach
+                                            <div class="product-gallery ace-thumbnails clearfix">
+                                                <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                                </a>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
                                     <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
                                 </a>
                                 @endif
-
-
-
-
-                                {{-- <div class="product-main-img ace-thumbnails clearfix">
-                                    @if(count($product->productImage) > 0)
-                                    <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
-                                    <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                                    </a>
-                                    @else
-                                    <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
-                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
-                                    </a>
-                                    @endif
-                                </div>
-
-                                <div class="product-gallery ace-thumbnails clearfix">
-                                    @foreach($product->productImage as $productImage)
-                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                    </a>
-                                    @endforeach
-                                </div> --}}
                             </div>
                         </div>
 
@@ -137,14 +114,15 @@
                                 <div class="product-inner-price">
                                     {{$product->price}}
                                 </div>    
-
-                                {{-- <form name="cartAdd" action="/product" method="GET"> --}}
-                                <input type="hidden" value="{{$product->id}}" name="productid">
-                                <div class="quantity">
-                                 <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
-                             </div>
-                             <button class="add_to_cart_button add_item_cart" type="submit">Add to cart</button>
-                             {{-- </form>    --}}
+                                @if($product->balance > 0)
+                                    {{-- <form name="cartAdd" action="/product" method="GET"> --}}
+                                    <input type="hidden" value="{{$product->id}}" name="productid">
+                                    <div class="quantity">
+                                     <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
+                                    </div>
+                                    <button class="add_to_cart_button add_item_cart" type="submit">Add to cart</button>
+                                    {{-- </form>    --}}
+                                @endif
 
                              <div class="product-inner-category">
                                 <p>Category: <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
@@ -327,7 +305,7 @@
             var productId = $("input[name=productid]").val();
             var qty =  $("input[name=qty]").val();
             $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
-                $(".cart-reload").load("/product .shopping-item");
+                // $(".cart-reload").load("/product .shopping-item");
                 $(".shoppingcart").load("/product span.cart-item");
             });
         });

@@ -18,19 +18,19 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                @if(Session::has('cart'))
+                {{-- @if (Auth::guest()) --}}
                 <li>
                     <a href="/cart">ตระกร้า&nbsp;&nbsp;
-                        @if(Session::has('cart'))
-                            <span class="shoppingcart" >
-                                <span class="badge alert-info cart-item">
-                                    {{Session::get('cart')->totalQty}}
-                                </span>
+                        <span class="shoppingcart" >
+                            @if(Session::has('cart'))
+                            <span class="badge alert-info cart-item">
+                                {{Session::get('cart')->totalQty}}
                             </span>
-                        @endif
+                            @endif
+                        </span>
                     </a>
                 </li>
-                @endif
+                {{-- @endif --}}
                 @if (Auth::guest())
                 <li><a href="{{ route('login') }}"><i class="fa fa-key"></i> Login</a></li>
                 <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> Register</a></li>
@@ -43,24 +43,29 @@
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="/profile" style="padding: 3px 20px;">
-                                <i class="fa fa-user"></i> Profile
+                                <i class="fa fa-user"></i> ข้อมูลผู้ใช้
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/order" style="padding: 3px 20px;">
+                                <i class="fa fa-user"></i> ข้อมูลการสั่งซื้อ
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" style="padding: 3px 20px;" 
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                <i class="fa fa-power-off"></i> Logout
-                            </a>
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="fa fa-power-off"></i> Logout
+                        </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-                @endif
-            </ul>
-        </div>
-    </div>  
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                </ul>
+            </li>
+            @endif
+        </ul>
+    </div>
+</div>  
 </div>

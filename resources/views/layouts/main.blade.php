@@ -23,11 +23,13 @@
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/font-awesome.min.css') }}">
 
     <!-- Css mobile -->
-    {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
-    {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery.mobile-1.4.5.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('themes/ustora/mycustom.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery-ui.css') }}">
+
+    <!-- Datatable Css -->
+    <link rel="stylesheet" href="{{ asset('themes/ustora/css/dataTables.bootstrap.min.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery.dataTables.min.css') }}" /> --}}
+    <link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.dataTables.min.css') }}" />
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/owl.carousel.css') }}">
@@ -35,10 +37,10 @@
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/colorbox.css') }}">
 
-    <!-- Validator -->
+    <!-- Validator Css-->
     <link rel="stylesheet" href="{{ asset('themes/ustora/css/bootstrapValidator.min.css') }}" />
 
-    
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,18 +54,14 @@
       {{-- <script src="https://code.jquery.com/jquery.min.js"></script> --}}
       {{-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> --}}
       <script src="{{ asset('themes/ustora/js/jquery-1.11.3.min.js') }}"></script>
+      {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 
       <!-- Bootstrap JS form CDN -->
       <script src="{{ asset('themes/ustora/js/bootstrap.min.js') }}"></script>
       {{-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> --}}
 
       <!-- jQuery mobile -->
-
-
-      
-      {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
       <script src="{{ asset('themes/ustora/js/jquery-ui.min.js') }}"></script>
-      {{-- <script src="{{ asset('themes/ustora/js/jquery.mobile-1.4.5.min.js') }}"></script> --}}
 
       <!-- jQuery sticky menu -->
       <script src="{{ asset('themes/ustora/js/owl.carousel.min.js') }}"></script>
@@ -82,9 +80,15 @@
       <!-- Validator -->
       <script src="{{ asset('themes/ustora/js/bootstrapValidator.min.js') }}"></script>
 
+      <!-- DataTable Js -->
+      <script src="{{ asset('themes/ustora/js/jquery.dataTables.min.js') }}" ></script>
+      <script src="{{ asset('themes/ustora/js/dataTables.responsive.min.js') }}" ></script>
+      <script src="{{ asset('themes/ustora/js/dataTables.bootstrap.min.js') }}"></script>
+
       <!-- Cutom.js -->
       <script src="{{ asset('themes/ustora/custom.js') }}"></script>
       <script src="{{ asset('themes/ustora/js/jquery.colorbox-min.js') }}"></script>
+      @yield('tagheader')
 
   </head>
   <body>
@@ -101,13 +105,13 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 cart-reload">
+                {{-- <div class="col-sm-6 cart-reload">
                     @if(Session::has('cart'))
                     <div class="shopping-item">
                         <a href="/cart">Cart - <span class="cart-amunt">{{Session::has('cart') ? Session::get('cart')->totalPrice : '' }}</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">{{Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span></a>
                     </div>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div> <!-- End site branding area -->

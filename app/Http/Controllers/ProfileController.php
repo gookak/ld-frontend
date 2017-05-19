@@ -30,10 +30,9 @@ class ProfileController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        // echo $user_id;
-        $profile = User::find($user_id);
 
-        return view('profile.index',compact('profile'));
+        $profile = User::find($user_id);
+        return view('profile.index',compact('profile','orders'));
     }
 
     public function update(Request $request, $userId)
@@ -48,7 +47,7 @@ class ProfileController extends Controller
             unset($user['_token']);
             unset($user['_method']);
 
-            User::where('id', $userId)->update($user);;
+            User::where('id', $userId)->update($user);
         } catch (\Exception $ex) {
             DB::rollback();
             $status = 500;

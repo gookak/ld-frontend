@@ -214,7 +214,7 @@
                 if (data.status !== 200) {
                     showMsgError("#msgErrorArea", data.msgerror);
                 } else {
-                    // window.location = data.url;
+                    window.location = data.url;
                 }
             }).fail(function () {
                 showMsgError("#msgErrorArea", data.msgerror);
