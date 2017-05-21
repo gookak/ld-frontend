@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shopping Cart</h2>
+                    <h2>รายการสินค้าที่สั่งซื้อ</h2>
                 </div>
             </div>
         </div>

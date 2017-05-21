@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Product Detail</h2>
+                    <h2>รายละเอียดสินค้า</h2>
                 </div>
             </div>
         </div>
@@ -305,6 +305,7 @@
             var productId = $("input[name=productid]").val();
             var qty =  $("input[name=qty]").val();
             $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
+                $("input[name=qty]").val("1");
                 // $(".cart-reload").load("/product .shopping-item");
                 $(".shoppingcart").load("/product span.cart-item");
             });
