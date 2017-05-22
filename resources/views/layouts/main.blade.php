@@ -51,14 +51,14 @@
 
 
       <!-- Latest jQuery form server -->
-      {{-- <script src="https://code.jquery.com/jquery.min.js"></script> --}}
+      <script src="https://code.jquery.com/jquery.min.js"></script>
       {{-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> --}}
-      <script src="{{ asset('themes/ustora/js/jquery-1.11.3.min.js') }}"></script>
+      {{-- <script src="{{ asset('themes/ustora/js/jquery-1.11.3.min.js') }}"></script> --}}
       {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 
       <!-- Bootstrap JS form CDN -->
-      <script src="{{ asset('themes/ustora/js/bootstrap.min.js') }}"></script>
-      {{-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> --}}
+      {{-- <script src="{{ asset('themes/ustora/js/bootstrap.min.js') }}"></script> --}}
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
       <!-- jQuery mobile -->
       <script src="{{ asset('themes/ustora/js/jquery-ui.min.js') }}"></script>
@@ -99,9 +99,14 @@
     <div class="site-branding-area">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="logo">
                         <h1><a href="./"><img src="{{ asset('themes/ustora/img/logo.png') }}"></a></h1>
+                    </div>
+                </div> -->
+                 <div class="col-sm-12">
+                    <div class="logo">
+                        <h1><a href="/"><img width="120" src="{{ asset('logo/logo.jpg') }}"></a></h1>
                     </div>
                 </div>
 

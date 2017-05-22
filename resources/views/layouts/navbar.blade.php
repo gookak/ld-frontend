@@ -11,8 +11,10 @@
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/product?category_id=1">Product</a></li>
+                <li><a href="/">หน้าแรก</a></li>
+                <li><a href="/product">สินค้า</a></li>
+                <li><a href="/">วิธีการสั่งซื้อ</a></li>
+                <li><a href="/">ติดต่อเรา</a></li>
             </ul>
             
             <!-- Right Side Of Navbar -->
