@@ -43,4 +43,8 @@ Route::get('/order', 'OrderController@index');
 
 Route::get('/orderDetail/{orderId}', 'OrderDetailController@index');
 
+Route::get('/contact', 'OtherController@contact');
+
+Route::get('/howtoshopping', 'OtherController@howto');
+
 

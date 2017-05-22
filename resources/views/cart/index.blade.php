@@ -27,10 +27,10 @@
                                     <tr>
                                         <th class="product-remove">&nbsp;</th>
                                         <th class="product-thumbnail">&nbsp;</th>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-name">สินค้า</th>
+                                        <th class="product-price">ราคาต่อชิ้น</th>
+                                        <th class="product-quantity">จำนวน</th>
+                                        <th class="product-subtotal">ราคารวม</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,13 +44,13 @@
                                         <td class="product-thumbnail">
                                             <div class="product-gallery ace-thumbnails clearfix">
                                                 @if($product['image'])
-                                                    <a href="{{ asset(env('FILE_URL').$product['image'])}}" data-rel="colorbox">
-                                                        <img width="145" height="145" src="{{ asset(env('FILE_URL').$product['image'])}}">
-                                                    </a>
+                                                <a href="{{ asset(env('FILE_URL').$product['image'])}}" data-rel="colorbox">
+                                                    <img width="145" height="145" src="{{ asset(env('FILE_URL').$product['image'])}}">
+                                                </a>
                                                 @else
-                                                    <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
-                                                        <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
-                                                    </a>
+                                                <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
+                                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                                </a>
                                                 @endif
                                             </div>
                                         </td>
@@ -59,7 +59,7 @@
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">{{$product['item']['price']}}</span> 
+                                            <span class="amount">{{number_format($product['item']['price'],2)}} บาท</span> 
                                         </td>
 
                                         <td class="product-quantity">
@@ -71,119 +71,116 @@
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="amount">{{$product['price']}}</span> 
+                                            <span class="amount">{{number_format($product['price'],2)}} บาท</span> 
                                         </td>
                                     </tr>
                                     @endforeach
                                     @else
                                     <tr><td colspan="6">ไม่มีข้อมูล</td></tr>
                                     @endif
-                                    {{-- <tr>
+                                    <tr>
                                         <td class="actions" colspan="6">
-                                            <input type="submit" value="Update Cart" name="update_cart" class="button">
-                                            <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                            <a class="btn btn-lg btn-default" href="/product">
+                                                <i class="fa fa-reply"></i>
+                                                เลือกสินค้าเพิ่ม
+                                            </a>
                                         </td>
-                                    </tr> --}}
+                                    </tr>
                                 </tbody>
                             </table>
                         </form>
-
-                        <div class="cart-collaterals">
-                            <div class="row">
-                                <div class="col-md-4 cart_totals">
-                                    <div class="shop_total">
-                                        <h2>Cart Totals</h2>
-
-                                        <table cellspacing="0">
-                                            <tbody>
-                                                <tr class="cart-subtotal">
-                                                    <th>Order Total</th>
-                                                    <td><span class="amount">{{$totalQty}}</span></td>
-                                                </tr>
-
-                                                <tr class="order-total">
-                                                    <th>Total Price</th>
-                                                    <td><strong><span class="amount">{{$totalPrice}}</span></strong> </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    
+                    <div class="cart-collaterals">
+                        <div class="row">
+                            @if(Session::has('cart') && Auth::user())
+                            </br>
+                            <div class="col-md-8 ">
+                                <div class="text-center">
+                                    <h2><a data-toggle="collapse" href="#check_out" aria-expanded="false" aria-controls="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2>
                                 </div>
-                                @if(Session::has('cart') && Auth::user())
-                                <div class="col-md-8 ">
-                                    <div class="text-center">
-                                        <h2><a data-toggle="collapse" href="#check_out" aria-expanded="false" aria-controls="check_out">Check out</a></h2>
-                                    </div>
-                                    
-                                    {{-- <h2><a href="/checkout" name="checkout" class="btn btn-primary">Check out</a></h2> --}}
-                                    <div id="check_out" class="row collapse">
-                                        <div class="col-xs-12">
-                                            <div class="clearfix">
-                                                <div id="msgErrorArea"></div>
-                                            </div>
-                                            <form id="add-order" class="form-horizontal" method="POST" action="/checkout/add">
-                                                <div class="col-sm-offset-3 sub-menu-title">การจัดส่ง</div>
-                                                <br>
-                                                {{ csrf_field() }}
-                                                @if(count($profile->address) > 0)
-                                                <div class="form-group">
-                                                    <label for="address" class="col-sm-3 control-label">ที่อยู่ในการจัดส่ง</label>
-                                                    <div class="col-sm-4">
-                                                        <select id="address" class="form-control address">
-                                                            <option value="">เลือกที่อยู่</option>
-                                                            @foreach($profile->address as $address)
-                                                            <option value="{{$address->id}}">{{$address->fullname}}</option>
-                                                            @endforeach
-                                                            <option value="">ที่อยู่อื่น</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                @endif
-                                            </br>
-                                            <input type="hidden" name="addressid">
+                                <div id="check_out" class="row collapse">
+                                    <div class="col-xs-12">
+                                        <div class="clearfix">
+                                            <div id="msgErrorArea"></div>
+                                        </div>
+                                        <form id="add-order" class="form-horizontal" method="POST" action="/checkout/add">
+                                            <div class="col-sm-offset-3 sub-menu-title">การจัดส่ง</div>
+                                            <br>
+                                            {{ csrf_field() }}
+                                            @if(count($profile->address) > 0)
                                             <div class="form-group">
-                                                <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" id="fullname" name="fullname" class="form-control">
+                                                <label for="address" class="col-sm-3 control-label">ที่อยู่ในการจัดส่ง</label>
+                                                <div class="col-sm-4">
+                                                    <select id="address" class="form-control address">
+                                                        <option value="">เลือกที่อยู่</option>
+                                                        @foreach($profile->address as $address)
+                                                        <option value="{{$address->id}}">{{$address->fullname}}</option>
+                                                        @endforeach
+                                                        <option value="">ที่อยู่อื่น</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
-                                                <div class="col-sm-6">
-                                                 <textarea cols="5" rows="5" id="detail" name="detail" class="form-control"></textarea>
-                                             </div>
-                                         </div>
-                                         <div class="form-group">
-                                            <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
-                                            <div class="col-sm-4">
-                                             <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control">
+                                            @endif
+                                        </br>
+                                        <input type="hidden" name="addressid">
+                                        <div class="form-group">
+                                            <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" id="fullname" name="fullname" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
+                                            <div class="col-sm-6">
+                                             <textarea cols="5" rows="5" id="detail" name="detail" class="form-control"></textarea>
                                          </div>
                                      </div>
                                      <div class="form-group">
-                                        <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
+                                        <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
                                         <div class="col-sm-4">
-                                            <input class="form-control" id="tel" name="tel" type="text"/>
-                                        </div>
+                                         <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control">
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="tel" name="tel" type="text"/>
                                     </div>
-                                </br>
-                                <div class="col-sm-offset-3">
-                                    <button class="btn btn-lg btn-primary" type="submit">
-                                        <i class="ace-icon fa fa-check bigger-110"></i>
-                                        บันทึก
-                                    </button>
-                                    <a class="btn btn-lg btn-default" href="/product">
-                                        <i class="ace-icon fa fa-reply bigger-110"></i>
-                                        เลือกสินค้าเพิ่ม
-                                    </a>
                                 </div>
-                            </form>
-                        </div>
+                            </br>
+                            <div class="col-sm-offset-3">
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>
+                                    บันทึก
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                @endif
+            </div>
+            @endif
+            <div class="col-md-4 cart_totals">
+                <div class="shop_total">
+                    <h2>สรุปรายการสินค้า</h2>
+
+                    <table cellspacing="0">
+                        <tbody>
+                            <tr class="cart-subtotal">
+                                <th>จำนวนสินค้าทั้งหมด</th>
+                                <td><span class="amount">{{$totalQty}}</span></td>
+                            </tr>
+
+                            <tr class="order-total">
+                                <th>ราคาสินค้า</th>
+                                <td><strong><span class="amount">{{number_format($totalPrice,2)}} บาท</span></strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>                        
+    </div>
+</div>                        
 </div>                    
 </div>
 </div>

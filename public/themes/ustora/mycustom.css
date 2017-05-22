@@ -6,18 +6,18 @@
 @media (min-width: 768px)
 {
 	.list-group-collapse.collapse {
-	    display: block!important;
-	    height: auto!important;
-	    padding-bottom: 0;
-	    overflow: visible!important;
-	}
+       display: block!important;
+       height: auto!important;
+       padding-bottom: 0;
+       overflow: visible!important;
+   }
 
-	.search-collapse.collapse {
-	    display: block!important;
-	    height: auto!important;
-	    padding-bottom: 0;
-	    overflow: visible!important;
-	}
+   .search-collapse.collapse {
+       display: block!important;
+       height: auto!important;
+       padding-bottom: 0;
+       overflow: visible!important;
+   }
 }
 
 .sub-menu-title {
@@ -31,13 +31,73 @@
 }
 
 div.img-resize img {
-height: 200px;
-width: auto;
+    height: 200px;
+    width: auto;
 }
- 
+
 div.img-resize {
-width: auto;
-height: 200px;
-overflow: hidden;
-text-align: center;
+    width: auto;
+    height: 200px;
+    overflow: hidden;
+    text-align: center;
+}
+
+div.img-resize-home img {
+    height: 312px;
+    width: auto;
+    position: absolute;
+    left: 10%;
+}
+
+div.img-resize-home {
+    width: auto;
+    height: 312px;
+    overflow: hidden;
+    /*padding-left: 100px;*/
+    /*text-align: center;*/
+}
+
+.product-hover button {
+    background: none repeat scroll 0 0 #5a88ca;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    left: 10%;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #5a88ca;
+    width: 80%;z-index: 99;transition: .4s;
+}
+.product-hover button:hover {
+  background: #000;
+  text-decoration: none;border-color: #444;
+}
+
+.product-hover button i.fa {
+    margin-right: 5px;
+}
+.product-hover button.add-to-cart-link {top: -25%;}
+.single-product:hover .product-hover button.add-to-cart-link {top: 25%;}
+
+.row-flex, .row-flex > div[class*='col-'] {  
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /*flex:1 1 auto;*/
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex:0;
+}
+
+.row-flex > div[class*='col-'], .container-flex > div[class*='col-'] {
+    margin:-.2px; /* hack adjust for wrapping */
 }

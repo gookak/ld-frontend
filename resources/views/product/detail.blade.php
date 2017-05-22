@@ -18,7 +18,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-
                 <div class="single-sidebar">
                     <div class="sub-menu-title">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
@@ -27,12 +26,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        Search Products
+                        ค้นหาสินค้า
                     </div>
                     <form id="search" action="/product" class="search-collapse collapse" method="GET">
                         <p class="form-row">
                             <label for="name">ชื่อสินค้า</label>
-                            <input type="text" id="name" name="name" class="input-text form-control" placeholder="Name products..." value="{{Request::input('name')? Request::input('name') : null}}">  
+                            <input type="text" id="name" name="name" class="input-text form-control" placeholder="ชื่อสินค้า..." value="{{Request::input('name')? Request::input('name') : null}}">  
                         </p>
                         <p class="form-row">
                             <label for="category_id">ประเภทสินค้า</label>
@@ -49,7 +48,7 @@
                             <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
                             <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
                         </p>
-                        <button type="submit"><i class="fa fa-search"></i> Search</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
                     </form>
                 </div>
 
@@ -84,22 +83,22 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 @if(count($product->productImage) > 0)
-                                    @foreach($product->productImage as $key=>$productImage)
-                                        @if($key == 0)
-                                            <div class="product-main-img ace-thumbnails clearfix">
-                                                <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                                </a>
-                                            </div>
-                                        @else
+                                @foreach($product->productImage as $key=>$productImage)
+                                @if($key == 0)
+                                <div class="product-main-img ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                    </a>
+                                </div>
+                                @else
 
-                                            <div class="product-gallery ace-thumbnails clearfix">
-                                                <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                                    <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                                </a>
-                                            </div>
-                                        @endif
-                                    @endforeach
+                                <div class="product-gallery ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                    </a>
+                                </div>
+                                @endif
+                                @endforeach
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
                                     <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
@@ -111,156 +110,39 @@
                         <div class="col-sm-6">
                             <div class="product-inner">
                                 <h2 class="product-name">{{$product->name}}</h2>
+                                @if($product->numdate <= 7)
+                                <span class="label label-info">ใหม่</span>
+                                @endif
+                                @if($product->hot)
+                                <span class="label label-danger">ขายดี</span>
+                                @endif
                                 <div class="product-inner-price">
-                                    {{$product->price}}
+                                    ราคา {{number_format($product->price,2)}} บาท
                                 </div>    
                                 @if($product->balance > 0)
-                                    {{-- <form name="cartAdd" action="/product" method="GET"> --}}
-                                    <input type="hidden" value="{{$product->id}}" name="productid">
-                                    <div class="quantity">
-                                     <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
-                                    </div>
-                                    <button class="add_to_cart_button add_item_cart" type="submit">Add to cart</button>
-                                    {{-- </form>    --}}
+                                <input type="hidden" value="{{$product->id}}" name="productid">
+                                <div class="quantity">
+                                    จำนวน <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
+                                </div>
+                                <button class="add_to_cart_button add_item_cart" type="submit">เลือกสินค้า</button>
                                 @endif
-
-                             <div class="product-inner-category">
-                                <p>Category: <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
-                                    {{-- Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. --}} </p>
+                                <div class="product-inner-category" style="margin-top: 10px;">
+                                    <p>ประเภท: <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a></p>
                                 </div> 
 
                                 <div role="tabpanel">
                                     <ul class="product-tab" role="tablist">
-                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                        {{-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li> --}}
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">รายละเอียดสินค้า</a></li>
                                     </ul>
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                            <h2>Product Description</h2>  
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home"> 
                                             <p>{{$product->detail}}</p>
                                         </div>
-                                        {{-- <div role="tabpanel" class="tab-pane fade" id="profile">
-                                            <h2>Reviews</h2>
-                                            <div class="submit-review">
-                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                <div class="rating-chooser">
-                                                    <p>Your rating</p>
-
-                                                    <div class="rating-wrap-post">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                                <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                <p><input type="submit" value="Submit"></p>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
-
-                    {{-- <div class="related-products-wrapper">
-                        <h2 class="related-products-title">Related Products</h2>
-                        <div class="related-products-carousel">
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-1.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony Smart TV - 2015</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$700.00</ins> <del>$100.00</del>
-                                </div> 
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-2.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                                <div class="product-carousel-price">
-                                    <ins>$899.00</ins> <del>$999.00</del>
-                                </div> 
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-3.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Apple new i phone 6</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$400.00</ins> <del>$425.00</del>
-                                </div>                                 
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-4.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony playstation microsoft</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$200.00</ins> <del>$225.00</del>
-                                </div>                            
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-5.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony Smart Air Condtion</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$1200.00</ins> <del>$1355.00</del>
-                                </div>                                 
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img src="img/product-6.jpg" alt="">
-                                    <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Samsung gallaxy note 4</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$400.00</ins>
-                                </div>                            
-                            </div>                                    
-                        </div>
-                    </div> --}}
                 </div>                    
             </div>
         </div>
@@ -282,7 +164,7 @@
             max: max,
             values: [ price_min, price_max ],
             slide: function( event, ui ) {
-                $( "#price" ).html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                $( "#price" ).html( ui.values[ 0 ] + " บาท - " + ui.values[ 1 ] + " บาท" );
                 $( "#price_min" ).val(ui.values[ 0 ]);
                 $( "#price_max" ).val(ui.values[ 1 ]);
 
@@ -298,7 +180,7 @@
         }).find('span.ui-slider-handle').on('blur', function(){
             $(this.firstChild).hide();
         });
-        $( "#price" ).html( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        $( "#price" ).html( "$" + $( "#slider-range" ).slider( "values", 0 ) + " บาท - " + $( "#slider-range" ).slider( "values", 1 ) + " บาท" );
 
 
         $(".add_item_cart").click(function(){
