@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\OrderDetail;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
+use App\Mylibs\Mylibs;
 
 class ProductController extends Controller
 {
@@ -60,8 +63,20 @@ class ProductController extends Controller
         
         $products = $tbl_product->paginate(15);
 
-        // $products = Product::where('category_id', 'like', $categoryId)->paginate(2);
-        // dd($products[0]->productImage);
+        $topseller = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        ->groupBy('product_id')
+        ->orderBy('qty','desc')
+        ->take(5)
+        ->get();
+
+        foreach ($products  as $key => $product) {
+            foreach ($topseller  as $key => $seller) {
+                if($seller->product_id == $product->id ){
+                    $product['hot'] = 1;
+                }
+            }
+            $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
+        }
 
         return view('product.index',compact('products','category_list','category_current','maxprice'));
     }
@@ -72,7 +87,21 @@ class ProductController extends Controller
 
         $product = Product::find($id); 
         $category_list = Category::all();
-        $maxprice = Product::max('price');       
+        $maxprice = Product::max('price'); 
+
+        $topseller = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        ->groupBy('product_id')
+        ->orderBy('qty','desc')
+        ->take(5)
+        ->get();
+
+        foreach ($topseller  as $key => $seller) {
+            if($seller->product_id == $product->id ){
+                $product['hot'] = 1;
+            }
+        }
+        $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
+
         return view('product.detail',compact('product','category_list','maxprice'));
     }
 

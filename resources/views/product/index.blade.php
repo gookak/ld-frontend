@@ -18,203 +18,184 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-               <div class="single-sidebar">
-                <div class="sub-menu-title">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    Search Products
-                </div>
-                <form id="search" action="/product" class="search-collapse collapse" method="GET">
-                    {{-- {{ csrf_field() }} --}}
-                    <p class="form-row">
-                        <label for="name">ชื่อสินค้า</label>
-                        <input type="text" id="name" name="name" class="input-text form-control" placeholder="Name products..." value="{{Request::input('name')? Request::input('name') : null}}">  
-                    </p>
-                    <p class="form-row">
-                        <label for="category_id">ประเภทสินค้า</label>
-                        <select id="category_id" name="category_id" class="form-control">
-                            <option value="">เลือกประเภท...</option>
-                            @foreach($category_list as $category)
-                            <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
-                            @endforeach
-                        </select>
-                    </p>
-                    <p class="form-row">
-                        <label>ราคา: <span id="price"></span></label>
-                        <div id="slider-range"></div>
-                        <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
-                        <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
-                    </p>
-                </br>
-                <p class="form-row">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
-                </p>
-            </form>
-        </div>
-
-        <div class="single-sidebar">
-            <div class="sub-menu-title">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                ประเภทสินค้า
-            </div>
-
-            <div class="list-group list-group-collapse collapse">
-                @foreach($category_list as $category)
-                <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="product-breadcroumb">
-                    <a href="/">Home</a>
-                    <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
-                </div>
-            </div>
-            <div class="col-sm-6 text-right">
-                <div>
-                    <form name="sortby" action="/product" method="GET">
-                        <input type="hidden" name="name" value="{{Request::input('name')}}">
-                        <input type="hidden" name="category_id" value="{{Request::input('category_id')}}">
-                        <input type="hidden" name="price_min" value="{{Request::input('price_min')}}">
-                        <input type="hidden" name="price_max" value="{{Request::input('price_max')}}">
-                        <label class="col-xs-12 col-sm-6" for="sortby">เรียงตาม</label>
-                        <div class="col-xs-12 col-sm-6">
-                            <select id="sortby" name="sortby" class="form-control">
-                                <option value="latest" {{Request::input('sortby') == "latest"? "selected" : null}}>ล่าสุด</option>
-                                <option value="pricedesc" {{Request::input('sortby') == "pricedesc"? "selected" : null}}>ราคาสูงสุด-ต่ำสุด</option>
-                                <option value="priceasc" {{Request::input('sortby') == "priceasc"? "selected" : null}}>ราคาต่าสุด-สูงสุด</option>
+                <div class="single-sidebar">
+                    <div class="sub-menu-title">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".search-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        ค้นหาสินค้า
+                    </div>
+                    <form id="search" action="/product" class="search-collapse collapse" method="GET">
+                        {{-- {{ csrf_field() }} --}}
+                        <p class="form-row">
+                            <label for="name">ชื่อสินค้า</label>
+                            <input type="text" id="name" name="name" class="input-text form-control" placeholder="ชื่อสินค้า..." value="{{Request::input('name')? Request::input('name') : null}}">  
+                        </p>
+                        <p class="form-row">
+                            <label for="category_id">ประเภทสินค้า</label>
+                            <select id="category_id" name="category_id" class="form-control">
+                                <option value="">เลือกประเภท...</option>
+                                @foreach($category_list as $category)
+                                <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
+                                @endforeach
                             </select>
-                        </div>
+                        </p>
+                        <p class="form-row">
+                            <label>ราคา: <span id="price"></span></label>
+                            <div id="slider-range"></div>
+                            <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
+                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
+                        </p>
+                        </br>
+                        <p class="form-row">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
+                        </p>
                     </form>
                 </div>
-            </div>
-        </div>
-    </br>
-    <div class="row product">
-        <div class="productlist">
-            @if ($products->count())
-            @foreach($products as $product)
-            <div class="col-md-4 col-sm-6">
-                <div class="ace-thumbnails clearfix thumbnail">
-                    <div class="img-resize">
-                        <a href="/productDetail/{{$product->id}}"> 
-                         @if(count($product->productImage) > 0)
-                         <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
-                         @else
-                         <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
-                         @endif
-                     </a>
-                 </div>
-                 <div class="caption">
-                    <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
-                    <p>{{ $product->price }}</p>
-                    <p>
-                        @if($product->balance > 0)
-                            <button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to cart</button> 
-                        @endif
-                        <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">Detail</a>
-                    </p>
+
+                <div class="single-sidebar">
+                    <div class="sub-menu-title">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".list-group-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        ประเภทสินค้า
+                    </div>
+
+                    <div class="list-group list-group-collapse collapse">
+                        @foreach($category_list as $category)
+                        <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-        @endforeach
-        @else
-        <div class="col-md-12">
-            <h2>ไม่พบข้อมูล</h2>                  
-        </div>       
-        @endif
-    </div>
-</div>
-</div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="product-pagination text-center">
-           {{--  {{ $products->appends(Request::only('category'))->appends(Request::only('search'))->render() }} --}}
-
-           {{ $products->appends(Request::all())->render() }}
-
-
-           {{-- {{ $products->appends(Request::only('search'))->links() }} --}}
-                                   {{--  <nav>
-                                      <ul class="pagination">
-                                        <li>
-                                          <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                      <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>     --}}                    
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="product-breadcroumb">
+                            <a href="/">Home</a>
+                            <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <div>
+                            <form name="sortby" action="/product" method="GET">
+                                <input type="hidden" name="name" value="{{Request::input('name')}}">
+                                <input type="hidden" name="category_id" value="{{Request::input('category_id')}}">
+                                <input type="hidden" name="price_min" value="{{Request::input('price_min')}}">
+                                <input type="hidden" name="price_max" value="{{Request::input('price_max')}}">
+                                <label class="col-xs-12 col-sm-6" for="sortby">เรียงตาม</label>
+                                <div class="col-xs-12 col-sm-6">
+                                    <select id="sortby" name="sortby" class="form-control">
+                                        <option value="latest" {{Request::input('sortby') == "latest"? "selected" : null}}>ล่าสุด</option>
+                                        <option value="pricedesc" {{Request::input('sortby') == "pricedesc"? "selected" : null}}>ราคาสูงสุด-ต่ำสุด</option>
+                                        <option value="priceasc" {{Request::input('sortby') == "priceasc"? "selected" : null}}>ราคาต่าสุด-สูงสุด</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                <div class="row row-flex row-flex-wrap product">
+                    @if ($products->count())
+                    @foreach($products as $product)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="ace-thumbnails clearfix thumbnail" style="width: 100%">
+                            <div class="img-resize">
+                                <a href="/productDetail/{{$product->id}}"> 
+                                 @if(count($product->productImage) > 0)
+                                 <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                 @else
+                                 <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                 @endif
+                             </a>
+                            </div>
+                            <div class="caption">
+                                <h3><a href="/productDetail/{{$product->id}}">{{ $product->name }}</a></h3>
+                                @if($product->numdate <= 7)
+                                <span class="label label-info">ใหม่</span>
+                                @endif
+                                @if($product->hot)
+                                <span class="label label-danger">ขายดี</span>
+                                @endif
+                                <p>ราคา {{ number_format($product->price,2) }} บาท</p>
+                                <p>
+                                    @if($product->balance > 0)
+                                    <button class="btn btn-primary add_item_cart" data-productid="{{$product->id}}"><i class="fa fa-shopping-cart"></i> เลือกสินค้า</button> 
+                                    @endif
+                                    <a href="/productDetail/{{$product->id}}" class="btn btn-default" role="button">รายละเอียด</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    @else
+                    <div class="col-md-12">
+                        <h2>ไม่พบข้อมูล</h2>                  
+                    </div>       
+                    @endif
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-pagination text-center">
+                            {{ $products->appends(Request::all())->render() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+</div>
 
 
-    @section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            var min = 0;
-            var max = {{$maxprice}};
-            var price_min = {{Request::input('price_min')? Request::input('price_min') : 0}};
-            var price_max = {{Request::input('price_max')? Request::input('price_max') : $maxprice}};
-            $( "#slider-range" ).slider({
-                range: true,
-                min: min,
-                max: max,
-                values: [ price_min, price_max ],
-                slide: function( event, ui ) {
-                    $( "#price" ).html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-                    $( "#price_min" ).val(ui.values[ 0 ]);
-                    $( "#price_max" ).val(ui.values[ 1 ]);
+@endsection
 
 
-                    var val = ui.values[$(ui.handle).index()-1] + "";
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        var min = 0;
+        var max = {{$maxprice}};
+        var price_min = {{Request::input('price_min')? Request::input('price_min') : 0}};
+        var price_max = {{Request::input('price_max')? Request::input('price_max') : $maxprice}};
+        $( "#slider-range" ).slider({
+            range: true,
+            min: min,
+            max: max,
+            values: [ price_min, price_max ],
+            slide: function( event, ui ) {
+                $( "#price" ).html(ui.values[ 0 ] + " บาท - " + ui.values[ 1 ]+ " บาท" );
+                $( "#price_min" ).val(ui.values[ 0 ]);
+                $( "#price_max" ).val(ui.values[ 1 ]);
 
-                    if( !ui.handle.firstChild ) {
-                        $("<div class='tooltip bottom in' style='display:none;left:-12px;top:14px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
-                        .prependTo(ui.handle);
-                    }
-                    $(ui.handle.firstChild).show().children().eq(1).text(val);
+
+                var val = ui.values[$(ui.handle).index()-1] + "";
+
+                if( !ui.handle.firstChild ) {
+                    $("<div class='tooltip bottom in' style='display:none;left:-12px;top:14px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
+                    .prependTo(ui.handle);
                 }
-            }).find('span.ui-slider-handle').on('blur', function(){
-                $(this.firstChild).hide();
-            });
-            $( "#price" ).html( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+                $(ui.handle.firstChild).show().children().eq(1).text(val);
+            }
+        }).find('span.ui-slider-handle').on('blur', function(){
+            $(this.firstChild).hide();
+        });
+        $( "#price" ).html( $( "#slider-range" ).slider( "values", 0 ) + " บาท - " + $( "#slider-range" ).slider( "values", 1 )+ " บาท" );
 
 
 
-            $("#sortby").change(function(){
-                $("form[name=sortby]").submit();
-            });
+        $("#sortby").change(function(){
+            $("form[name=sortby]").submit();
+        });
 
-            $(".add_item_cart").click(function(){
-                var productId = $(this).data("productid");
+        $(".add_item_cart").click(function(){
+            var productId = $(this).data("productid");
             // var qty =  $(this).data("qty");
             $.get("/cart/addProduct/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
@@ -222,6 +203,6 @@
             });
 
         });
-        });
-    </script>
-    @endsection
+    });
+</script>
+@endsection

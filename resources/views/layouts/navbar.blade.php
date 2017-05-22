@@ -13,14 +13,12 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">หน้าแรก</a></li>
                 <li><a href="/product">สินค้า</a></li>
-                <li><a href="/">วิธีการสั่งซื้อ</a></li>
-                <li><a href="/">ติดต่อเรา</a></li>
+                <li><a href="/howtoshopping">วิธีการสั่งซื้อ</a></li>
+                <li><a href="/contact">ติดต่อเรา</a></li>
             </ul>
             
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                {{-- @if (Auth::guest()) --}}
                 <li>
                     <a href="/cart">ตระกร้า&nbsp;&nbsp;
                         <span class="shoppingcart" >
@@ -32,11 +30,12 @@
                         </span>
                     </a>
                 </li>
-                {{-- @endif --}}
+                <!-- Authentication Links -->
                 @if (Auth::guest())
-                <li><a href="{{ route('login') }}"><i class="fa fa-key"></i> Login</a></li>
-                <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> Register</a></li>
+                <li><a href="{{ route('login') }}"><i class="fa fa-key"></i> เข้าสู่ระบบ</a></li>
+                <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> สมัครสมาชิก</a></li>
                 @else
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle open-menu" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->firstname }} <span class="caret"></span>
@@ -57,7 +56,7 @@
                             <a href="{{ route('logout') }}" style="padding: 3px 20px;" 
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                            <i class="fa fa-power-off"></i> Logout
+                            <i class="fa fa-power-off"></i> ออกจากระบบ
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

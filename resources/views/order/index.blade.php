@@ -1,5 +1,23 @@
 @extends('layouts/main')
 
+@section('tagheader')
+
+<!-- Datatable Css -->
+<link rel="stylesheet" href="{{ asset('themes/ustora/css/dataTables.bootstrap.min.css') }}" />
+{{-- <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery.dataTables.min.css') }}" /> --}}
+<link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.dataTables.min.css') }}" />
+
+@endsection
+
+@section('tagfooter')
+
+<!-- DataTable Js -->
+<script src="{{ asset('themes/ustora/js/jquery.dataTables.min.js') }}" ></script>
+<script src="{{ asset('themes/ustora/js/dataTables.responsive.min.js') }}" ></script>
+<script src="{{ asset('themes/ustora/js/dataTables.bootstrap.min.js') }}"></script>
+
+@endsection
+
 @section('content')
 <div class="product-big-title-area">
     <div class="container">
@@ -45,15 +63,15 @@
                                 {{-- <a href="/order/{{ $order->id }}">{{ $order->code }}</a> --}}
                                 {{ $order->code }}
                             </td>
-                            <td>{{ $order->created_at }}</td>
-                            <td>{{ $order->totalprice }}</td>
-                            <td>
+                            <td>{{ $order->created_at->addYears(543)->format('d/m/Y') }}</td>
+                            <td>{{ number_format($order->totalprice,2) }} บาท</td>
+                            <td style="font-size: 16px;">
                                 @if($order->transportstatus->name == 'ongoing')
-                                <span class="text-primary ">{{ $order->transportstatus->detail }}</span>
+                                <span class="label label-info ">{{ $order->transportstatus->detail }}</span>
                                 @elseif($order->transportstatus->name == 'sending')
-                                <span class="text-warning orange">{{ $order->transportstatus->detail }}</span>
+                                <span class="label label-warning">{{ $order->transportstatus->detail }}</span>
                                 @elseif($order->transportstatus->name == 'completed')
-                                <span class="text-success green">{{ $order->transportstatus->detail }}</span>
+                                <span class="label label-success">{{ $order->transportstatus->detail }}</span>
                                 @endif
                             </td>
                             <td>{{ $order->emscode }}</td>
@@ -80,24 +98,6 @@
     $(document).ready(function(){
 
         checkBoxAll("#checkAll", ".check"); //function checkBoxAll custom.js
-
-        // var tb_order = $("#tb-order").DataTable({
-        //     sDom: '<"top"i>rt<"bottom"lp><"clear">',
-        //     // responsive: true,
-        //     order: [[3, "asc"]],
-        //     columnDefs: [
-        //     //{type: 'date-eu', targets: 6},
-        //     {orderable: false, targets: 0}
-        //     ],
-        //     oLanguage: {
-        //         "sLengthMenu": "แสดง _MENU_ เร็คคอร์ด ต่อหน้า",
-        //         "sZeroRecords": "ไม่เจอข้อมูลที่ค้นหา",
-        //         "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ เร็คคอร์ด",
-        //         "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
-        //         "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ เร็คคอร์ด)",
-        //         "sSearch": "ค้นหา :"
-        //     }
-        // });
 
         var tb_order = $('#tb-order').DataTable({
             order: [[3, "asc"]],
