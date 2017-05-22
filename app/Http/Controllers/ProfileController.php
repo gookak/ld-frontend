@@ -40,14 +40,19 @@ class ProfileController extends Controller
         $status = 200;
         $msgerror = "";
 
-        $user = $request->all();
+        $input = $request->all();
 
         DB::beginTransaction();
         try{
-            unset($user['_token']);
-            unset($user['_method']);
-
-            User::where('id', $userId)->update($user);
+            $checkEmail = User::where('email', $input['email'])->get();
+            if (!count($checkEmail)) {
+                unset($input['_token']);
+                unset($input['_method']);
+                User::where('id', $userId)->update($input);
+            }else{
+                $status = 500;
+                $msgerror = 'อีเมล์นี้มีการใช้งานอยู่แล้ว';
+            }
         } catch (\Exception $ex) {
             DB::rollback();
             $status = 500;

@@ -31,7 +31,7 @@ Route::get('/cart/reduceProduct/{productId}', 'CartController@reduceByOne');
 Route::get('/cart/removeItem/{productId}', 'CartController@removeItem');
 
 
-// Route::get('/checkout', 'CheckoutController@index');
+Route::get('/checkout', 'CheckoutController@index');
 Route::post('/checkout/add', 'CheckoutController@store');
 
 Route::get('/address/get', 'AddressController@getAddress');

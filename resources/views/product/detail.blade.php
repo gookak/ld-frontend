@@ -119,10 +119,13 @@
                                 <div class="product-inner-price">
                                     ราคา {{number_format($product->price,2)}} บาท
                                 </div>    
+                                <div class="">
+                                    <p>สินค้าคงเหลือ: {{$product->balance}} ชิ้น</p>
+                                </div> 
                                 @if($product->balance > 0)
                                 <input type="hidden" value="{{$product->id}}" name="productid">
                                 <div class="quantity">
-                                    จำนวน <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
+                                    จำนวน <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" max="{{$product->balance}}" step="1">
                                 </div>
                                 <button class="add_to_cart_button add_item_cart" type="submit">เลือกสินค้า</button>
                                 @endif

@@ -105,7 +105,7 @@
                 <div class="row row-flex row-flex-wrap product">
                     @if ($products->count())
                     @foreach($products as $product)
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-xs-12 col-md-4 col-sm-6">
                         <div class="ace-thumbnails clearfix thumbnail" style="width: 100%">
                             <div class="img-resize">
                                 <a href="/productDetail/{{$product->id}}"> 

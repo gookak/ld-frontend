@@ -22,25 +22,16 @@ class CheckoutController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
-    // public function index(){
+    public function index(){
 
-    //     $user_id = Auth::id();
-    //     // echo $user_id;
-    //     $profile = User::find($user_id);
+        $user_id = Auth::id();
+        $profile = User::find($user_id);
 
-    //     $oldCart = Session::get('cart');
-    //     $cart = new Cart($oldCart);
-    //     $products = $cart->items;
-    //     $totalQty = $cart->totalQty;
-    //     $totalPrice = $cart->totalPrice;
-
-    //     // return view('checkout.index',['products' => $cart->items, 'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice]);
-
-    //     return view('checkout.index',compact('profile','products','totalQty','totalPrice'));
-    // }
+        return view('checkout.form',compact('profile'));
+    }
 
     public function store(Request $request)
     {

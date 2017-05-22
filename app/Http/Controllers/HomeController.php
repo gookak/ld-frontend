@@ -30,26 +30,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $productlatest = Product::orderBy('created_at','desc')->get();
-        $category_list = Category::inRandomOrder()->take(5)->get();
-        $topseller = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        $date = date("Y-m-d");
+        $date = strtotime($date);
+        $date = strtotime("-7 day", $date);
+        date('Y-m-d', $date);
+
+        
+
+        // $productlatest = Product::orderBy('created_at','desc')->get();
+        $productlatest = Product::whereDate('created_at', '>=', date('Y-m-d', $date))->orderBy('created_at','desc')->get();
+        $category_list = Category::take(3)->get();      //inRandomOrder()->take(5)->get();
+        $topsellers = OrderDetail::selectRaw("product_id,sum(number) as qty")
         ->groupBy('product_id')
         ->orderBy('qty','desc')
         ->take(5)
         ->get();
 
         foreach ($productlatest  as $key => $product) {
-            foreach ($topseller  as $key => $seller) {
+            foreach ($topsellers  as $key => $seller) {
                 if($seller->product_id == $product->id ){
                     $product['hot'] = 1;
                 }
             }
-            $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
+            // $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
         }
+        
+        // dd($productlatest);
 
         foreach ($category_list  as $key => $category) {
             foreach ($category->product  as $key => $product) {
-                foreach ($topseller  as $key => $seller) {
+                foreach ($topsellers  as $key => $seller) {
                     if($seller->product_id == $product->id ){
                         $product['hot'] = 1;
                     }
@@ -58,6 +68,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('home',compact('productlatest','topseller','category_list'));
+        return view('home',compact('productlatest','topsellers','category_list'));
     }
 }
