@@ -22,6 +22,7 @@
         <div class="col-lg-12 col-centered">
             <form enctype="multipart/form-data" id="edit-profile" method="POST" action="/profile/edit/{{$profile->id}}" class="form-horizontal">
                 <div class="sub-menu-title">ข้อมูลทั่วไป</div>
+                </br>
                 <div class="row">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
@@ -34,52 +35,39 @@
 
                                 </div> --}}
                                 <div class="col-xs-12 col-sm-8">
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-2 control-label">ชื่อ-นามสกุล</label>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" name="firstname" type="text" value="{{$profile->firstname}}" disabled />
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" name="lastname" type="text" value="{{$profile->lastname}}" disabled />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">อีเมลล์</label>
-                                        <div class="col-sm-6">
-                                            <input type="email" id="email" name="email" class="form-control input-large" value="{{$profile->email}}" data-bv-emailaddress-message="กรอกรูปแบบ Email : test@test.com">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">ชื่อ-นามสกุล</label>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" name="firstname" type="text" value="{{$profile->firstname}}" disabled />
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" name="lastname" type="text" value="{{$profile->lastname}}" disabled />
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                     <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
-                                     <div class="col-sm-4">
-                                        <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$profile->tel}}"/>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <label for="oldpass" class="col-sm-2 control-label">รหัสผ่านเก่า</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="email" name="email" class="form-control input-large" value="{{$profile->email}}">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$profile->tel}}" disabled/>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">อีเมลล์</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="email" name="email" class="form-control input-large" value="{{$profile->email}}">
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-2 control-label">อีเมลล์</label>
+                                            <div class="col-sm-6">
+                                                <input type="email" id="email" name="email" class="form-control input-large" value="{{$profile->email}}" data-bv-emailaddress-message="กรอกรูปแบบ Email : test@test.com">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">อีเมลล์</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="email" name="email" class="form-control input-large" value="{{$profile->email}}">
-                                        </div>
-                                    </div> --}}
-                                    
-                                </div>
                                 <div class="col-sm-offset-2">
-                                    <button class="btn btn-sm btn-primary" type="submit">
-                                        <i class="fa fa-check"></i>
-                                        บันทึก
+                                    <button class="btn btn-sm btn-warning" type="submit">
+                                        <i class="fa fa-pencil"></i>
+                                        แก้ไข
                                     </button>
                                     <a class="btn btn-sm btn-default" href="/home">
                                         <i class="fa fa-reply"></i>
@@ -89,7 +77,7 @@
                             </div>
                         </div>
                     </form>
-                </br>
+                </br></br></br>
                 <div class="sub-menu-title">ข้อมูลที่อยู่ที่ใช้ในการสั่งสินค้า</div>
             </br>
             <div class="row">

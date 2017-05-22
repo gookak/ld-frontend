@@ -38,9 +38,6 @@
                 <table id="tb-order" class="table table-striped table-bordered table-hover responsive nowrap shop_table">
                     <thead>
                         <tr>
-                            <th class="text-center">
-                                <input type="checkbox" id="checkAll" name="checkAll" value="1">
-                            </th>
                             <th></th>
                             <th>หมายเลขของคำสั่งซื้อ</th>
                             <th>สั่งเมื่อวันที่</th>
@@ -52,9 +49,6 @@
                     <tbody>
                         @foreach($orders as $order)
                         <tr>
-                            <td>
-                                <input type="checkbox" class="check" id="checkAll" name="checkAll" value="{{$order->id}}">
-                            </td>
                             <td class="center">
                                 <a class="btn btn-sm btn-warning fa fa-search-plus" href="/orderDetail/{{ $order->id }}" ></a>
                                 <a class="btn btn-sm btn-info fa fa-print" href="/orderDetail/{{ $order->id }}" ></a>
@@ -78,13 +72,6 @@
                         </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
-                        <tr class="text-center">
-                            <td colspan="7">
-                                <button type="button" id="bt-print-muti" class="btn btn-info btn-lg  fa fa-print fa-lg"> พิมพ์ที่เลือก</button>
-                            </td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div> 
         </div>
@@ -97,13 +84,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        checkBoxAll("#checkAll", ".check"); //function checkBoxAll custom.js
-
         var tb_order = $('#tb-order').DataTable({
-            order: [[3, "asc"]],
+            order: [[2, "desc"]],
             columnDefs: [
-            {orderable: false, targets: 0},
-            {orderable: false, targets: 1}
+            {orderable: false, targets: 0}
             ],
             iDisplayLength: 25,
             oLanguage: {
