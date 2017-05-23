@@ -3,6 +3,7 @@
 
 @section('content')
 {{-- <div class="single-product-area"> --}}
+    {{-- หน้าจอขนาดมากกว่า 768px --}}
     @if ($topsellers->count())
         <div class="slider-area">
             <!-- Slider -->
@@ -22,6 +23,9 @@
                                 <span class="primary"><strong>{{$topseller->product->name}}</strong></span>
                             </h2>
                             <span class="label label-danger caption subtitle">ขายดี</span>
+                            @if($topseller->product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
+                            @endif
                             <h4 class="caption subtitle">ราคา {{$topseller->product->price}} บาท</h4>
                             <a class="caption button-radius" href="/productDetail/{{$topseller->product->id}}"><span class="icon"></span>รายละเอียด</a>
                         </div>
@@ -33,6 +37,7 @@
         </div> <!-- End slider area -->
     @endif
 
+    {{-- หน้าจอเล็กกว่า 768 px --}}
     @if ($topsellers->count())
         <div class="maincontent-area seller-responsive">
             <div class="zigzag-bottom"></div>
@@ -64,6 +69,9 @@
 
                                         <h2><a href="/productDetail/{{$topseller->product->id}}">{{$topseller->product->name}}</a></h2>
                                         <span class="label label-danger">ขายดี</span>
+                                        @if($topseller->product->balance <= 0)
+                                            <span class="label label-warning">หมด</span>
+                                        @endif
                                         <div class="product-carousel-price">
                                             ราคา {{$topseller->product->price}} บาท
                                         </div> 
@@ -141,6 +149,9 @@
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
                                 @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
+                                @endif
                                 <div class="product-carousel-price">
                                     ราคา {{$product->price}} บาท
                                 </div> 
@@ -192,6 +203,9 @@
                                 @endif
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
+                                @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
                                 @endif
                                 <div class="product-carousel-price">
                                     ราคา {{$product->price}} บาท

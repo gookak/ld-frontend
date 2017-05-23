@@ -1,6 +1,7 @@
-<div class="container">
-    <div class="row">
-        <div class="navbar-header">
+{{-- <div class="container"> --}}
+    {{-- <div class="row"> --}}
+        <div class="navbar-header" style="margin-top: 10px">
+            <a style="margin-left: 10px" href="/"><img width="65" src="{{ asset('logo/logo.jpg') }}"></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -68,5 +69,5 @@
             @endif
         </ul>
     </div>
-</div>  
-</div>
+{{-- </div>   --}}
+{{-- </div> --}}

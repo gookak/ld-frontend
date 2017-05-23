@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         // $productlatest = Product::orderBy('created_at','desc')->get();
         $productlatest = Product::whereDate('created_at', '>=', date('Y-m-d', $date))->orderBy('created_at','desc')->get();
-        $category_list = Category::take(3)->get();      //inRandomOrder()->take(5)->get();
+        $category_list = Category::all();      //inRandomOrder()->take(5)->get();
         $topsellers = OrderDetail::selectRaw("product_id,sum(number) as qty")
         ->groupBy('product_id')
         ->orderBy('qty','desc')
@@ -52,10 +52,13 @@ class HomeController extends Controller
                     $product['hot'] = 1;
                 }
             }
-            // $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
         }
-        
-        // dd($productlatest);
+
+        // foreach ($topsellers  as $key => $topseller) {
+        //     foreach ($topseller->product  as $key => $product) {
+        //         $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
+        //     }
+        // }
 
         foreach ($category_list  as $key => $category) {
             foreach ($category->product  as $key => $product) {

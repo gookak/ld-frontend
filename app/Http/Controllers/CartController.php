@@ -43,19 +43,6 @@ class CartController extends Controller
 
         // dd($request->session()->get('cart'));    
 
-        // return redirect("/product");  
-
-        /* Cart by Cookie */
-        // $oldCart = Cookie::get('cart') ? Cookie::get('cart') : null;
-        // // $oldCart = $request->cookie('cart') ? $request->cookie('cart') : null;
-        
-        // $cart = new Cart($oldCart);
-        // $cart->add($product,$product->id,$qty);
-
-        // // $cart = $cookieJar->getQueuedCookies($cart);
-        
-        // $cookieJar->queue('cart', $cart); 
-        // dd(Cookie::get('cart'));
     }
 
     public function reduceByOne($productId) {
