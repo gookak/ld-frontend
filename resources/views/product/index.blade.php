@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="product-breadcroumb">
-                            <a href="/">Home</a>
+                            <a href="/">หน้าแรก</a>
                             <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
                         </div>
                     </div>
@@ -123,6 +123,9 @@
                                 @endif
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
+                                @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
                                 @endif
                                 <p>ราคา {{ number_format($product->price,2) }} บาท</p>
                                 <p>

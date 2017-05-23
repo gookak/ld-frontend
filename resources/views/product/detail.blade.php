@@ -74,7 +74,7 @@
             <div class="col-md-9">
                 <div class="product-content-right">
                     <div class="product-breadcroumb">
-                        <a href="/">Home</a>
+                        <a href="/">หน้าแรก</a>
                         <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
                         <span>{{$product->name}}</span>
                     </div>
@@ -115,6 +115,9 @@
                                 @endif
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
+                                @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
                                 @endif
                                 <div class="product-inner-price">
                                     ราคา {{number_format($product->price,2)}} บาท
