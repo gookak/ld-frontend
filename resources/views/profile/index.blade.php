@@ -19,47 +19,58 @@
         <div class="clearfix">
             <div id="msgErrorArea"></div>
         </div>
-        <div class="col-lg-12 col-centered">
+        <div class="col-md-8 col-md-offset-2">
             <form enctype="multipart/form-data" id="edit-profile" method="POST" action="/profile/edit/{{$profile->id}}" class="form-horizontal">
                 <div class="sub-menu-title">ข้อมูลทั่วไป</div>
                 </br>
                 <div class="row">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
-                                {{-- <div class="col-xs-12 col-sm-3">
-                                    <img id="avatar" class="editable img-responsive editable-click editable-empty" src="">
-
-                                    <div class="space-6"></div>        
-                                    <input type="file" name="files" id="id-input-file-2">
-                                    <div class="space-12"></div> 
-
-                                </div> --}}
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="row">
                                         <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">ชื่อ-นามสกุล</label>
-                                            <div class="col-sm-3">
-                                                <input class="form-control" name="firstname" type="text" value="{{$profile->firstname}}" disabled />
+                                            <label for="inputPassword3" class="col-sm-3 control-label">ชื่อ-นามสกุล</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="firstname" type="text" value="{{$profile->firstname}}"  />
                                             </div>
-                                            <div class="col-sm-3">
-                                                <input class="form-control" name="lastname" type="text" value="{{$profile->lastname}}" disabled />
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="lastname" type="text" value="{{$profile->lastname}}"  />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group">
-                                            <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
+                                            <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$profile->tel}}" disabled/>
+                                                <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$profile->tel}}" />
                                             </div>
                                         </div>
                                     </div>
-
+                                <div class="col-sm-offset-3">
+                                    <button class="btn btn-sm btn-warning" type="submit">
+                                        <i class="fa fa-pencil"></i>
+                                        แก้ไข
+                                    </button>
+                                    <a class="btn btn-sm btn-default" href="/home">
+                                        <i class="fa fa-reply"></i>
+                                        กลับ
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </br></br></br>
+                <form enctype="multipart/form-data" id="edit-profile-mail" method="POST" action="/profile/edit/{{$profile->id}}/mail" class="form-horizontal">
+                <div class="sub-menu-title">เปลี่ยนอีเมล์</div>
+                </br>
+                <div class="row">
+                    {{ method_field('PUT') }}
+                    {{ csrf_field() }}
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="email" class="col-sm-2 control-label">อีเมลล์</label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <input type="email" id="email" name="email" class="form-control input-large" value="{{$profile->email}}" data-bv-emailaddress-message="กรอกรูปแบบ Email : test@test.com">
                                             </div>
                                         </div>
@@ -75,7 +86,6 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </br></br></br>
                 <div class="sub-menu-title">ข้อมูลที่อยู่ที่ใช้ในการสั่งสินค้า</div>
@@ -105,30 +115,30 @@
                         <form id="add-address" class="form-horizontal" method="POST" action="/address/add">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="fullname" class="col-sm-2 control-label">ชื่อในการจัดส่ง</label>
+                                <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="fullname" name="fullname" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="detail" class="col-sm-2 control-label">ที่อยู่</label>
+                                <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
                                 <div class="col-sm-6">
                                    <textarea cols="5" rows="5" id="detail" name="detail" class="form-control"></textarea>
                                </div>
                            </div>
                            <div class="form-group">
-                            <label for="postcode" class="col-sm-2 control-label">รหัสไปรษณีย์</label>
+                            <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
                             <div class="col-sm-2">
                                 <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
+                            <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
                             <div class="col-sm-4">
                                 <input class="form-control" id="tel" name="tel" type="text"/>
                             </div>
                         </div>
-                        <div class="col-sm-offset-2">
+                        <div class="col-sm-offset-3">
                             <button class="btn btn-sm btn-primary" type="submit">
                                 <i class="fa fa-check"></i>
                                 บันทึก
@@ -143,7 +153,7 @@
                 @if(count($profile->address) > 0)
                 @foreach($profile->address as $address)
                 <div id="{{$address->id}}" class="tab-pane fade">
-                    <div class="col-sm-offset-2">
+                    <div class="col-sm-offset-3">
                         <button type="button" data-addressid="{{$address->id}}" class="btn btn-sm btn-danger bt-delete">
                             <i class="fa fa-trash"></i>
                             ลบที่อยู่
@@ -154,30 +164,30 @@
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="fullname" class="col-sm-2 control-label">ชื่อในการจัดส่ง</label>
+                            <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
                             <div class="col-sm-6">
                                 <input type="text" id="fullname" name="fullname" class="form-control" value="{{$address->fullname}}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="detail" class="col-sm-2 control-label">ที่อยู่</label>
+                            <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
                             <div class="col-sm-6">
                                 <textarea cols="5" rows="5" id="detail" name="detail" class="form-control">{{$address->detail}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="postcode" class="col-sm-2 control-label">รหัสไปรษณีย์</label>
+                            <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
                             <div class="col-sm-2">
                                 <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control" value="{{$address->postcode}}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tel" class="col-sm-2 control-label">เบอร์ติดต่อ</label>
+                            <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
                             <div class="col-sm-4">
                                 <input class="form-control" id="tel" name="tel" type="text" id="form-field-first" value="{{$address->tel}}"/>
                             </div>
                         </div>
-                        <div class="col-sm-offset-2">
+                        <div class="col-sm-offset-3">
                             <button class="btn btn-sm btn-warning" type="submit">
                                 <i class="fa fa-pencil"></i>
                                 แก้ไข
@@ -338,13 +348,58 @@ $('.edit-address').bootstrapValidator({
             });
         });
 
-$('#edit-profile').bootstrapValidator({
+$('#edit-profile-mail').bootstrapValidator({
     framework: 'bootstrap',
     fields: {
         email: {
             validators: {
                 notEmpty: {
                     message: 'กรุณากรอก Email'
+                }
+            }
+        }
+    }
+}).on("success.form.bv", function (e) {
+            // Prevent form submission
+            e.preventDefault();
+            // Get the form instance
+            var $form = $(e.target);
+            console.log($form);
+            
+            var formdata = $form.serializeArray();
+            console.log($form.attr('action'));
+
+            var jqxhr = $.ajax({
+                type: "PUT",
+                url: $form.attr('action'),
+                data: formdata,
+                dataType: 'JSON',
+            }).done(function (data) {
+                console.log(data);
+                if (data.status !== 200) {
+                    showMsgError("#msgErrorArea", data.msgerror);
+                } else {
+                    window.location = data.url;
+                }
+            }).fail(function () {
+                showMsgError("#msgErrorArea", data.msgerror);
+            });
+        });
+
+$('#edit-profile').bootstrapValidator({
+    framework: 'bootstrap',
+    fields: {
+        firstname: {
+            validators: {
+                notEmpty: {
+                    message: 'กรุณากรอกชื่อ'
+                }
+            }
+        },
+        lastname: {
+            validators: {
+                notEmpty: {
+                    message: 'กรุณากรอกนามสกุล'
                 }
             }
         },

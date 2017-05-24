@@ -49,8 +49,13 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/profile/repass" style="padding: 3px 20px;">
+                                <i class="fa fa-gear"></i> เปลี่ยนรหัสผ่าน
+                            </a>
+                        </li>
+                        <li>
                             <a href="/order" style="padding: 3px 20px;">
-                                <i class="fa fa-user"></i> ข้อมูลการสั่งซื้อ
+                                <i class="fa fa-list"></i> ข้อมูลการสั่งซื้อ
                             </a>
                         </li>
                         <li>

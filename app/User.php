@@ -4,10 +4,17 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    public function sendPasswordResetNotification($token)
+    {
+        // Your your own implementation.
+        $this->notify(new ResetPasswordNotification($token));
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -16,6 +23,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'firstname','lastname','tel','avatar', 'email', 'password','login_at'
+    ];
+    protected $dates = [
+    'login_at',
+    'created_at',
+    'updated_at'
     ];
 
     /**

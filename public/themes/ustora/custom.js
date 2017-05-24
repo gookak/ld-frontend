@@ -234,14 +234,14 @@ function checkBoxAll(idCheckAll) {
 function showMsgSuccess(sectorForShow, msg) {  //"sector"
     $(sectorForShow).prepend('<div id="msgError" class="alert alert-success" role="alert">'
             + '<button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>'
-            + '<strong>Success : </strong> ' + msg + '<br></div>');
+            + '<strong>สำเร็จ : </strong> ' + msg + '<br></div>');
 }
 
 //show MsgError
 function showMsgError(sectorForShow, msg) {  //"sector"
     $(sectorForShow).prepend('<div id="msgError" class="alert alert-danger" role="alert">'
             + '<button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>'
-            + '<strong>Error : </strong> ' + msg + '<br></div>');
+            + '<strong>ปัญหา : </strong> ' + msg + '<br></div>');
 }
 
 //show MsgWarning
