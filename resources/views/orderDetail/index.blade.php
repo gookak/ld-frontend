@@ -52,6 +52,11 @@
                             <span class="invoice-info-label">วันที่สั่งซื้อ:</span>
                             <span class="blue">{{ $order->created_at->addYears(543)->format('d/m/Y') }}</span>
                         </div>
+                        <div class="widget-toolbar hidden-480">
+                            <a href="/orderDetail/{{ $order->id }}/pdf" target="_blank">
+                                <i class="ace-icon fa fa-print"></i>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="widget-body">
@@ -140,7 +145,6 @@
 
                             <div class="row">
                                 <div class="col-xs-12 text-center">
-                                    <button type="button" class="btn btn-info"><i class="ace-icon fa fa-print"></i> พิมพ์</button>
                                     <a href="/order" class="btn btn-default"><i class="ace-icon fa fa-reply"></i> กลับ</a>
                                 </div>
                             </div>
