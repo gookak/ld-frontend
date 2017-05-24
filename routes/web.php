@@ -18,7 +18,10 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/profile', 'ProfileController@index');
+Route::get('/profile/repass', 'ProfileController@showrepass');
 Route::put('/profile/edit/{userId}', 'ProfileController@update');
+Route::put('/profile/edit/{userId}/mail', 'ProfileController@updatemail');
+Route::put('/profile/repass/{userId}', 'ProfileController@repass');
 
 Route::get('/product', 'ProductController@index');
 
