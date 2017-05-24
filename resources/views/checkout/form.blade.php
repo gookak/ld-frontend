@@ -67,10 +67,13 @@
                         </div>
                         </br>
                         <div class="col-sm-offset-3">
+                        @if(Session::has('cart'))
                             <button class="btn btn-lg btn-primary" type="submit">
                                 <i class="fa fa-check"></i>
                                 บันทึก
                             </button>
+                            {{-- <a href="" class="pdforder hide" target="_blank">test</a> --}}
+                        @endif
                             <a class="btn btn-lg btn-default" href="/cart">
                                 <i class="fa fa-reply"></i>
                                 กลับ
@@ -186,6 +189,11 @@
                 } else if (data.status !== 200)  {
                     showMsgError("#msgErrorArea", data.msgerror);
                 } else {
+                    // $('.pdforder').attr("href", "order/"+data.orderId+"/pdf");
+                    // var link = $('.pdforder');
+                    // console.log(link);
+                    // link.click();
+                    window.open('order/'+data.orderId+'/pdf');
                     window.location = data.url;
                 }
             }).fail(function () {

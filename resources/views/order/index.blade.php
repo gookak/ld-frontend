@@ -51,7 +51,7 @@
                         <tr>
                             <td class="center">
                                 <a class="btn btn-sm btn-warning fa fa-search-plus" href="/orderDetail/{{ $order->id }}" ></a>
-                                <a class="btn btn-sm btn-info fa fa-print" href="/orderDetail/{{ $order->id }}" ></a>
+                                <a class="btn btn-sm btn-info fa fa-print" href="/order/{{ $order->id }}/pdf" target="_blank"></a>
                             </td>
                             <td>
                                 {{-- <a href="/order/{{ $order->id }}">{{ $order->code }}</a> --}}

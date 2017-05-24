@@ -40,8 +40,10 @@ Route::put('/address/edit/{addressId}', 'AddressController@update');
 Route::get('/address/delete/{addressId}', 'AddressController@destroy');
 
 Route::get('/order', 'OrderController@index');
+Route::get('/order/{orderId}/pdf', 'OrderController@pdf');
 
 Route::get('/orderDetail/{orderId}', 'OrderDetailController@index');
+Route::get('/orderDetail/{orderId}/pdf', 'OrderDetailController@pdf');
 
 Route::get('/contact', 'OtherController@contact');
 
