@@ -46,7 +46,7 @@
                             <label>ราคา: <span id="price"></span></label>
                             <div id="slider-range"></div>
                             <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
-                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
+                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max'): null}}">
                         </p>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
                     </form>
@@ -83,22 +83,22 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 @if(count($product->productImage) > 0)
-                                @foreach($product->productImage as $key=>$productImage)
-                                @if($key == 0)
-                                <div class="product-main-img ace-thumbnails clearfix">
-                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                    </a>
-                                </div>
-                                @else
 
+                                <div class="product-main-img ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                    </a>
+                                </div>
                                 <div class="product-gallery ace-thumbnails clearfix">
+                                    @foreach($product->productImage as $key=>$productImage)
+                                    @if($key != 0)
                                     <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
                                         <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
                                     </a>
+                                    @endif
+                                    @endforeach
                                 </div>
-                                @endif
-                                @endforeach
+
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
                                     <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
@@ -161,7 +161,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var min = 0;
-        var max = {{$maxprice}};
+        var max = {{ $maxprice }};
         var price_min = {{Request::input('price_min')? Request::input('price_min') : 0}};
         var price_max = {{Request::input('price_max')? Request::input('price_max') : $maxprice}};
         $( "#slider-range" ).slider({
