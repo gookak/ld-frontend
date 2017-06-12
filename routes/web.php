@@ -19,9 +19,12 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/profile', 'ProfileController@index');
 Route::get('/profile/repass', 'ProfileController@showrepass');
-Route::put('/profile/edit/{userId}', 'ProfileController@update');
-Route::put('/profile/edit/{userId}/mail', 'ProfileController@updatemail');
-Route::put('/profile/repass/{userId}', 'ProfileController@repass');
+// Route::put('/profile/edit/{userId}', 'ProfileController@update');
+// Route::put('/profile/edit/{userId}/mail', 'ProfileController@updatemail');
+// Route::put('/profile/repass/{userId}', 'ProfileController@repass');
+Route::post('/profile/edit/{userId}', 'ProfileController@update');
+Route::post('/profile/edit/{userId}/mail', 'ProfileController@updatemail');
+Route::post('/profile/repass/{userId}', 'ProfileController@repass');
 
 Route::get('/product', 'ProductController@index');
 
@@ -39,7 +42,7 @@ Route::post('/checkout/add', 'CheckoutController@store');
 
 Route::get('/address/get', 'AddressController@getAddress');
 Route::post('/address/add', 'AddressController@store');
-Route::put('/address/edit/{addressId}', 'AddressController@update');
+Route::post('/address/edit/{addressId}', 'AddressController@update');
 Route::get('/address/delete/{addressId}', 'AddressController@destroy');
 
 Route::get('/order', 'OrderController@index');
