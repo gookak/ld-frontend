@@ -26,7 +26,7 @@
                             @if($topseller->product->balance <= 0)
                                 <span class="label label-warning">หมด</span>
                             @endif
-                            <h4 class="caption subtitle">ราคา {{$topseller->product->price}} บาท</h4>
+                            <h4 class="caption subtitle">ราคา {{ number_format($topseller->product->price,2) }} บาท</h4>
                             <a class="caption button-radius" href="/productDetail/{{$topseller->product->id}}"><span class="icon"></span>รายละเอียด</a>
                         </div>
                     </li>
@@ -73,7 +73,7 @@
                                             <span class="label label-warning">หมด</span>
                                         @endif
                                         <div class="product-carousel-price">
-                                            ราคา {{$topseller->product->price}} บาท
+                                            ราคา {{ number_format($topseller->product->price,2) }} บาท
                                         </div> 
                                     </div>
                                 @endforeach
@@ -153,7 +153,7 @@
                                 <span class="label label-warning">หมด</span>
                                 @endif
                                 <div class="product-carousel-price">
-                                    ราคา {{$product->price}} บาท
+                                    ราคา {{ number_format($product->price,2) }} บาท
                                 </div> 
                             </div>
                             @endforeach
@@ -208,7 +208,7 @@
                                 <span class="label label-warning">หมด</span>
                                 @endif
                                 <div class="product-carousel-price">
-                                    ราคา {{$product->price}} บาท
+                                    ราคา {{ number_format( $product->price,2) }} บาท
                                 </div> 
                             </div>
                             @endforeach

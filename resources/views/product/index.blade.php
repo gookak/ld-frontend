@@ -37,7 +37,7 @@
                         <p class="form-row">
                             <label for="category_id">ประเภทสินค้า</label>
                             <select id="category_id" name="category_id" class="form-control">
-                                <option value="">เลือกประเภท...</option>
+                                {{-- <option value="">เลือกประเภท...</option> --}}
                                 @foreach($category_list as $category)
                                 <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
                                 @endforeach
