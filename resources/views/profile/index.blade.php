@@ -24,7 +24,7 @@
                 <div class="sub-menu-title">ข้อมูลทั่วไป</div>
                 </br>
                 <div class="row">
-                    {{ method_field('PUT') }}
+                    {{-- {{ method_field('PUT') }} --}}
                     {{ csrf_field() }}
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="row">
@@ -65,7 +65,7 @@
                 <div class="sub-menu-title">เปลี่ยนอีเมล์</div>
                 </br>
                 <div class="row">
-                    {{ method_field('PUT') }}
+                    {{-- {{ method_field('PUT') }} --}}
                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="form-group">
@@ -161,7 +161,7 @@
                     </div> 
                     <br>
                     <form class="form-horizontal edit-address" method="POST" action="/address/edit/{{$address->id}}">
-                        {{ method_field('PUT') }}
+                        {{-- {{ method_field('PUT') }} --}}
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
@@ -332,7 +332,7 @@ $('.edit-address').bootstrapValidator({
             console.log($form.attr('action'));
 
             var jqxhr = $.ajax({
-                type: "PUT",
+                type: "POST",
                 url: $form.attr('action'),
                 data: formdata,
                 dataType: 'JSON',
@@ -370,7 +370,7 @@ $('#edit-profile-mail').bootstrapValidator({
             console.log($form.attr('action'));
 
             var jqxhr = $.ajax({
-                type: "PUT",
+                type: "POST",
                 url: $form.attr('action'),
                 data: formdata,
                 dataType: 'JSON',
@@ -422,7 +422,7 @@ $('#edit-profile').bootstrapValidator({
             console.log($form.attr('action'));
 
             var jqxhr = $.ajax({
-                type: "PUT",
+                type: "POST",
                 url: $form.attr('action'),
                 data: formdata,
                 dataType: 'JSON',

@@ -37,11 +37,20 @@
                                 </div>
                             </div> --}}
 
+                            {{-- <div class="row">
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-2 control-label">รหัสผ่านเก่า</label>
+                                    <div class="col-sm-6">
+                                        <input type="password" id="oldpassword" name="oldpassword" class="form-control input-large">
+                                    </div>
+                                </div>
+                            </div> --}}
+
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-2 control-label">รหัสผ่าน</label>
+                                    <label for="password" class="col-sm-2 control-label">รหัสผ่านใหม่</label>
                                     <div class="col-sm-6">
-                                        <input type="password" id="password" name="password" class="form-control input-large">
+                                        <input type="password" id="newpassword" name="newpassword" class="form-control input-large">
                                     </div>
                                 </div>
                             </div>
@@ -74,12 +83,20 @@
 
 @section('script')
 <script type="text/javascript">
-    $(document).ready(function(){0894966370
+    $(document).ready(function(){
 
 $('#repass').bootstrapValidator({
     framework: 'bootstrap',
     fields: {
-        password: {
+        // oldpassword: {
+        //     validators: {
+        //         stringLength: {
+        //             min: 6,
+        //             message: 'กรอกรหัสอย่างน้อย 6 ตัว'
+        //         }
+        //     }
+        // },
+        newpassword: {
             validators: {
                 identical: {
                     field: 'confirmpass',
@@ -94,7 +111,7 @@ $('#repass').bootstrapValidator({
         confirmpass: {
             validators: {
                 identical: {
-                    field: 'password',
+                    field: 'newpassword',
                     message: 'รหัสผ่านไม่ตรงกัน'
                 },
                 stringLength: {
@@ -115,7 +132,7 @@ $('#repass').bootstrapValidator({
             console.log($form.attr('action'));
 
             var jqxhr = $.ajax({
-                type: "PUT",
+                type: "POST",
                 url: $form.attr('action'),
                 data: formdata,
                 dataType: 'JSON',
