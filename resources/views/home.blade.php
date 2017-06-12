@@ -11,23 +11,31 @@
                 <ul class="" id="bxslider-home4">
                     @foreach($topsellers as $topseller)
                     <li>
-                        <div class="img-resize-home">
-                            @if(count($topseller->product->productImage) > 0)
-                            <img src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
-                            @else
-                            <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
-                            @endif
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <div class="img-resize-home">
+                                @if(count($topseller->product->productImage) > 0)
+                                <img src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                @else
+                                <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                @endif
+                            </div>
                         </div>
-                        <div class="caption-group">
-                            <h2 class="caption title">
-                                <span class="primary"><strong>{{$topseller->product->name}}</strong></span>
-                            </h2>
-                            <span class="label label-danger caption subtitle">ขายดี</span>
-                            @if($topseller->product->balance <= 0)
-                                <span class="label label-warning">หมด</span>
-                            @endif
-                            <h4 class="caption subtitle">ราคา {{ number_format($topseller->product->price,2) }} บาท</h4>
-                            <a class="caption button-radius" href="/productDetail/{{$topseller->product->id}}"><span class="icon"></span>รายละเอียด</a>
+                        <div class="col-sm-6" style="padding-top: 100px;">
+                            <div class="caption-group">
+                                <h2 class="caption title">
+                                    <span class="primary"><strong>Semi Mechanical Gaming Keyboard Rubber Dome รุ่น CENTAURUS KB-730
+                                    {{$topseller->product->name}}</strong></span>
+                                </h2>
+                                
+                                <span class="label label-danger caption subtitle">ขายดี</span>
+                                @if($topseller->product->balance <= 0)
+                                    <span class="label label-warning">หมด</span>
+                                @endif
+                                <h4 class="caption subtitle">ราคา {{ number_format($topseller->product->price,2) }} บาท</h4>
+                                <a class="caption button-radius" href="/productDetail/{{$topseller->product->id}}"><span class="icon"></span>รายละเอียด</a>
+                            </div>
+                            </div>
                         </div>
                     </li>
                     @endforeach
@@ -227,6 +235,12 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $('img').error(function () {
+            $(this).attr({
+                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+        });
 
         $(".add_item_cart").click(function(){
             var productId = $(this).data("productid");
