@@ -65,59 +65,59 @@ class CheckoutController extends Controller
                    }
                    $i++;
                }
-           }
-
-           if($msgerror == ""){
-            if(!$addressId){
-                Address::create([
-                    'user_id' => $user_id,
-                    'fullname' => $fullname,
-                    'detail' => $detail,
-                    'postcode' => $postcode,
-                    'tel' => $tel
-                    ]);
             }
-            $or = Order::create([
-                'transportstatus_id' => 1,
-                'user_id' => $user_id,
-                'code' => $this->GeraHash(10),
-                'sumnumber' => $totalQty,
-                'sumprice' => $totalPrice,
-                'fee' => 0,
-                'promotion' => 0,
-                'totalprice' => $totalPrice,
-                'address' => $fullname." ".$detail
-                ]);
-            if(count($products)){
-                foreach ($products as $product) {
-                    $ord = OrderDetail::create([
-                        'order_id' => $or->id,
-                        'product_id' => $product['item']['id'],
-                        'number' => $product['qty'],
-                        'price' => $product['item']['price']
+
+            if($msgerror == ""){
+                if(!$addressId){
+                    Address::create([
+                        'user_id' => $user_id,
+                        'fullname' => $fullname,
+                        'detail' => $detail,
+                        'postcode' => $postcode,
+                        'tel' => $tel
                         ]);
-
-                    $pb = Product::find($product['item']['id']);
-                    $balance = $pb->balance - $product['qty'];
-                    Product::where('id', $pb->id)->update(['balance' => $balance]);
                 }
+                $or = Order::create([
+                    'transportstatus_id' => 1,
+                    'user_id' => $user_id,
+                    'code' => $this->GeraHash(10),
+                    'sumnumber' => $totalQty,
+                    'sumprice' => $totalPrice,
+                    'fee' => 0,
+                    'promotion' => 0,
+                    'totalprice' => $totalPrice,
+                    'address' => $fullname." ".$detail
+                    ]);
+                if(count($products)){
+                    foreach ($products as $product) {
+                        $ord = OrderDetail::create([
+                            'order_id' => $or->id,
+                            'product_id' => $product['item']['id'],
+                            'number' => $product['qty'],
+                            'price' => $product['item']['price']
+                            ]);
+
+                        $pb = Product::find($product['item']['id']);
+                        $balance = $pb->balance - $product['qty'];
+                        Product::where('id', $pb->id)->update(['balance' => $balance]);
+                    }
+                }
+                Session::forget('cart');
+            }else{
+                $status = 501;
             }
-            Session::forget('cart');
-        }else{
-            $status = 501;
+        } catch (\Exception $ex) {
+            DB::rollback();
+            $status = 500;
+            $msgerror = $ex->getMessage();
         }
-    } catch (\Exception $ex) {
-        DB::rollback();
-        $status = 500;
-        $msgerror = $ex->getMessage();
+        DB::commit();
+        if ($msgerror == "") {
+            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+        }
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home"]; //"orderId" => $or->id
+        return Response::json($data);
     }
-    DB::commit();
-    if ($msgerror == "") {
-        $msgerror = 'บันทึกข้อมูลเรียบร้อย';
-    }
-    $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home", "orderId" => $or->id];
-    return Response::json($data);
-}
 
 public function GeraHash($qtd){ 
     //Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 

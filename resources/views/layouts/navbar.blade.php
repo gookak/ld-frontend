@@ -38,9 +38,9 @@
                 @else
                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle open-menu" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <button type="button" class="dropdown-toggle open-menu menubutton" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->firstname }} <span class="caret"></span>
-                    </a>
+                    </button>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>

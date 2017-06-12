@@ -40,6 +40,7 @@
                         <tr>
                             <th></th>
                             <th>หมายเลขของคำสั่งซื้อ</th>
+                            <th></th>
                             <th>สั่งเมื่อวันที่</th>
                             <th>ยอดสุทธิ</th>
                             <th>สถานะจัดส่ง</th>
@@ -57,6 +58,7 @@
                                 {{-- <a href="/order/{{ $order->id }}">{{ $order->code }}</a> --}}
                                 {{ $order->code }}
                             </td>
+                            <td>{{ $order->created_at }}</td>
                             <td>{{ $order->created_at->addYears(543)->format('d/m/Y') }}</td>
                             <td>{{ number_format($order->totalprice,2) }} บาท</td>
                             <td style="font-size: 16px;">
@@ -87,7 +89,9 @@
         var tb_order = $('#tb-order').DataTable({
             order: [[2, "desc"]],
             columnDefs: [
-            {orderable: false, targets: 0}
+            {orderable: false, targets: 0},
+            {targets: 2, visible: false},
+            {orderData: 2, targets: 3}
             ],
             iDisplayLength: 25,
             oLanguage: {

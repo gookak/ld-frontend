@@ -130,3 +130,14 @@ div.img-howto {
     overflow: hidden;
     text-align: center;
 }
+
+.mainmenu-area ul.navbar-nav li button {
+    color: #6e6a6a;
+    font-size: 14px;
+    padding: 20px;
+    border: none;
+    background: none;
+  }
+
+  .mainmenu-area ul.navbar-nav li button:hover, .mainmenu-area ul.navbar-nav li.open button {background: #5a88ca; color:#FFF;}
+  /*.mainmenu-area .nav > li > button:focus {color: #FFF;}*/
