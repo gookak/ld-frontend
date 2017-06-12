@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Carbon\Carbon;
+use App\Mylibs\Mylibs;
 
 class RegisterController extends Controller
 {
@@ -72,8 +74,9 @@ class RegisterController extends Controller
             'lastname' => $data['lastname'],
             'tel' => $data['tel'],
             'email' => $data['email'],
-            'avatar' => "test.jpg",
+            'avatar' => "",
             'password' => bcrypt($data['password']),
+            'login_at' => date('Y-m-d H:i:s')
         ]);
     }
 }

@@ -43,30 +43,25 @@
         @include('layouts.headerarea')
       </div> --}} <!-- End header area -->
 
-      <div class="site-branding-area">
+      {{-- <div class="site-branding-area">
         <div class="container">
           <div class="row">
-                <!-- <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="./"><img src="{{ asset('themes/ustora/img/logo.png') }}"></a></h1>
-                    </div>
-                  </div> -->
                   <div class="col-sm-12">
                     <div class="logo">
                       <h1><a href="/"><img width="120" src="{{ asset('logo/logo.jpg') }}"></a></h1>
                     </div>
                   </div>
 
-                {{-- <div class="col-sm-6 cart-reload">
+                <div class="col-sm-6 cart-reload">
                     @if(Session::has('cart'))
                     <div class="shopping-item">
                         <a href="/cart">Cart - <span class="cart-amunt">{{Session::has('cart') ? Session::get('cart')->totalPrice : '' }}</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">{{Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span></a>
                     </div>
                     @endif
-                  </div> --}}
+                  </div>
                 </div>
               </div>
-            </div> <!-- End site branding area -->
+            </div>  --}}<!-- End site branding area -->
 
             <div class="mainmenu-area">
               @include('layouts.navbar')
@@ -150,7 +145,7 @@
 
 
       <!-- Latest jQuery form server -->
-      {{-- <script src="https://code.jquery.com/jquery.min.js"></script> --}}
+      {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
       {{-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> --}}
       <script src="{{ asset('themes/ustora/js/jquery-1.11.3.min.js') }}"></script>
       {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}

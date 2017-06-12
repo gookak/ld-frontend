@@ -37,7 +37,7 @@
                         <p class="form-row">
                             <label for="category_id">ประเภทสินค้า</label>
                             <select id="category_id" name="category_id" class="form-control">
-                                <option value="">เลือกประเภท...</option>
+                                {{-- <option value="">เลือกประเภท...</option> --}}
                                 @foreach($category_list as $category)
                                 <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
                                 @endforeach
@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="product-breadcroumb">
-                            <a href="/">Home</a>
+                            <a href="/">หน้าแรก</a>
                             <a href="/product?category_id={{$category_current->id}}">{{$category_current->name}}</a>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                 <div class="row row-flex row-flex-wrap product">
                     @if ($products->count())
                     @foreach($products as $product)
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-xs-12 col-md-4 col-sm-6">
                         <div class="ace-thumbnails clearfix thumbnail" style="width: 100%">
                             <div class="img-resize">
                                 <a href="/productDetail/{{$product->id}}"> 
@@ -123,6 +123,9 @@
                                 @endif
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
+                                @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
                                 @endif
                                 <p>ราคา {{ number_format($product->price,2) }} บาท</p>
                                 <p>

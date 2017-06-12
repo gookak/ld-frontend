@@ -32,7 +32,52 @@ class ProfileController extends Controller
         $user_id = Auth::id();
 
         $profile = User::find($user_id);
-        return view('profile.index',compact('profile','orders'));
+        return view('profile.index',compact('profile'));
+    }
+
+    public function showrepass()
+    {
+        $user_id = Auth::id();
+
+        $profile = User::find($user_id);
+        return view('profile.repass',compact('profile'));
+    }
+
+    public function repass(Request $request, $userId)
+    {
+        $status = 200;
+        $msgerror = "";
+
+        $input = $request->all();
+        // if($input['pass']){
+        //     unset($input['pass']);
+        //     unset($input['confirmpass']);
+        // }
+        $password = bcrypt($input['password']);
+
+        DB::beginTransaction();
+        try{
+            // $checkEmail = User::where('email', $input['email'])->get();
+            // if (!count($checkEmail)) {
+                unset($input['_token']);
+                unset($input['_method']);
+                unset($input['confirmpass']);
+                User::where('id', $userId)->update(['password' => $password]);
+            // }else{
+                // $status = 500;
+                // $msgerror = 'อีเมล์นี้มีการใช้งานอยู่แล้ว';
+            // }
+        } catch (\Exception $ex) {
+            DB::rollback();
+            $status = 500;
+            $msgerror = $ex->getMessage();
+        }
+        DB::commit();
+        if ($msgerror == "") {
+            $msgerror = 'แก้ไขรหัสผ่านเรียบร้อย';
+        }
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile/repass"];
+        return Response::json($data);
     }
 
     public function update(Request $request, $userId)
@@ -40,14 +85,46 @@ class ProfileController extends Controller
         $status = 200;
         $msgerror = "";
 
-        $user = $request->all();
+        $input = $request->all();
 
         DB::beginTransaction();
         try{
-            unset($user['_token']);
-            unset($user['_method']);
+            
+                unset($input['_token']);
+                unset($input['_method']);
+                User::where('id', $userId)->update($input);
+            
+        } catch (\Exception $ex) {
+            DB::rollback();
+            $status = 500;
+            $msgerror = $ex->getMessage();
+        }
+        DB::commit();
+        if ($msgerror == "") {
+            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+        }
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        return Response::json($data);
+    }
 
-            User::where('id', $userId)->update($user);
+    public function updatemail(Request $request, $userId)
+    {
+        $status = 200;
+        $msgerror = "";
+
+        $input = $request->all();
+
+        DB::beginTransaction();
+        try{
+            $checkEmail = User::where('email', $input['email'])->get();
+            if (!count($checkEmail)) {
+                unset($input['_token']);
+                unset($input['_method']);
+                User::where('id', $userId)->update($input);
+            }else{
+                $status = 500;
+                $msgerror = 'อีเมล์นี้มีการใช้งานอยู่แล้ว';
+            }
         } catch (\Exception $ex) {
             DB::rollback();
             $status = 500;

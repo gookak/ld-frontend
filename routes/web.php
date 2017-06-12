@@ -18,7 +18,10 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/profile', 'ProfileController@index');
+Route::get('/profile/repass', 'ProfileController@showrepass');
 Route::put('/profile/edit/{userId}', 'ProfileController@update');
+Route::put('/profile/edit/{userId}/mail', 'ProfileController@updatemail');
+Route::put('/profile/repass/{userId}', 'ProfileController@repass');
 
 Route::get('/product', 'ProductController@index');
 
@@ -31,7 +34,7 @@ Route::get('/cart/reduceProduct/{productId}', 'CartController@reduceByOne');
 Route::get('/cart/removeItem/{productId}', 'CartController@removeItem');
 
 
-// Route::get('/checkout', 'CheckoutController@index');
+Route::get('/checkout', 'CheckoutController@index');
 Route::post('/checkout/add', 'CheckoutController@store');
 
 Route::get('/address/get', 'AddressController@getAddress');
@@ -40,8 +43,10 @@ Route::put('/address/edit/{addressId}', 'AddressController@update');
 Route::get('/address/delete/{addressId}', 'AddressController@destroy');
 
 Route::get('/order', 'OrderController@index');
+Route::get('/order/{orderId}/pdf', 'OrderController@pdf');
 
 Route::get('/orderDetail/{orderId}', 'OrderDetailController@index');
+Route::get('/orderDetail/{orderId}/pdf', 'OrderDetailController@pdf');
 
 Route::get('/contact', 'OtherController@contact');
 

@@ -36,7 +36,7 @@
                         <p class="form-row">
                             <label for="category_id">ประเภทสินค้า</label>
                             <select id="category_id" name="category_id" class="form-control">
-                                <option value="">เลือกประเภท...</option>
+                                {{-- <option value="">เลือกประเภท...</option> --}}
                                 @foreach($category_list as $category)
                                 <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
                                 @endforeach
@@ -46,7 +46,7 @@
                             <label>ราคา: <span id="price"></span></label>
                             <div id="slider-range"></div>
                             <input type="hidden" id="price_min" name="price_min" value="{{Request::input('price_min')? Request::input('price_min') : null}}">
-                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max') : null}}">
+                            <input type="hidden" id="price_max" name="price_max" value="{{Request::input('price_max')? Request::input('price_max'): null}}">
                         </p>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
                     </form>
@@ -74,7 +74,7 @@
             <div class="col-md-9">
                 <div class="product-content-right">
                     <div class="product-breadcroumb">
-                        <a href="/">Home</a>
+                        <a href="/">หน้าแรก</a>
                         <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
                         <span>{{$product->name}}</span>
                     </div>
@@ -83,22 +83,22 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 @if(count($product->productImage) > 0)
-                                @foreach($product->productImage as $key=>$productImage)
-                                @if($key == 0)
-                                <div class="product-main-img ace-thumbnails clearfix">
-                                    <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
-                                    </a>
-                                </div>
-                                @else
 
+                                <div class="product-main-img ace-thumbnails clearfix">
+                                    <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
+                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                    </a>
+                                </div>
                                 <div class="product-gallery ace-thumbnails clearfix">
+                                    @foreach($product->productImage as $key=>$productImage)
+                                    @if($key != 0)
                                     <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
                                         <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
                                     </a>
+                                    @endif
+                                    @endforeach
                                 </div>
-                                @endif
-                                @endforeach
+
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
                                     <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
@@ -116,13 +116,19 @@
                                 @if($product->hot)
                                 <span class="label label-danger">ขายดี</span>
                                 @endif
+                                @if($product->balance <= 0)
+                                <span class="label label-warning">หมด</span>
+                                @endif
                                 <div class="product-inner-price">
                                     ราคา {{number_format($product->price,2)}} บาท
                                 </div>    
+                                <div class="">
+                                    <p>สินค้าคงเหลือ: {{$product->balance}} ชิ้น</p>
+                                </div> 
                                 @if($product->balance > 0)
                                 <input type="hidden" value="{{$product->id}}" name="productid">
                                 <div class="quantity">
-                                    จำนวน <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1">
+                                    จำนวน <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" max="{{$product->balance}}" step="1">
                                 </div>
                                 <button class="add_to_cart_button add_item_cart" type="submit">เลือกสินค้า</button>
                                 @endif
@@ -155,7 +161,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var min = 0;
-        var max = {{$maxprice}};
+        var max = {{ $maxprice }};
         var price_min = {{Request::input('price_min')? Request::input('price_min') : 0}};
         var price_max = {{Request::input('price_max')? Request::input('price_max') : $maxprice}};
         $( "#slider-range" ).slider({

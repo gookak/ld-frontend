@@ -35,7 +35,6 @@
                                 </thead>
                                 <tbody>
                                     @if(Session::has('cart'))
-                                    {{-- @if(Cookie::get('cart')) --}}
                                     @foreach($products as $product)
                                     <tr class="cart_item">
                                         <td class="product-remove">
@@ -66,7 +65,9 @@
                                             <div class="quantity buttons_added">
                                                 <button type="button" class="btn btn-xs btn-primary minusItem" data-productid="{{$product['item']['id']}}"><i class="fa fa-minus"></i></button> 
                                                 <input type="text" readonly size="1" class="input-text qty text" title="Qty" value="{{$product['qty']}}">
-                                                <button type="button" class="btn btn-xs btn-primary plusItem" data-productid="{{$product['item']['id']}}"><i class="fa fa-plus"></i></button> 
+                                                @if($product['item']['balance'] > $product['qty'])
+                                                    <button type="button" class="btn btn-xs btn-primary plusItem" data-productid="{{$product['item']['id']}}"><i class="fa fa-plus"></i></button> 
+                                                @endif
                                             </div>
                                         </td>
 
@@ -78,113 +79,65 @@
                                     @else
                                     <tr><td colspan="6">ไม่มีข้อมูล</td></tr>
                                     @endif
-                                    <tr>
+                                    {{-- <tr>
                                         <td class="actions" colspan="6">
+                                            <a class="btn btn-lg btn-primary" href="/product">
+                                                <i class="fa fa-check"></i>
+                                                ยืนยันสินค้าที่สั่งซื้อ
+                                            </a>&nbsp;&nbsp;
                                             <a class="btn btn-lg btn-default" href="/product">
                                                 <i class="fa fa-reply"></i>
                                                 เลือกสินค้าเพิ่ม
                                             </a>
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </form>
                     
-                    <div class="cart-collaterals">
-                        <div class="row">
-                            @if(Session::has('cart') && Auth::user())
-                            </br>
-                            <div class="col-md-8 ">
-                                <div class="text-center">
-                                    <h2><a data-toggle="collapse" href="#check_out" aria-expanded="false" aria-controls="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2>
-                                </div>
-                                <div id="check_out" class="row collapse">
-                                    <div class="col-xs-12">
-                                        <div class="clearfix">
-                                            <div id="msgErrorArea"></div>
-                                        </div>
-                                        <form id="add-order" class="form-horizontal" method="POST" action="/checkout/add">
-                                            <div class="col-sm-offset-3 sub-menu-title">การจัดส่ง</div>
-                                            <br>
-                                            {{ csrf_field() }}
-                                            @if(count($profile->address) > 0)
-                                            <div class="form-group">
-                                                <label for="address" class="col-sm-3 control-label">ที่อยู่ในการจัดส่ง</label>
-                                                <div class="col-sm-4">
-                                                    <select id="address" class="form-control address">
-                                                        <option value="">เลือกที่อยู่</option>
-                                                        @foreach($profile->address as $address)
-                                                        <option value="{{$address->id}}">{{$address->fullname}}</option>
-                                                        @endforeach
-                                                        <option value="">ที่อยู่อื่น</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        </br>
-                                        <input type="hidden" name="addressid">
-                                        <div class="form-group">
-                                            <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" id="fullname" name="fullname" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
-                                            <div class="col-sm-6">
-                                             <textarea cols="5" rows="5" id="detail" name="detail" class="form-control"></textarea>
-                                         </div>
-                                     </div>
-                                     <div class="form-group">
-                                        <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
-                                        <div class="col-sm-4">
-                                         <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control">
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" id="tel" name="tel" type="text"/>
+                        <div class="cart-collaterals">
+                            <div class="row shop_total">
+                                </br>
+                                <div class="col-md-8 ">
+                                    <div class="text-center">
+                                        @if(Session::has('cart'))
+                                            <a class="btn btn-lg btn-primary" href="/checkout">
+                                                <i class="fa fa-check"></i>
+                                                ยืนยันสินค้าที่สั่งซื้อ
+                                            </a>&nbsp;&nbsp;
+                                        @endif
+                                        <a class="btn btn-lg btn-default" href="/product">
+                                            <i class="fa fa-reply"></i>
+                                            เลือกสินค้าเพิ่ม
+                                        </a>
+                                        {{-- <h2><a href="#checkout" class="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2> --}}
                                     </div>
+                                    <div id="check_out" class="row"></div>
                                 </div>
-                            </br>
-                            <div class="col-sm-offset-3">
-                                <button class="btn btn-lg btn-primary" type="submit">
-                                    <i class="fa fa-check"></i>
-                                    บันทึก
-                                </button>
+                                <div class="col-md-4 cart_totals">
+                                    <h2>สรุปรายการสินค้า</h2>
+
+                                    <table cellspacing="0">
+                                        <tbody>
+                                            <tr class="cart-subtotal">
+                                                <th>จำนวนสินค้าทั้งหมด</th>
+                                                <td><span class="amount">{{$totalQty}}</span></td>
+                                            </tr>
+
+                                            <tr class="order-total">
+                                                <th>ราคาสินค้า</th>
+                                                <td><strong><span class="amount">{{number_format($totalPrice,2)}} บาท</span></strong> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            @endif
-            <div class="col-md-4 cart_totals">
-                <div class="shop_total">
-                    <h2>สรุปรายการสินค้า</h2>
-
-                    <table cellspacing="0">
-                        <tbody>
-                            <tr class="cart-subtotal">
-                                <th>จำนวนสินค้าทั้งหมด</th>
-                                <td><span class="amount">{{$totalQty}}</span></td>
-                            </tr>
-
-                            <tr class="order-total">
-                                <th>ราคาสินค้า</th>
-                                <td><strong><span class="amount">{{number_format($totalPrice,2)}} บาท</span></strong> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        </div>
+                    </div>                        
+                </div>                    
             </div>
         </div>
     </div>
-</div>                        
-</div>                    
-</div>
-</div>
-</div>
 </div>
 
 @endsection
@@ -198,7 +151,7 @@
             $.get("/cart/reduceProduct/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table");
-                $(".cart_totals").load("/cart .shop_total");
+                $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });
 
@@ -209,7 +162,7 @@
             $.get("/cart/removeItem/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table");
-                $(".cart_totals").load("/cart .shop_total");
+                $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });
 
@@ -220,115 +173,10 @@
             $.get("/cart/plusProduct/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table");
-                $(".cart_totals").load("/cart .shop_total");
+                $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });
 
-        });
-
-        $(document).on("change",".address",function(){
-            var addressId = $(this).val();
-            if(addressId ){
-                var jqxhr = $.ajax({
-                    type: "GET",
-                    url: "/address/get",
-                    data: {"addressId": addressId},
-                    dataType: 'JSON',
-                }).done(function (data) {
-                    $("input[name=addressid]").val(data.address.id);
-                    $("input[name=fullname]").val(data.address.fullname).prop('readonly', true);
-                    $("textarea[name=detail]").val(data.address.detail).prop('readonly', true);
-                    $("input[name=postcode]").val(data.address.postcode).prop('readonly', true);
-                    $("input[name=tel]").val(data.address.tel).prop('readonly', true);
-                });
-            }else{
-                $("input[name=addressid]").val("");
-                $("input[name=fullname]").val("").prop('readonly', false);
-                $("textarea[name=detail]").val("").prop('readonly', false);
-                $("input[name=postcode]").val("").prop('readonly', false);
-                $("input[name=tel]").val("").prop('readonly', false);
-            }
-        });
-
-        $('#add-order').bootstrapValidator({
-            framework: 'bootstrap',
-            fields: {
-                fullname: {
-                    validators: {
-                        notEmpty: {
-                            message: 'กรุณากรอกชื่อในการส่ง'
-                        }
-                    }
-                },
-                detail: {
-                    validators: {
-                     notEmpty: {
-                        message: 'กรุณากรอกที่อยู่'
-                    }
-                }
-            },
-            postcode: {
-                validators: {
-                   notEmpty: {
-                    message: 'กรุณากรอกรหัสไปรษณีย์'
-                },
-                stringLength: {
-                    min: 5,
-                    max: 5,
-                    message: 'กรอกรหัสไปรษณีย์อย่างน้อย 5 ตัว'
-                },
-                integer: {
-                    message: 'กรอกเป็นตัวเลข'
-                }
-            }
-        },
-        tel: {
-            validators: {
-                notEmpty: {
-                    message: 'กรุณากรอกเบอร์โทร'
-                }
-            }
-        }
-    }
-}).on('success.field.bv', function(e, data) {
-            // e, data parameters are the same as in error.field.bv event handler
-            // Despite that the field is valid, by default, the submit button will be disabled if all the following conditions meet
-            // - The submit button is clicked
-            // - The form is invalid
-            data.bv.disableSubmitButtons(false);
-        }).on("success.form.bv", function (e) {
-            // Prevent form submission
-            e.preventDefault();
-            // Get the form instance
-            var $form = $(e.target);
-            console.log($form);
-            
-            var formdata = $form.serializeArray();
-            console.log($form.attr('action'));
-
-            var jqxhr = $.ajax({
-                type: "POST",
-                url: $form.attr('action'),
-                data: formdata,
-                dataType: 'JSON',
-            }).done(function (data) {
-                console.log(data);
-                if (data.status == 501) {
-                    showMsgError("#msgErrorArea", data.msgerror);
-                    // $('#add-order').bootstrapValidator("resetForm",true);
-                    // $("input[name=addressid]").val("");
-                    // $("input[name=fullname]").prop('readonly', false);
-                    // $("textarea[name=detail]").prop('readonly', false);
-                    // $("input[name=postcode]").prop('readonly', false);
-                    // $("input[name=tel]").prop('readonly', false); 
-                } else if (data.status !== 200)  {
-                    showMsgError("#msgErrorArea", data.msgerror);
-                } else {
-                    window.location = data.url;
-                }
-            }).fail(function () {
-                showMsgError("#msgErrorArea", data.msgerror);
-            });
         });
 
         var $overflow = '';

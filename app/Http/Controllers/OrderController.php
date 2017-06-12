@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Response;
 use DB;
+use mPDF;
 
 class OrderController extends Controller
 {
@@ -103,5 +104,17 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pdf($orderId)
+    {
+        $order = Order::find($orderId);
+        $filename = 'order_'.$order->code.'.pdf';
+        $html = view('order.pdf', compact('order'))->render();
+        $mpdf = new mPDF('th', 'A4');
+        $mpdf->WriteHTML(file_get_contents('css/pdf.css'),1);
+        $mpdf->WriteHTML($html,2);
+        $mpdf->Output($filename, 'I');
+        // return view('order.pdf', compact('order'));
     }
 }
