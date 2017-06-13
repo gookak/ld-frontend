@@ -25,7 +25,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                                <label for="firstname" class="col-md-4 control-label">ชื่อ</label>
+                                <label for="firstname" class="col-md-4 control-label">ชื่อ*</label>
 
                                 <div class="col-md-6">
                                     <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                                <label for="lastname" class="col-md-4 control-label">นามสกุล</label>
+                                <label for="lastname" class="col-md-4 control-label">นามสกุล*</label>
 
                                 <div class="col-md-6">
                                     <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required autofocus>
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
-                                <label for="tel" class="col-md-4 control-label">เบอร์โทร</label>
+                                <label for="tel" class="col-md-4 control-label">เบอร์โทร*</label>
 
                                 <div class="col-md-6">
                                     <input id="tel" type="text" class="form-control" name="tel" value="{{ old('tel') }}" required autofocus>
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">อีเมล์</label>
+                                <label for="email" class="col-md-4 control-label">อีเมล์*</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">รหัสผ่าน</label>
+                                <label for="password" class="col-md-4 control-label">รหัสผ่าน*</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="password" required>
@@ -97,7 +97,7 @@
                             {{-- <input type="text" class="form-control" name="login_at" value="{{date('Y-m-d H:i:s')}}"> --}}
 
                             <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">ยืนยันรหัสผ่าน</label>
+                                <label for="password-confirm" class="col-md-4 control-label">ยืนยันรหัสผ่าน*</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>

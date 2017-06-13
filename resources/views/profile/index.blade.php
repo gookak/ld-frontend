@@ -115,25 +115,25 @@
                         <form id="add-address" class="form-horizontal" method="POST" action="/address/add">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
+                                <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง*</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="fullname" name="fullname" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="detail" class="col-sm-3 control-label">ที่อยู่</label>
+                                <label for="detail" class="col-sm-3 control-label">ที่อยู่*</label>
                                 <div class="col-sm-6">
                                    <textarea cols="5" rows="5" id="detail" name="detail" class="form-control"></textarea>
                                </div>
                            </div>
                            <div class="form-group">
-                            <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์</label>
+                            <label for="postcode" class="col-sm-3 control-label">รหัสไปรษณีย์*</label>
                             <div class="col-sm-2">
                                 <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ</label>
+                            <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ*</label>
                             <div class="col-sm-4">
                                 <input class="form-control" id="tel" name="tel" type="text"/>
                             </div>
