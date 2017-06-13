@@ -24,8 +24,7 @@
                         <div class="col-sm-6" style="padding-top: 100px;">
                             <div class="caption-group">
                                 <h2 class="caption title">
-                                    <span class="primary"><strong>Semi Mechanical Gaming Keyboard Rubber Dome รุ่น CENTAURUS KB-730
-                                    {{$topseller->product->name}}</strong></span>
+                                    <span class="primary"><strong>{{$topseller->product->name}}</strong></span>
                                 </h2>
                                 
                                 <span class="label label-danger caption subtitle">ขายดี</span>

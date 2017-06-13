@@ -48,7 +48,7 @@
 
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-2 control-label">รหัสผ่านใหม่</label>
+                                    <label for="password" class="col-sm-2 control-label">รหัสผ่านใหม่*</label>
                                     <div class="col-sm-6">
                                         <input type="password" id="newpassword" name="newpassword" class="form-control input-large">
                                     </div>
@@ -57,7 +57,7 @@
 
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="confirmpass" class="col-sm-2 control-label">ยืนยันรหัสผ่าน</label>
+                                    <label for="confirmpass" class="col-sm-2 control-label">ยืนยันรหัสผ่าน*</label>
                                     <div class="col-sm-6">
                                         <input type="password" id="confirmpass" name="confirmpass" class="form-control input-large">
                                     </div>
