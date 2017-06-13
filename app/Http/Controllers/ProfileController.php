@@ -53,19 +53,20 @@ class ProfileController extends Controller
         //     unset($input['pass']);
         //     unset($input['confirmpass']);
         // }
-        $password = bcrypt($input['password']);
+        // $oldpassword = bcrypt($input['oldpassword']);
+        $newpassword = bcrypt($input['newpassword']);
 
         DB::beginTransaction();
         try{
-            // $checkEmail = User::where('email', $input['email'])->get();
-            // if (!count($checkEmail)) {
+            // $checkPass = User::where('password', $oldpassword)->get();
+            // if (count($checkPass)) {
                 unset($input['_token']);
                 unset($input['_method']);
                 unset($input['confirmpass']);
-                User::where('id', $userId)->update(['password' => $password]);
+                User::where('id', $userId)->update(['password' => $newpassword]);
             // }else{
-                // $status = 500;
-                // $msgerror = 'อีเมล์นี้มีการใช้งานอยู่แล้ว';
+            //     $status = 500;
+            //     $msgerror = 'รหัสผ่านไม่ถูกต้อง';
             // }
         } catch (\Exception $ex) {
             DB::rollback();
