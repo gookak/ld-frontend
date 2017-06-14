@@ -177,6 +177,7 @@
       <!-- Cutom.js -->
       <script src="{{ asset('themes/ustora/custom.js') }}"></script>
       <script src="{{ asset('themes/ustora/js/jquery.colorbox-min.js') }}"></script>
+      <script src="{{ asset('themes/ustora/js/jquery.dotdotdot.min.js') }}"></script>
       @yield('tagfooter')
 
       @yield('script')

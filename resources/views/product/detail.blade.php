@@ -36,7 +36,7 @@
                         <p class="form-row">
                             <label for="category_id">ประเภทสินค้า</label>
                             <select id="category_id" name="category_id" class="form-control">
-                                {{-- <option value="">เลือกประเภท...</option> --}}
+                                <option {{Request::input('category_id') == "all"? "selected" : null}} value="all">ทุกประเภท</option>
                                 @foreach($category_list as $category)
                                 <option value="{{$category->id}}" {{Request::input('category_id') == $category->id? "selected" : null}}>{{$category->name}}</option>
                                 @endforeach
@@ -65,7 +65,7 @@
 
                     <div class="list-group list-group-collapse collapse">
                         @foreach($category_list as $category)
-                        <a href="/product?category_id={{$category->id}}" class="list-group-item">{{$category->name}}</a>
+                        <a href="/product?category_id={{$category->id}}" class="list-group-item {{$product->category_id == $category->id? 'active': null}}">{{$category->name}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -77,6 +77,9 @@
                         <a href="/">หน้าแรก</a>
                         <a href="/product?category_id={{$product->category_id}}">{{$product->category->name}}</a>
                         <span>{{$product->name}}</span>
+                    </div>
+                    <div class="clearfix">
+                        <div id="msgErrorArea"></div>
                     </div>
 
                     <div class="row">
@@ -170,7 +173,19 @@
             max: max,
             values: [ price_min, price_max ],
             slide: function( event, ui ) {
-                $( "#price" ).html( ui.values[ 0 ] + " บาท - " + ui.values[ 1 ] + " บาท" );
+                function addCommas(nStr)
+                {
+                    nStr += '';
+                    x = nStr.split('.');
+                    x1 = x[0];
+                    x2 = x.length > 1 ? '.' + x[1] : '';
+                    var rgx = /(\d+)(\d{3})/;
+                    while (rgx.test(x1)) {
+                        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                    return x1 + x2;
+                }
+                $( "#price" ).html(addCommas(ui.values[ 0 ].toFixed(2)) + " บาท - " + addCommas(ui.values[ 1 ].toFixed(2))+ " บาท" );
                 $( "#price_min" ).val(ui.values[ 0 ]);
                 $( "#price_max" ).val(ui.values[ 1 ]);
 
@@ -186,18 +201,7 @@
         }).find('span.ui-slider-handle').on('blur', function(){
             $(this.firstChild).hide();
         });
-        $( "#price" ).html( "$" + $( "#slider-range" ).slider( "values", 0 ) + " บาท - " + $( "#slider-range" ).slider( "values", 1 ) + " บาท" );
-
-
-        $(".add_item_cart").click(function(){
-            var productId = $("input[name=productid]").val();
-            var qty =  $("input[name=qty]").val();
-            $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
-                $("input[name=qty]").val("1");
-                // $(".cart-reload").load("/product .shopping-item");
-                $(".shoppingcart").load("/product span.cart-item");
-            });
-        });
+        $( "#price" ).html( $( "#slider-range" ).slider( "values", 0 ).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + " บาท - " + $( "#slider-range" ).slider( "values", 1 ).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+ " บาท" );
 
         var $overflow = '';
         var colorbox_params = {
@@ -229,6 +233,28 @@
     
     $(document).one('ajaxloadstart.page', function(e) {
         $('#colorbox, #cboxOverlay').remove();
+    });
+
+    $('#search').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) { 
+                e.preventDefault();
+                return false;
+            }
+        });
+
+    $(".add_item_cart").click(function(){
+        var productId = $("input[name=productid]").val();
+        var qty =  $("input[name=qty]").val();
+        $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
+           if (data.status == 200) {
+                showMsgSuccess("#msgErrorArea", data.msgerror);
+                $("input[name=qty]").val("1");
+                $(".shoppingcart").load(data.url);
+            }else{
+                showMsgError("#msgErrorArea", data.msgerror);
+            }
+        });
     });
 });
 </script>

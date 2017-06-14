@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
 
-  <table class="header" cellspacing="10">
+	<table class="header" cellspacing="10">
 		<tbody>
 			<tr>
 				<td class="center">
