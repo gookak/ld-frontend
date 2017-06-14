@@ -41,6 +41,8 @@ class HomeController extends Controller
         $productlatest = Product::whereDate('created_at', '>=', date('Y-m-d', $date))->orderBy('created_at','desc')->get();
         $category_list = Category::all();      //inRandomOrder()->take(5)->get();
         $topsellers = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        ->whereMonth('created_at', date("m"))
+        ->whereYear('created_at', date("Y"))
         ->groupBy('product_id')
         ->orderBy('qty','desc')
         ->take(5)

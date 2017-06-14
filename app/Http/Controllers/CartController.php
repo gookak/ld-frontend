@@ -8,12 +8,14 @@ use App\Cart;
 use App\User;
 use App\Address;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+// use Illuminate\Http\Response;
 use Illuminate\Cookie\CookieJar;
 use App\Http\Requests;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Response;
 use Cookie;
 class CartController extends Controller
 {
@@ -24,6 +26,9 @@ class CartController extends Controller
     }
 
     public function addItem (CookieJar $cookieJar,Request $request, $productId){
+
+        $status = 200;
+        $msgerror = "";
 
         $product = Product::find($productId);
         $image = "";
@@ -39,7 +44,23 @@ class CartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product,$product->id,$qty,$image);
-        $request->session()->put('cart',$cart);
+
+        // dd($cart->items[$product->id]['qty']);   
+
+        if($product->balance < $cart->items[$product->id]['qty']){
+            $status = 500;
+            $msgerror = "สินค้าไม่พอ</br>";
+            $msgerror = $msgerror.$product->name." เหลือสินค้า ".$product->balance." ชิ้น </br>" ;
+
+        }else{
+            $msgerror = 'เพิ่มสินค้าลงตระกร้าเรียบร้อย';
+            $request->session()->put('cart',$cart);
+        }
+
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/product span.cart-item"]; 
+        return Response::json($data);
+
+
 
         // dd($request->session()->get('cart'));    
 

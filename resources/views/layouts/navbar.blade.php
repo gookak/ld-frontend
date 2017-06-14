@@ -13,7 +13,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li><a href="/">หน้าแรก</a></li>
-                <li><a href="/product">สินค้า</a></li>
+                <li><a href="/product?category_id=all">สินค้า</a></li>
                 <li><a href="/howtoshopping">วิธีการสั่งซื้อ</a></li>
                 <li><a href="/contact">ติดต่อเรา</a></li>
             </ul>

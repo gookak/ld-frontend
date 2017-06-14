@@ -28,42 +28,41 @@ class ProductController extends Controller
         $sortby = $request->input('sortby');
         
         $category_list = Category::all();
-        $category = Category::find($request->input('category_id'));
-        $category_current = Category::find($categoryId);
+        // $category = Category::find($request->input('category_id'));
+        // $category_current = Category::find($categoryId);
         $maxprice = Product::max('price');
         // $minprice = Product::where('category_id', $categoryId)->min('price');
         // $tbl_product = DB::table('product');
 
-        $tbl_product = Product::where('category_id', 'like', $categoryId);
+        if ($categoryId == "all") {
+            $categoryId = '%%';     
+        }
 
-        
+
+        $tbl_product = Product::where('category_id', 'like', $categoryId);
 
         if ($name) {
             $tbl_product = $tbl_product->where('name', 'like', '%' . $name . '%');
         }
 
-        // if ($categoryId) {
-        //     $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
-        // }else{
-        //     $tbl_product = $tbl_product->where('category_id', 'like', $categoryId);
-        // }
-
         if ($price_min || $price_max) {
             $tbl_product = $tbl_product->whereBetween('price', [$price_min, $price_max]);
         }
 
-        if ($sortby == "latest"){
-            $tbl_product = $tbl_product->orderBy('created_at','desc');
-        }else if($sortby == "pricedesc"){
+        if($sortby == "pricedesc"){
             $tbl_product = $tbl_product->orderBy('price','desc');
         }else if ($sortby == "priceasc") {
             $tbl_product = $tbl_product->orderBy('price','asc');
+        }else{
+            $tbl_product = $tbl_product->orderBy('created_at','desc');
         }
 
         
         $products = $tbl_product->paginate(15);
 
         $topseller = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        ->whereMonth('created_at', date("m"))
+        ->whereYear('created_at', date("Y"))
         ->groupBy('product_id')
         ->orderBy('qty','desc')
         ->take(5)
@@ -78,7 +77,7 @@ class ProductController extends Controller
             $product['numdate'] = Mylibs::getNumDay($product->created_at->format('Y-m-d'), date("Y-m-d"));
         }
 
-        return view('product.index',compact('products','category_list','category_current','maxprice'));
+        return view('product.index',compact('products','category_list','maxprice')); //,'category_current'
     }
 
 
@@ -90,6 +89,8 @@ class ProductController extends Controller
         $maxprice = Product::max('price'); 
 
         $topseller = OrderDetail::selectRaw("product_id,sum(number) as qty")
+        ->whereMonth('created_at', date("m"))
+        ->whereYear('created_at', date("Y"))
         ->groupBy('product_id')
         ->orderBy('qty','desc')
         ->take(5)
