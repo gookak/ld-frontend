@@ -27,17 +27,24 @@ class OrderDetailController extends Controller
      */
     public function index($orderId)
     {
+        $user_id = Auth::id();
         $transportstatus=TransportStatus::all();
-        $order=Order::find($orderId);
+        // $order=Order::find($orderId);
+        $order = Order::where('user_id', $user_id )->where('id', $orderId)->firstOrFail();
+        // dd($order);
         return view('orderDetail.index', compact('order', 'transportstatus'));
     }
     
     public function pdf($orderId)
     {
-        $order = Order::find($orderId);
+        $user_id = Auth::id();
+        // $order = Order::find($orderId);
+        $order = Order::where('user_id', $user_id )->where('id', $orderId)->firstOrFail();
         $filename = 'order_'.$order->code.'.pdf';
         $html = view('order.pdf', compact('order'))->render();
-        $mpdf = new mPDF('th', 'A4');
+        $mpdf = new mPDF('th', 'A4', '', '', '15', '15', '45', '18');
+        $mpdf->SetHTMLHeader(view('layouts_pdf.main')->render());
+        $mpdf->setDisplayMode('fullpage');
         $mpdf->WriteHTML(file_get_contents('css/pdf.css'),1);
         $mpdf->WriteHTML($html,2);
         $mpdf->Output($filename, 'I');

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body>
+<body> --}}
 
 	<table class="header" cellspacing="10">
 		<tbody>
@@ -21,9 +21,9 @@
 			</tr>
 		</tbody>
 	</table>
-	<br>
+	<p style="border-bottom:4px double #000">  </p>
 
-	@yield('content')
+{{-- 	@yield('content')
 
 </body>
-</html>
+</html> --}}

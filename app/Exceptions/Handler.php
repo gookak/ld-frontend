@@ -56,6 +56,12 @@ class Handler extends ExceptionHandler
             return response()->view('errors.missing', [], 404);
         }
 
+        if ($exception instanceof \ErrorException) {
+            return response()->view('errors.500', [], 500);
+        } else {
+            return parent::render($request, $exception);
+        }
+
         return parent::render($request, $exception);
     }
 
