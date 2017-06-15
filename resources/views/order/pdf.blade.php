@@ -1,6 +1,6 @@
-@extends('layouts_pdf/main')
+{{-- @extends('layouts_pdf/main')
 
-@section('content')
+@section('content') --}}
 
 <h2>#{{ $order->code }}</h2>
 <hr>
@@ -45,4 +45,4 @@
 </table>
 @endif
 
-@endsection
+{{-- @endsection --}}
