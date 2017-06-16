@@ -102,7 +102,7 @@ div.img-resize-home {
     margin:-.2px; /* hack adjust for wrapping */
 }
 
-@media (max-width: 768px)
+@media (max-width: 767px)
 {
   .slider-area {
        display: none!important;
@@ -112,7 +112,7 @@ div.img-resize-home {
    }
 }
 
-@media (min-width: 768px)
+@media (min-width: 767px)
 {
   .seller-responsive {
        display: none!important;
