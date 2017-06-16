@@ -44,11 +44,11 @@
                                             <div class="product-gallery ace-thumbnails clearfix">
                                                 @if($product['image'])
                                                 <a href="{{ asset(env('FILE_URL').$product['image'])}}" data-rel="colorbox">
-                                                    <img width="145" height="145" src="{{ asset(env('FILE_URL').$product['image'])}}">
+                                                    <img width="145" height="145" class="img-responsive" src="{{ asset(env('FILE_URL').$product['image'])}}">
                                                 </a>
                                                 @else
                                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
-                                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                                    <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
                                                 </a>
                                                 @endif
                                             </div>

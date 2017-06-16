@@ -3,7 +3,7 @@
 
 @section('content')
 {{-- <div class="single-product-area"> --}}
-    {{-- หน้าจอขนาดมากกว่า 768px --}}
+    {{-- หน้าจอขนาดมากกว่า 769px --}}
     @if ($topsellers->count())
         <div class="slider-area">
             <!-- Slider -->
@@ -15,16 +15,16 @@
                         <div class="col-sm-6">
                             <div class="img-resize-home">
                                 @if(count($topseller->product->productImage) > 0)
-                                <img src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                <img class="img-responsive" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                 @else
-                                <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                 @endif
                             </div>
                         </div>
                         <div class="col-sm-6" style="padding-top: 100px;">
                             <div class="caption-group">
                                 <h2 class="caption title">
-                                    <span class="primary"><strong>{{$topseller->product->name}}</strong></span>
+                                    <span class="primary"><strong>ACER Aspire E5-553G-F1J2 (NX.GEQST.001) FX-9800P/8GB/1TB/R7 M440 2GB/15.6" Black{{$topseller->product->name}}</strong></span>
                                 </h2>
                                 
                                 <span class="label label-danger caption subtitle">ขายดี</span>
@@ -44,7 +44,7 @@
         </div> <!-- End slider area -->
     @endif
 
-    {{-- หน้าจอเล็กกว่า 768 px --}}
+    {{-- หน้าจอเล็กกว่า 769 px --}}
     @if ($topsellers->count())
         <div class="maincontent-area seller-responsive">
             <div class="zigzag-bottom"></div>
@@ -61,9 +61,9 @@
                                         <div class="product-f-image">
                                             <div class="img-resize">
                                                 @if(count($topseller->product->productImage) > 0)
-                                                <img src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                                <img class="img-responsive" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                                 @else
-                                                <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                                <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                                 @endif
                                             </div>
                                             <div class="product-hover">
@@ -137,9 +137,9 @@
                                 <div class="product-f-image">
                                     <div class="img-resize">
                                         @if(count($product->productImage) > 0)
-                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                         @else
-                                        <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                         @endif
                                     </div>
                                     <div class="product-hover">
@@ -194,9 +194,9 @@
                                 <div class="product-f-image">
                                     <div class="img-resize">
                                         @if(count($product->productImage) > 0)
-                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
                                         @else
-                                        <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                         @endif
                                     </div>
                                     <div class="product-hover">

@@ -121,9 +121,9 @@
                             <div class="img-resize">
                                 <a href="/productDetail/{{$product->id}}"> 
                                  @if(count($product->productImage) > 0)
-                                 <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                 <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
                                  @else
-                                 <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                 <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
                                  @endif
                              </a>
                          </div>

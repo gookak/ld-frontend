@@ -89,14 +89,14 @@
 
                                 <div class="product-main-img ace-thumbnails clearfix">
                                     <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" />
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" />
                                     </a>
                                 </div>
                                 <div class="product-gallery ace-thumbnails clearfix">
                                     @foreach($product->productImage as $key=>$productImage)
                                     @if($key != 0)
                                     <a href="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
+                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$productImage->fileupload->filename )}}">
                                     </a>
                                     @endif
                                     @endforeach
@@ -104,7 +104,7 @@
 
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
-                                    <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                    <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
                                 </a>
                                 @endif
                             </div>
