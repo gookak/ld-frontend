@@ -44,7 +44,7 @@
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-large">
                         <h3 class="widget-title">
-                            #{{ $order->code }}
+                            หมายเลขรายการสั่งซื้อ {{ $order->code }}
                         </h3>
 
                         <div class="widget-toolbar no-border invoice-info">
@@ -133,6 +133,7 @@
                                                     <li>ค่าธรรมเนียม <b class="text-primary">{{ number_format($order->fee,2) }}</b> บาท</li>
                                                     <li>ส่วนลด <b class="text-primary">{{ number_format($order->promotion,2) }}</b> บาท</li>
                                                     <li>ยอดสุทธิ <b class="text-primary">{{ number_format($order->totalprice,2) }}</b> บาท</li>
+                                                    <li>ยอดสุทธิ(ตัวอักษร) <b class="text-primary">{{ $order->totalPriceThai }}</b></li>
                                                 </ul>
                                             </div>
                                         </div>

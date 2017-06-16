@@ -174,6 +174,7 @@
             var jqxhr = $.ajax({
                 type: "POST",
                 url: $form.attr('action'),
+                async: false,
                 data: formdata,
                 dataType: 'JSON',
             }).done(function (data) {
@@ -193,7 +194,7 @@
                     // var link = $('.pdforder');
                     // console.log(link);
                     // link.click();
-                    window.open('order/'+data.orderId+'/pdf');
+                    window.open('order/'+data.orderId+'/pdf' , '_blank');
                     window.location = data.url;
                 }
             }).fail(function () {

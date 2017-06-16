@@ -125,8 +125,12 @@
                                             </tr>
 
                                             <tr class="order-total">
-                                                <th>ราคาสินค้า</th>
+                                                <th>ราคาสุทธิ</th>
                                                 <td><strong><span class="amount">{{number_format($totalPrice,2)}} บาท</span></strong> </td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th></th>
+                                                <td><strong><span class="amount">{{$totalPriceThai}}</span></strong> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -145,6 +149,12 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){ 
+
+        $('img').error(function () {
+            $(this).attr({
+                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+        });
 
         $(".woocommerce").on("click",".minusItem",function(){
             var productId = $(this).data("productid");

@@ -115,7 +115,7 @@ class CheckoutController extends Controller
         if ($msgerror == "") {
             $msgerror = 'บันทึกข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home"]; //"orderId" => $or->id
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home" , 'orderId' => $or->id ]; //"orderId" => $or->id
         return Response::json($data);
     }
 

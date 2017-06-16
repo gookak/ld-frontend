@@ -89,7 +89,7 @@
 
                                 <div class="product-main-img ace-thumbnails clearfix">
                                     <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
-                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" />
                                     </a>
                                 </div>
                                 <div class="product-gallery ace-thumbnails clearfix">
@@ -162,7 +162,8 @@
 
 @section('script')
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
+
         var min = 0;
         var max = {{ $maxprice }};
         var price_min = {{Request::input('price_min')? Request::input('price_min') : 0}};
@@ -256,6 +257,12 @@
             }
         });
     });
+
+    $('img').error(function () {
+            $(this).attr({
+                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+        });
 });
 </script>
 @endsection

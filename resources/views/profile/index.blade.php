@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Profile</h2>
+                    <h2>ข้อมูลผู้ใช้งาน</h2>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     </form>
                 </br></br></br>
                 <form enctype="multipart/form-data" id="edit-profile-mail" method="POST" action="/profile/edit/{{$profile->id}}/mail" class="form-horizontal">
-                <div class="sub-menu-title">เปลี่ยนอีเมล์</div>
+                <div class="sub-menu-title">อีเมล์</div>
                 </br>
                 <div class="row">
                     {{-- {{ method_field('PUT') }} --}}
