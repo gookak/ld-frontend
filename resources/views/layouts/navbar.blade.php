@@ -1,7 +1,9 @@
 {{-- <div class="container"> --}}
     {{-- <div class="row"> --}}
         <div class="navbar-header" style="margin-top: 10px">
-            <a style="margin-left: 10px" href="/"><img width="65" height="auto" src="{{ asset('logo/logo.jpg') }}"></a>
+            <a style="margin-left: 10px" href="/">
+                <img width="65" height="auto" src="{{ asset('logo/logo.svg') }}">
+            </a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -45,24 +47,24 @@
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="/profile" style="padding: 3px 20px;">
-                                <i class="fa fa-user"></i> ข้อมูลผู้ใช้
+                                <i class="fa fa-user fa-fw"></i> ข้อมูลผู้ใช้งาน
                             </a>
                         </li>
                         <li>
                             <a href="/profile/repass" style="padding: 3px 20px;">
-                                <i class="fa fa-gear"></i> เปลี่ยนรหัสผ่าน
+                                <i class="fa fa-gear fa-fw"></i> เปลี่ยนรหัสผ่าน
                             </a>
                         </li>
                         <li>
                             <a href="/order" style="padding: 3px 20px;">
-                                <i class="fa fa-list"></i> ข้อมูลการสั่งซื้อ
+                                <i class="fa fa-list fa-fw"></i> ข้อมูลการสั่งซื้อ
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" style="padding: 3px 20px;" 
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                            <i class="fa fa-power-off"></i> ออกจากระบบ
+                            <i class="fa fa-power-off fa-fw"></i> ออกจากระบบ
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

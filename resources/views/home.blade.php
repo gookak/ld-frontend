@@ -187,11 +187,14 @@
                         {{-- แก้ prev and next ที่ navtext ไฟล์ owl.carousel.min.js --}}
                         <div class="product-carousel">
                             @foreach($category->product->shuffle() as $key=>$product)
+                            @if ($loop->index > 10)
+                                @break
+                            @endif
                             <div class="single-product">
                                 <div class="product-f-image">
                                     <div class="img-resize">
                                         @if(count($product->productImage) > 0)
-                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                        <img src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
                                         @else
                                         <img src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                         @endif
@@ -235,12 +238,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        $('img').error(function () {
-            $(this).attr({
-                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
-            });
-        });
-
         $(".add_item_cart").click(function(){
             var productId = $(this).data("productid");
             // var qty =  $(this).data("qty");
@@ -249,6 +246,12 @@
                 $(".shoppingcart").load("/product span.cart-item");
             });
 
+        });
+
+        $('img').error(function () {
+            $(this).attr({
+                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
         });
     });
 </script>

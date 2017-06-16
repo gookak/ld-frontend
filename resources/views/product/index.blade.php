@@ -175,6 +175,12 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        $('img').error(function () {
+            $(this).attr({
+                src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+        });
+
         $('.caption > h3').dotdotdot({
             ellipsis: '...', /* The HTML to add as ellipsis. */
             wrap : 'word', /* How to cut off the text/html: 'word'/'letter'/'children' */
