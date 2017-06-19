@@ -1,5 +1,23 @@
 @extends('layouts/main')
 
+@section('tagheader')
+
+<!-- Datatable Css -->
+<link rel="stylesheet" href="{{ asset('themes/ustora/css/dataTables.bootstrap.min.css') }}" />
+{{-- <link rel="stylesheet" href="{{ asset('themes/ustora/css/jquery.dataTables.min.css') }}" /> --}}
+<link rel="stylesheet" href="{{ asset('themes/ustora/css/responsive.dataTables.min.css') }}" />
+
+@endsection
+
+@section('tagfooter')
+
+<!-- DataTable Js -->
+<script src="{{ asset('themes/ustora/js/jquery.dataTables.min.js') }}" ></script>
+<script src="{{ asset('themes/ustora/js/dataTables.responsive.min.js') }}" ></script>
+<script src="{{ asset('themes/ustora/js/dataTables.bootstrap.min.js') }}"></script>
+
+@endsection
+
 @section('content')
 <div class="product-big-title-area">
     <div class="container">
@@ -22,7 +40,7 @@
                 <div class="product-content-right">
                     <div class="woocommerce">
                         <form method="post" class="shop_form" action="#">
-                            <table cellspacing="0" class="shop_table cart">
+                                <table id="tb-cart" cellspacing="0" class="table table-striped table-bordered table-hover responsive nowrap shop_table cart">
                                 <thead>
                                     <tr>
                                         <th class="product-remove">&nbsp;</th>
@@ -41,10 +59,10 @@
                                             <button type="button" class="btn btn-xs btn-danger removeItem" data-productid="{{$product['item']['id']}}"><i class="fa fa-times"></i></button> 
                                         </td>
                                         <td class="product-thumbnail">
-                                            <div class="product-gallery ace-thumbnails clearfix">
+                                            <div class="ace-thumbnails clearfix">
                                                 @if($product['image'])
                                                 <a href="{{ asset(env('FILE_URL').$product['image'])}}" data-rel="colorbox">
-                                                    <img width="145" height="145" class="img-responsive" src="{{ asset(env('FILE_URL').$product['image'])}}">
+                                                    <img class="img-responsive" src="{{ asset(env('FILE_URL').$product['image'])}}">
                                                 </a>
                                                 @else
                                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
@@ -76,8 +94,8 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @else
-                                    <tr><td colspan="6">ไม่มีข้อมูล</td></tr>
+                                    {{-- @else
+                                    <tr><td colspan="6">ไม่มีข้อมูล</td></tr> --}}
                                     @endif
                                     {{-- <tr>
                                         <td class="actions" colspan="6">
@@ -93,6 +111,7 @@
                                     </tr> --}}
                                 </tbody>
                             </table>
+                            
                         </form>
                     
                         <div class="cart-collaterals">
@@ -112,7 +131,7 @@
                                         </a>
                                         {{-- <h2><a href="#checkout" class="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2> --}}
                                     </div>
-                                    <div id="check_out" class="row"></div>
+                                    </br>
                                 </div>
                                 <div class="col-md-4 cart_totals">
                                     <h2>สรุปรายการสินค้า</h2>
@@ -154,13 +173,72 @@
             $(this).attr({
                 src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
             });
+            $(this).parent("a").attr({
+                href: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+        });
+
+        var tb_cart = $('#tb-cart').DataTable({
+            searching: false,
+            lengthChange: false,
+            order: [[2, "desc"]],
+            columnDefs: [
+            {orderable: false, targets: 0},
+            {orderable: false, targets: 1}
+            ],
+            iDisplayLength: 10,
+            oLanguage: {
+                "sProcessing":   "กำลังดำเนินการ...",
+                "sLengthMenu":   "แสดง _MENU_ เร็คคอร์ด ต่อหน้า",
+                "sZeroRecords":  "ไม่พบข้อมูล",
+                "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ เร็คคอร์ด",
+                "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ เร็คคอร์ด)",
+                "sInfoPostFix":  "",
+                "sSearch":       "ค้นหา: ",
+                "sUrl":          "",
+                "oPaginate": {
+                    "sFirst":    "หน้าแรก",
+                    "sPrevious": "ก่อนหน้า",
+                    "sNext":     "ถัดไป",
+                    "sLast":     "หน้าสุดท้าย"
+                }
+            }
         });
 
         $(".woocommerce").on("click",".minusItem",function(){
             var productId = $(this).data("productid");
             $.get("/cart/reduceProduct/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
-                $("form.shop_form").load("/cart table.shop_table");
+                $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
+                    var tb_cart = $('#tb-cart').DataTable({
+                        searching: false,
+                        lengthChange: false,
+                        order: [[2, "desc"]],
+                        columnDefs: [
+                        {orderable: false, targets: 0},
+                        {orderable: false, targets: 1}
+                        ],
+                        iDisplayLength: 10,
+                        oLanguage: {
+                            "sProcessing":   "กำลังดำเนินการ...",
+                            "sLengthMenu":   "แสดง _MENU_ เร็คคอร์ด ต่อหน้า",
+                            "sZeroRecords":  "ไม่พบข้อมูล",
+                            "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ เร็คคอร์ด",
+                            "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                            "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ เร็คคอร์ด)",
+                            "sInfoPostFix":  "",
+                            "sSearch":       "ค้นหา: ",
+                            "sUrl":          "",
+                            "oPaginate": {
+                                "sFirst":    "หน้าแรก",
+                                "sPrevious": "ก่อนหน้า",
+                                "sNext":     "ถัดไป",
+                                "sLast":     "หน้าสุดท้าย"
+                            }
+                        }
+                    });
+                });
                 $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });
@@ -171,7 +249,35 @@
             var productId = $(this).data("productid");
             $.get("/cart/removeItem/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
-                $("form.shop_form").load("/cart table.shop_table");
+                $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
+                    var tb_cart = $('#tb-cart').DataTable({
+                        searching: false,
+                        lengthChange: false,
+                        order: [[2, "desc"]],
+                        columnDefs: [
+                        {orderable: false, targets: 0},
+                        {orderable: false, targets: 1}
+                        ],
+                        iDisplayLength: 10,
+                        oLanguage: {
+                            "sProcessing":   "กำลังดำเนินการ...",
+                            "sLengthMenu":   "แสดง _MENU_ เร็คคอร์ด ต่อหน้า",
+                            "sZeroRecords":  "ไม่พบข้อมูล",
+                            "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ เร็คคอร์ด",
+                            "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                            "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ เร็คคอร์ด)",
+                            "sInfoPostFix":  "",
+                            "sSearch":       "ค้นหา: ",
+                            "sUrl":          "",
+                            "oPaginate": {
+                                "sFirst":    "หน้าแรก",
+                                "sPrevious": "ก่อนหน้า",
+                                "sNext":     "ถัดไป",
+                                "sLast":     "หน้าสุดท้าย"
+                            }
+                        }
+                    });
+                });
                 $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });
@@ -182,7 +288,35 @@
             var productId = $(this).data("productid");
             $.get("/cart/plusProduct/"+productId,function(data){
                 // $(".cart-reload").load("/product .shopping-item");
-                $("form.shop_form").load("/cart table.shop_table");
+                $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
+                    var tb_cart = $('#tb-cart').DataTable({
+                        searching: false,
+                        lengthChange: false,
+                        order: [[2, "desc"]],
+                        columnDefs: [
+                        {orderable: false, targets: 0},
+                        {orderable: false, targets: 1}
+                        ],
+                        iDisplayLength: 10,
+                        oLanguage: {
+                            "sProcessing":   "กำลังดำเนินการ...",
+                            "sLengthMenu":   "แสดง _MENU_ เร็คคอร์ด ต่อหน้า",
+                            "sZeroRecords":  "ไม่พบข้อมูล",
+                            "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ เร็คคอร์ด",
+                            "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                            "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ เร็คคอร์ด)",
+                            "sInfoPostFix":  "",
+                            "sSearch":       "ค้นหา: ",
+                            "sUrl":          "",
+                            "oPaginate": {
+                                "sFirst":    "หน้าแรก",
+                                "sPrevious": "ก่อนหน้า",
+                                "sNext":     "ถัดไป",
+                                "sLast":     "หน้าสุดท้าย"
+                            }
+                        }
+                    });
+                });
                 $(".cart-collaterals").load("/cart .shop_total");
                 $(".shoppingcart").load("/cart span.cart-item");
             });

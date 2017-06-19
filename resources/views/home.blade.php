@@ -2,6 +2,18 @@
 {{-- @extends('layouts/app') --}}
 
 @section('content')
+<style type="text/css">
+    .caption-group > h2{
+        /*font-size:1em;*/
+        /*line-height:1.1em;*/
+        height:3.3em;
+    }
+    .caption-name{
+        line-height:1.2em;
+        height:3em;
+    }
+</style>
+
 {{-- <div class="single-product-area"> --}}
     {{-- หน้าจอขนาดมากกว่า 769px --}}
     @if ($topsellers->count())
@@ -15,16 +27,16 @@
                         <div class="col-sm-6">
                             <div class="img-resize-home">
                                 @if(count($topseller->product->productImage) > 0)
-                                <img class="img-responsive" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                <img width="200" height="auto" class="img-responsive" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                 @else
-                                <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                <img width="200" height="auto" class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                 @endif
                             </div>
                         </div>
-                        <div class="col-sm-6" style="padding-top: 100px;">
+                        <div class="col-sm-6" style="padding-top: 25px; padding-left: 25px;">
                             <div class="caption-group">
                                 <h2 class="caption title">
-                                    <span class="primary"><strong>ACER Aspire E5-553G-F1J2 (NX.GEQST.001) FX-9800P/8GB/1TB/R7 M440 2GB/15.6" Black{{$topseller->product->name}}</strong></span>
+                                    <span class="primary"><strong>{{$topseller->product->name}}</strong></span>
                                 </h2>
                                 
                                 <span class="label label-danger caption subtitle">ขายดี</span>
@@ -61,9 +73,9 @@
                                         <div class="product-f-image">
                                             <div class="img-resize">
                                                 @if(count($topseller->product->productImage) > 0)
-                                                <img class="img-responsive" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                                <img width="200" height="auto" class="img-responsive img-center" src="{{ asset(env('FILE_URL').$topseller->product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                                 @else
-                                                <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                                <img width="200" height="auto" class="img-responsive img-center" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                                 @endif
                                             </div>
                                             <div class="product-hover">
@@ -74,7 +86,7 @@
                                             </div>
                                         </div>
 
-                                        <h2><a href="/productDetail/{{$topseller->product->id}}">{{$topseller->product->name}}</a></h2>
+                                        <h2 class="caption-name"><a href="/productDetail/{{$topseller->product->id}}">{{$topseller->product->name}}</a></h2>
                                         <span class="label label-danger">ขายดี</span>
                                         @if($topseller->product->balance <= 0)
                                             <span class="label label-warning">หมด</span>
@@ -95,27 +107,27 @@
     <div class="promo-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
-            <div class="row">
+            <div class="row row-flex row-flex-wrap">
                 <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo1">
+                    <div class="single-promo promo1" style="width: 100%">
                         <i class="fa fa-refresh"></i>
                         <p>เปลี่ยนสินค้าใน 7 วัน</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo2">
+                    <div class="single-promo promo2" style="width: 100%">
                         <i class="fa fa-truck"></i>
                         <p>ฟรี ค่าขนส่ง</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo3">
+                    <div class="single-promo promo3" style="width: 100%">
                         <i class="fa fa-usd"></i>
                         <p>เก็บเงินสินค้าปลายทาง</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo4">
+                    <div class="single-promo promo4" style="width: 100%">
                         <i class="fa fa-gift"></i>
                         <p>สินค้าใหม่</p>
                     </div>
@@ -137,9 +149,9 @@
                                 <div class="product-f-image">
                                     <div class="img-resize">
                                         @if(count($product->productImage) > 0)
-                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" alt="Slide">
+                                        <img width="200" height="auto" class="img-responsive img-center" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" alt="Slide">
                                         @else
-                                        <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                        <img width="200" height="auto" class="img-responsive img-center" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                         @endif
                                     </div>
                                     <div class="product-hover">
@@ -149,7 +161,7 @@
                                         <a href="/productDetail/{{$product->id}}" class="view-details-link"><i class="fa fa-link"></i> รายละเอียด</a>
                                     </div>
                                 </div>
-                                <h2>
+                                <h2 class="caption-name">
                                     <a href="/productDetail/{{$product->id}}">{{$product->name}}</a>
                                 </h2>
                                 <span class="label label-info">ใหม่</span>
@@ -194,9 +206,9 @@
                                 <div class="product-f-image">
                                     <div class="img-resize">
                                         @if(count($product->productImage) > 0)
-                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
+                                        <img width="200" height="auto" class="img-responsive img-center" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}">
                                         @else
-                                        <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
+                                        <img width="200" height="auto"  class="img-responsive img-center" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}" alt="Slide">
                                         @endif
                                     </div>
                                     <div class="product-hover">
@@ -207,16 +219,16 @@
                                     </div>
                                 </div>
 
-                                <h2><a href="/productDetail/{{$product->id}}">{{$product->name}}</a></h2>
-                                @if($product->numdate <= 7)
-                                <span class="label label-info">ใหม่</span>
-                                @endif
-                                @if($product->hot)
-                                <span class="label label-danger">ขายดี</span>
-                                @endif
-                                @if($product->balance <= 0)
-                                <span class="label label-warning">หมด</span>
-                                @endif
+                                <h2 class="caption-name"><a href="/productDetail/{{$product->id}}">{{$product->name}}</a></h2>
+                                     @if($product->numdate <= 7)
+                                    <span class="label label-info">ใหม่</span>
+                                    @endif
+                                    @if($product->hot)
+                                    <span class="label label-danger">ขายดี</span>
+                                    @endif
+                                    @if($product->balance <= 0)
+                                    <span class="label label-warning">หมด</span>
+                                    @endif
                                 <div class="product-carousel-price">
                                     ราคา {{ number_format( $product->price,2) }} บาท
                                 </div> 
@@ -252,6 +264,21 @@
             $(this).attr({
                 src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
             });
+            // $(this).parent("a").attr({
+            //     href: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            // });
+        });
+
+        $('.caption-group > h2').dotdotdot({
+            ellipsis: '...', /* The HTML to add as ellipsis. */
+            wrap : 'word', /* How to cut off the text/html: 'word'/'letter'/'children' */
+            watch : true /* Whether to update the ellipsis: true/'window' */
+        });
+
+        $('.caption-name').dotdotdot({
+            ellipsis: '...', /* The HTML to add as ellipsis. */
+            wrap : 'word', /* How to cut off the text/html: 'word'/'letter'/'children' */
+            watch : true /* Whether to update the ellipsis: true/'window' */
         });
     });
 </script>
