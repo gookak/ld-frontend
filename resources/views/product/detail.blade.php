@@ -89,7 +89,7 @@
 
                                 <div class="product-main-img ace-thumbnails clearfix">
                                     <a href="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" data-rel="colorbox">
-                                        <img class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" />
+                                        <img height="auto" width="300" class="img-responsive" src="{{ asset(env('FILE_URL').$product->productImage[0]->fileupload->filename )}}" />
                                     </a>
                                 </div>
                                 <div class="product-gallery ace-thumbnails clearfix">
@@ -104,7 +104,7 @@
 
                                 @else
                                 <a href="{{ asset(env('FILE_URL')."noimage.jpg" )}}" data-rel="colorbox">
-                                    <img class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
+                                    <img height="auto" width="300" class="img-responsive" src="{{ asset(env('FILE_URL')."noimage.jpg" )}}">
                                 </a>
                                 @endif
                             </div>
@@ -261,6 +261,9 @@
     $('img').error(function () {
             $(this).attr({
                 src: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
+            });
+            $(this).parent("a").attr({
+                href: "{{ asset(env('FILE_URL')."noimage.jpg" )}}"
             });
         });
 });

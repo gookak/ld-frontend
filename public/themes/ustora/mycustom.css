@@ -31,30 +31,34 @@
 }
 
 div.img-resize img {
-    height: 200px;
-    width: auto;
+    /*height: auto;*/
+    /*width: 200px;*/
 }
 
 div.img-resize {
-    width: auto;
-    height: 200px;
+    /*width: 200px;*/
+    height: 220px;
     overflow: hidden;
     text-align: center;
 }
 
 div.img-resize-home img {
-    height: 312px;
-    width: auto;
+    height: auto;
+    width: 300px;
     position: absolute;
     left: 5%;
 }
 
 div.img-resize-home {
-    width: auto;
+    /*width: auto;*/
     height: 312px;
     overflow: hidden;
     /*padding-left: 100px;*/
     /*text-align: center;*/
+}
+
+td.product-thumbnail img {
+    margin: 0 auto;
 }
 
 .product-hover button {
@@ -130,13 +134,26 @@ div.img-howto {
     overflow: hidden;
     text-align: center;
 }*/
+@media only screen and (max-width: 991px) and (min-width: 768px){
+  .mainmenu-area ul.navbar-nav li button {
+    font-size: 14px;
+    padding: 15px 10px;
+  }
+  .mainmenu-area ul.navbar-nav li .menu-admin {
+    padding: 15px 10px 15px 0px !important;
+  }
+}
 
-.mainmenu-area ul.navbar-nav li button {
+  .mainmenu-area ul.navbar-nav li button {
     color: #6e6a6a;
     font-size: 14px;
     padding: 20px;
     border: none;
     background: none;
+  }
+
+  .mainmenu-area ul.navbar-nav li button.menu-admin{
+  padding: 20px 10px 20px 0px;
   }
 
   .mainmenu-area ul.navbar-nav li button:hover, .mainmenu-area ul.navbar-nav li.open button {background: #5a88ca; color:#FFF;}
@@ -160,4 +177,8 @@ div.img-howto {
    bottom:0px;
    height:30px;
    width:100%;
+}
+
+.img-center{
+  margin: 0 auto;
 }

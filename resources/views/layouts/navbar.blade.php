@@ -37,6 +37,18 @@
                 @if (Auth::guest())
                 <li><a href="{{ route('login') }}"><i class="fa fa-key"></i> เข้าสู่ระบบ</a></li>
                 <li><a href="{{ route('register') }}"><i class="fa fa-users"></i> สมัครสมาชิก</a></li>
+                <li class="dropdown">
+                    <button type="button" class="dropdown-toggle open-menu menubutton menu-admin" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="http://admin.landdcommerce.com" style="padding: 3px 20px;">
+                                <i class="fa fa-cogs fa-fw"></i> ผู้ดูแลระบบ
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @else
                 
                 <li class="dropdown">
