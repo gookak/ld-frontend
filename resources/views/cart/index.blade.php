@@ -40,7 +40,7 @@
                 <div class="product-content-right">
                     <div class="woocommerce">
                         <form method="post" class="shop_form" action="#">
-                                <table id="tb-cart" cellspacing="0" class="table table-striped table-bordered table-hover responsive nowrap shop_table cart">
+                                <table id="tb-cart" cellspacing="0" class="table table-striped table-bordered table-hover responsive nowrap shop_table cart" >
                                 <thead>
                                     <tr>
                                         <th class="product-remove">&nbsp;</th>
@@ -115,25 +115,10 @@
                         </form>
                     
                         <div class="cart-collaterals">
-                            <div class="row shop_total">
+                            <div class="row shop_total flex-container">
                                 </br>
-                                <div class="col-md-8 ">
-                                    <div class="text-center">
-                                        @if(Session::has('cart'))
-                                            <a class="btn btn-lg btn-primary" href="/checkout">
-                                                <i class="fa fa-check"></i>
-                                                ยืนยันสินค้าที่สั่งซื้อ
-                                            </a>&nbsp;&nbsp;
-                                        @endif
-                                        <a class="btn btn-lg btn-default" href="/product">
-                                            <i class="fa fa-reply"></i>
-                                            เลือกสินค้าเพิ่ม
-                                        </a>
-                                        {{-- <h2><a href="#checkout" class="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2> --}}
-                                    </div>
-                                    </br>
-                                </div>
-                                <div class="col-md-4 cart_totals">
+                                </br>
+                                <div class="col-xs-12 col-md-4 cart_totals flex-subtotal">
                                     <h2>สรุปรายการสินค้า</h2>
 
                                     <table cellspacing="0">
@@ -153,6 +138,24 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                </br>
+                                </br>
+                                <div class="col-xs-12 col-md-8 flex-button">
+                                    <div class="text-center">
+                                        @if(Session::has('cart'))
+                                            <a class="btn btn-lg btn-primary" href="/checkout">
+                                                <i class="fa fa-check"></i>
+                                                ยืนยันสินค้าที่สั่งซื้อ
+                                            </a>&nbsp;&nbsp;
+                                        @endif
+                                        <a class="btn btn-lg btn-default" href="/product">
+                                            <i class="fa fa-reply"></i>
+                                            เลือกสินค้าเพิ่ม
+                                        </a>
+                                        {{-- <h2><a href="#checkout" class="check_out"><span>ยืนยันสินค้าที่สั่งซื้อ</span></a></h2> --}}
+                                    </div>
+                                    </br>
                                 </div>
                             </div>
                         </div>
@@ -179,12 +182,15 @@
         });
 
         var tb_cart = $('#tb-cart').DataTable({
+            autoWidth: false,
             searching: false,
             lengthChange: false,
             order: [[2, "desc"]],
             columnDefs: [
             {orderable: false, targets: 0},
-            {orderable: false, targets: 1}
+            {orderable: false, targets: 1},
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 2 }
             ],
             iDisplayLength: 10,
             oLanguage: {
@@ -212,12 +218,15 @@
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
                     var tb_cart = $('#tb-cart').DataTable({
+                        autoWidth: false,
                         searching: false,
                         lengthChange: false,
                         order: [[2, "desc"]],
                         columnDefs: [
                         {orderable: false, targets: 0},
-                        {orderable: false, targets: 1}
+                        {orderable: false, targets: 1},
+                        { responsivePriority: 1, targets: 0 },
+                        { responsivePriority: 2, targets: 2 }
                         ],
                         iDisplayLength: 10,
                         oLanguage: {
@@ -251,12 +260,15 @@
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
                     var tb_cart = $('#tb-cart').DataTable({
+                        autoWidth: false,
                         searching: false,
                         lengthChange: false,
                         order: [[2, "desc"]],
                         columnDefs: [
                         {orderable: false, targets: 0},
-                        {orderable: false, targets: 1}
+                        {orderable: false, targets: 1},
+                        { responsivePriority: 1, targets: 0 },
+                        { responsivePriority: 2, targets: 2 }
                         ],
                         iDisplayLength: 10,
                         oLanguage: {
@@ -290,12 +302,15 @@
                 // $(".cart-reload").load("/product .shopping-item");
                 $("form.shop_form").load("/cart table.shop_table", function (response, status, xhr) {
                     var tb_cart = $('#tb-cart').DataTable({
+                        autoWidth: false,
                         searching: false,
                         lengthChange: false,
                         order: [[2, "desc"]],
                         columnDefs: [
                         {orderable: false, targets: 0},
-                        {orderable: false, targets: 1}
+                        {orderable: false, targets: 1},
+                        { responsivePriority: 1, targets: 0 },
+                        { responsivePriority: 2, targets: 2 }
                         ],
                         iDisplayLength: 10,
                         oLanguage: {

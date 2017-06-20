@@ -94,6 +94,12 @@ td.product-thumbnail img {
     display: -webkit-flex;
     display: flex;
     /*flex:1 1 auto;*/
+    /*flex-grow: 1;*/
+}
+
+.row-flex, .row-flex > .flex-auto{
+  flex:1 1 auto;
+  flex-grow: 1;
 }
 
 .row-flex-wrap {
@@ -182,3 +188,26 @@ div.img-howto {
 .img-center{
   margin: 0 auto;
 }
+
+/*.flex-container{
+    display: flex;
+}
+.flex-button{
+    flex-grow: 1;
+    order: 1;
+}
+.flex-subtotal{
+    flex-grow: 1;
+    order: 2;
+}*/
+
+/*@media screen and (max-width:767px){
+  .flex-button{
+      order: 2;
+  }
+  .flex-subtotal{
+      order: 1;
+  }
+}*/
+
+

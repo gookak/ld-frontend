@@ -70,7 +70,7 @@
                                 <span class="label label-success">{{ $order->transportstatus->detail }}</span>
                                 @endif
                             </td>
-                            <td>{{ $order->emscode }}</td>
+                            <td>{{ $order->emscode ? $order->emscode : "ไม่มีรหัสพัสดุ" }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -87,11 +87,14 @@
     $(document).ready(function(){
 
         var tb_order = $('#tb-order').DataTable({
+            autoWidth: false,
             order: [[2, "desc"]],
             columnDefs: [
             {orderable: false, targets: 0},
             {targets: 2, visible: false},
-            {orderData: 2, targets: 3}
+            {orderData: 2, targets: 3},
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 }
             ],
             iDisplayLength: 25,
             oLanguage: {
