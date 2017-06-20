@@ -108,25 +108,25 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row row-flex row-flex-wrap">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo1" style="width: 100%">
                         <i class="fa fa-refresh"></i>
                         <p>เปลี่ยนสินค้าใน 7 วัน</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo2" style="width: 100%">
                         <i class="fa fa-truck"></i>
                         <p>ฟรี ค่าขนส่ง</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo3" style="width: 100%">
                         <i class="fa fa-usd"></i>
                         <p>เก็บเงินสินค้าปลายทาง</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo4" style="width: 100%">
                         <i class="fa fa-gift"></i>
                         <p>สินค้าใหม่</p>
