@@ -102,9 +102,9 @@ class ProfileController extends Controller
         }
         DB::commit();
         if ($msgerror == "") {
-            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+            $msgerror = 'แก้ไขข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile #edit-profile"];
         return Response::json($data);
     }
 
@@ -133,9 +133,9 @@ class ProfileController extends Controller
         }
         DB::commit();
         if ($msgerror == "") {
-            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+            $msgerror = 'แก้ไขอีเมล์เรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile #edit-profile-mail"];
         return Response::json($data);
     }
 }

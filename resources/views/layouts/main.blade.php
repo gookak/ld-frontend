@@ -34,6 +34,7 @@
 
   <!-- Validator Css-->
   <link rel="stylesheet" href="{{ asset('themes/ustora/css/bootstrapValidator.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('themes/ustora/css/intlTelInput.css') }}" />
 
   @yield('tagheader')
 
@@ -178,6 +179,8 @@
       <script src="{{ asset('themes/ustora/custom.js') }}"></script>
       <script src="{{ asset('themes/ustora/js/jquery.colorbox-min.js') }}"></script>
       <script src="{{ asset('themes/ustora/js/jquery.dotdotdot.min.js') }}"></script>
+      <script src="{{ asset('themes/ustora/js/jquery.maskedinput.min.js') }}"></script>
+      <script src="{{ asset('themes/ustora/js/intlTelInput.min.js') }}"></script>
       @yield('tagfooter')
 
       @yield('script')
