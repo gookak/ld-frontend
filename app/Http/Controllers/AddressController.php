@@ -49,7 +49,7 @@ class AddressController extends Controller
         if ($msgerror == "") {
             $msgerror = 'บันทึกข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile #form-address"];
         return Response::json($data);
     }
 
@@ -73,9 +73,9 @@ class AddressController extends Controller
         }
         DB::commit();
         if ($msgerror == "") {
-            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+            $msgerror = 'แก้ไขข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile"];
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile #form-address"];
         return Response::json($data);
     }
 
@@ -106,9 +106,9 @@ class AddressController extends Controller
         }
         DB::commit();
         if ($msgerror == "") {
-            $msgerror = 'บันทึกข้อมูลเรียบร้อย';
+            $msgerror = 'ลบข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror];
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/profile #form-address"];
         return Response::json($data);
     }
 }

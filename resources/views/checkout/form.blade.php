@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label for="tel" class="col-sm-3 control-label">เบอร์ติดต่อ*</label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="tel" name="tel" type="text"/>
+                                <input class="form-control" maxlength="10" id="tel" name="tel" type="text"/>
                             </div>
                         </div>
                         </br>
@@ -151,6 +151,20 @@
             validators: {
                 notEmpty: {
                     message: 'กรุณากรอกเบอร์โทร'
+                }
+                ,stringLength: {
+                    min: 10,
+                    max: 10,
+                    message: 'กรอกเบอร์โทรอย่างน้อย 10 ตัว'
+                },
+                numeric: {
+                    message: 'กรอกเป็นตัวเลข'
+                },
+                callback: {
+                    message: 'รูปแบบ 0812345678',
+                    callback: function (value, validator, $field) {
+                        return value.substring(0,1) == 0;
+                    }
                 }
             }
         }
