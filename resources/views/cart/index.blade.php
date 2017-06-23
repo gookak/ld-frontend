@@ -133,8 +133,12 @@
                                                 <td><strong><span class="amount">{{number_format($totalPrice,2)}} บาท</span></strong> </td>
                                             </tr>
                                             <tr class="order-total">
-                                                <th></th>
-                                                <td><strong><span class="amount">{{$totalPriceThai}}</span></strong> </td>
+                                                {{-- <th></th> --}}
+                                                <td colspan="2">
+                                                    @if($totalPrice)
+                                                        <strong><span class="amount">{{$totalPriceThai}}</span></strong> 
+                                                    @endif
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

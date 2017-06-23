@@ -37,14 +37,15 @@
 </tbody>
 <tfoot>
   <tr>
-    <td colspan="3" class="right">รวม</td>
+    <td colspan="2">{{ $order->totalPriceThai}}</td>
+    <td class="right">รวม</td>
     <td class="right">{{ $order->sumnumber }}</td>
     <td class="right">{{ number_format( $order->totalprice , 2 ) }}</td>
 </tr>
-<tr>
+{{-- <tr>
     <td colspan="3" class="right">จำนวนเงิน(ตัวอักษร)</td>
     <td colspan="3" class="right">{{ $order->totalPriceThai}}</td>
-</tr>
+</tr> --}}
 </tfoot>
 </table>
 @endif

@@ -28,5 +28,6 @@ table.one td {
   border-bottom:1px dotted #CCC; 
 }
 table.one tfoot td{ 
+  border-top:2px solid #CCC; 
   border-bottom:2px solid #CCC; 
 }
