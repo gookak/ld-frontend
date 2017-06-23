@@ -165,7 +165,7 @@
                                                         </button>
                                                     </div> 
                                                     <br>
-                                                    <form class="form-horizontal edit-address" method="POST" action="/address/edit/{{$address->id}}">
+                                                    <form id="edit-address{{$address->id}}" class="form-horizontal edit-address" method="POST" action="/address/edit/{{$address->id}}">
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
                                                             <label for="fullname" class="col-sm-3 control-label">ชื่อในการจัดส่ง</label>
@@ -192,7 +192,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-offset-3">
-                                                            <button class="btn btn-sm btn-warning" type="submit">
+                                                            <button class="btn btn-sm btn-warning btn-edit-address" type="submit">
                                                                 <i class="fa fa-pencil"></i>
                                                                 แก้ไข
                                                             </button>
@@ -315,87 +315,91 @@
                     });
                 });
 
-                $('.edit-address').bootstrapValidator({
-                    framework: 'bootstrap',
-                    fields: {
-                        fullname: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'กรุณากรอกชื่อในการส่ง'
+                $('form.edit-address').each(function () {
+                    var id = $(this).attr("id");
+                    $("#"+id).bootstrapValidator({
+                        framework: 'bootstrap',
+                        fields: {
+                            fullname: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'กรุณากรอกชื่อในการส่ง'
+                                    }
                                 }
-                            }
-                        },
-                        detail: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'กรุณากรอกที่อยู่'
+                            },
+                            detail: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'กรุณากรอกที่อยู่'
+                                    }
                                 }
-                            }
-                        },
-                        postcode: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'กรุณากรอกรหัสไปรษณีย์'
-                                },
-                                stringLength: {
-                                    min: 5,
-                                    max: 5,
-                                    message: 'กรอกรหัสไปรษณีย์อย่างน้อย 5 ตัว'
-                                },
-                                integer: {
-                                    message: 'กรอกเป็นตัวเลข'
+                            },
+                            postcode: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'กรุณากรอกรหัสไปรษณีย์'
+                                    },
+                                    stringLength: {
+                                        min: 5,
+                                        max: 5,
+                                        message: 'กรอกรหัสไปรษณีย์อย่างน้อย 5 ตัว'
+                                    },
+                                    integer: {
+                                        message: 'กรอกเป็นตัวเลข'
+                                    }
                                 }
-                            }
-                        },
-                        tel: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'กรุณากรอกเบอร์โทร'
-                                }
-                                    ,stringLength: {
-                                    min: 10,
-                                    max: 10,
-                                    message: 'กรอกเบอร์โทรอย่างน้อย 10 ตัว'
-                                },
-                                numeric: {
-                                    message: 'กรอกเป็นตัวเลข'
-                                },
-                                callback: {
-                                    message: 'รูปแบบ 0812345678',
-                                    callback: function (value, validator, $field) {
-                                        return value.substring(0,1) == 0;
+                            },
+                            tel: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'กรุณากรอกเบอร์โทร'
+                                    }
+                                        ,stringLength: {
+                                        min: 10,
+                                        max: 10,
+                                        message: 'กรอกเบอร์โทรอย่างน้อย 10 ตัว'
+                                    },
+                                    numeric: {
+                                        message: 'กรอกเป็นตัวเลข'
+                                    },
+                                    callback: {
+                                        message: 'รูปแบบ 0812345678',
+                                        callback: function (value, validator, $field) {
+                                            return value.substring(0,1) == 0;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                }).on("success.form.bv", function (e) {
-                    // Prevent form submission
-                    e.preventDefault();
-                    // Get the form instance
-                    var $form = $(e.target);
-                    console.log($form);
-                    
-                    var formdata = $form.serializeArray();
-                    console.log($form.attr('action'));
+                    }).on("success.form.bv", function (e) {
+                        // Prevent form submission
+                        e.preventDefault();
+                        // Get the form instance
+                        var $form = $(e.target);
+                        // console.log($form);
+                        
+                        var formdata = $form.serializeArray();
+                        // console.log($form.attr('action'));
 
-                    var jqxhr = $.ajax({
-                        type: "POST",
-                        url: $form.attr('action'),
-                        data: formdata,
-                        dataType: 'JSON',
-                    }).done(function (data) {
-                        console.log(data);
-                        if (data.status !== 200) {
+                        var jqxhr = $.ajax({
+                            type: "POST",
+                            url: $form.attr('action'),
+                            data: formdata,
+                            dataType: 'JSON',
+                        }).done(function (data) {
+                            console.log(data);
+                            if (data.status !== 200) {
+                                showMsgError("#msgErrorArea", data.msgerror);
+                            } else {
+                                $("#msgErrorArea").html("");
+                                showMsgSuccess("#msgErrorArea", data.msgerror);
+                                $("#row-address").load(data.url,function(){
+                                    Address();
+                                });
+                            }
+                        }).fail(function () {
                             showMsgError("#msgErrorArea", data.msgerror);
-                        } else {
-                            showMsgSuccess("#msgErrorArea", data.msgerror);
-                            $("#row-address").load(data.url,function(){
-                                Address();
-                            });
-                        }
-                    }).fail(function () {
-                        showMsgError("#msgErrorArea", data.msgerror);
+                        });
                     });
                 });
             }
