@@ -30,4 +30,5 @@ table.one td {
 table.one tfoot td{ 
   border-top:2px solid #CCC; 
   border-bottom:2px solid #CCC; 
+  font-weight: bold;
 }

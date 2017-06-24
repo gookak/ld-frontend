@@ -37,7 +37,7 @@
 </tbody>
 <tfoot>
  <tr>
-    <td colspan="2">{{ $order->totalPriceThai}}</td>
+    <td colspan="2" class="center">{{ $order->totalPriceThai}}</td>
     <td class="right">รวม</td>
     <td class="right">{{ $order->sumnumber }}</td>
     <td class="right">{{ number_format( $order->totalprice , 2 ) }}</td>
