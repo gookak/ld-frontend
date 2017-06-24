@@ -249,6 +249,7 @@
 
             $.get("/cart/addProduct/"+productId,function(data){
                 if (data.status == 200) {
+                    $("#msgErrorArea").html("");
                     showMsgSuccess("#msgErrorArea", data.msgerror);
                     // $(".shoppingcart").load("/product span.cart-item");
                     $(".shoppingcart").load(data.url);

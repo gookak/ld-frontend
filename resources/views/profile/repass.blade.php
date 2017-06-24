@@ -141,6 +141,7 @@ $('#repass').bootstrapValidator({
                 if (data.status !== 200) {
                     showMsgError("#msgErrorArea", data.msgerror);
                 } else {
+                    $("#msgErrorArea").html("");
                     showMsgSuccess("#msgErrorArea", data.msgerror);
                     $('#repass').bootstrapValidator("resetForm",true); 
                     // window.location = data.url;
