@@ -249,6 +249,7 @@
         var qty =  $("input[name=qty]").val();
         $.get("/cart/addProduct/"+productId,{"qty" : qty},function(data){
            if (data.status == 200) {
+                $("#msgErrorArea").html("");
                 showMsgSuccess("#msgErrorArea", data.msgerror);
                 $("input[name=qty]").val("1");
                 $(".shoppingcart").load(data.url);

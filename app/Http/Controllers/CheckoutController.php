@@ -30,6 +30,7 @@ class CheckoutController extends Controller
         $user_id = Auth::id();
         $profile = User::find($user_id);
 
+
         return view('checkout.form',compact('profile'));
     }
 
@@ -37,6 +38,7 @@ class CheckoutController extends Controller
     {
         $status = 200;
         $msgerror = "";
+        $orderId = "";
 
         $user_id = Auth::id();
         $addressId = $request->input('addressid');
@@ -67,44 +69,48 @@ class CheckoutController extends Controller
                }
             }
 
-            if($msgerror == ""){
-                if(!$addressId){
-                    Address::create([
-                        'user_id' => $user_id,
-                        'fullname' => $fullname,
-                        'detail' => $detail,
-                        'postcode' => $postcode,
-                        'tel' => $tel
-                        ]);
-                }
-                $or = Order::create([
-                    'transportstatus_id' => 1,
-                    'user_id' => $user_id,
-                    'code' => $this->GeraHash(10),
-                    'sumnumber' => $totalQty,
-                    'sumprice' => $totalPrice,
-                    'fee' => 0,
-                    'promotion' => 0,
-                    'totalprice' => $totalPrice,
-                    'address' => $fullname." ".$detail
-                    ]);
-                if(count($products)){
-                    foreach ($products as $product) {
-                        $ord = OrderDetail::create([
-                            'order_id' => $or->id,
-                            'product_id' => $product['item']['id'],
-                            'number' => $product['qty'],
-                            'price' => $product['item']['price']
-                            ]);
-
-                        $pb = Product::find($product['item']['id']);
-                        $balance = $pb->balance - $product['qty'];
-                        Product::where('id', $pb->id)->update(['balance' => $balance]);
-                    }
-                }
-                Session::forget('cart');
+            if(count($products) <= 0){
+                $msgerror = "ไม่มีสินค้า";
             }else{
-                $status = 501;
+                if($msgerror == ""){
+                    if(!$addressId){
+                        Address::create([
+                            'user_id' => $user_id,
+                            'fullname' => $fullname,
+                            'detail' => $detail,
+                            'postcode' => $postcode,
+                            'tel' => $tel
+                            ]);
+                    }
+                    $or = Order::create([
+                        'transportstatus_id' => 1,
+                        'user_id' => $user_id,
+                        'code' => $this->GeraHash(10),
+                        'sumnumber' => $totalQty,
+                        'sumprice' => $totalPrice,
+                        'fee' => 0,
+                        'promotion' => 0,
+                        'totalprice' => $totalPrice,
+                        'address' => $fullname." ".$detail." ".$postcode." ".$tel
+                        ]);
+                    if(count($products)){
+                        foreach ($products as $product) {
+                            $ord = OrderDetail::create([
+                                'order_id' => $or->id,
+                                'product_id' => $product['item']['id'],
+                                'number' => $product['qty'],
+                                'price' => $product['item']['price']
+                                ]);
+
+                            $pb = Product::find($product['item']['id']);
+                            $balance = $pb->balance - $product['qty'];
+                            Product::where('id', $pb->id)->update(['balance' => $balance]);
+                        }
+                    }
+                    Session::forget('cart');
+                }else{
+                    $status = 501;
+                }
             }
         } catch (\Exception $ex) {
             DB::rollback();
@@ -112,10 +118,12 @@ class CheckoutController extends Controller
             $msgerror = $ex->getMessage();
         }
         DB::commit();
+
         if ($msgerror == "") {
+            $orderId = $or->id;
             $msgerror = 'บันทึกข้อมูลเรียบร้อย';
         }
-        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home" , 'orderId' => $or->id ]; //"orderId" => $or->id
+        $data = ['status' => $status, 'msgerror' => $msgerror, 'url' => "/home" , 'orderId' => $orderId ]; //"orderId" => $or->id
         return Response::json($data);
     }
 
