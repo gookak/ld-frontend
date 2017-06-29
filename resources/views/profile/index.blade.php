@@ -304,6 +304,7 @@
                         if (data.status !== 200) {
                             showMsgError("#msgErrorArea", data.msgerror);
                         } else {
+                            $("#msgErrorArea").html("");
                             showMsgSuccess("#msgErrorArea", data.msgerror);
                             $("#row-address").load(data.url,function(){
                                 Address();
@@ -438,6 +439,7 @@
                         if (data.status !== 200) {
                             showMsgError("#msgErrorArea", data.msgerror);
                         } else {
+                            $("#msgErrorArea").html("");
                             showMsgSuccess("#msgErrorArea", data.msgerror);
                             $("#emailedit").load(data.url,function(){
                                 editEmail();
@@ -518,6 +520,7 @@
                         if (data.status !== 200) {
                             showMsgError("#msgErrorArea", data.msgerror);
                         } else {
+                            $("#msgErrorArea").html("");
                             showMsgSuccess("#msgErrorArea", data.msgerror);
                             $("#profileedit").load(data.url,function(){
                                 editProfile();
@@ -540,6 +543,7 @@
                         if($data.status !== 200){
                             showMsgError("#msgErrorArea", data.msgerror);
                         }else{
+                            $("#msgErrorArea").html("");
                             showMsgSuccess("#msgErrorArea", "ลบข้อมูลเรียบร้อย");
                             $("#row-address").load("/profile #form-address",function(){
                                 Address();
