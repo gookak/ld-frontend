@@ -111,13 +111,13 @@
                 <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo1" style="width: 100%">
                         <i class="fa fa-refresh"></i>
-                        <p>เปลี่ยนสินค้าใน 7 วัน</p>
+                        <p>สินค้าราคาถูก</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 flex-auto">
                     <div class="single-promo promo2" style="width: 100%">
                         <i class="fa fa-truck"></i>
-                        <p>ฟรี ค่าขนส่ง</p>
+                        <p>ฟรี ค่าขนส่ง(EMS)</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 flex-auto">

@@ -108,7 +108,7 @@
                                             @foreach($profile->address as $address)
                                                 <li>
                                                     <a data-toggle="tab" href="#{{$address->id}}">
-                                                        {{$address->fullname}}
+                                                        ที่อยู่ {{$loop->iteration}}
                                                     </a>
                                                 </li>
                                             @endforeach
@@ -278,7 +278,7 @@
                                 callback: {
                                     message: 'รูปแบบ 0812345678',
                                     callback: function (value, validator, $field) {
-                                        return value.substring(0,1) == 0;
+                                        return value.substring(0,2) == 08 || value.substring(0,2) == 06 || value.substring(0,2) == 09;
                                     }
                                 }
                             }
@@ -366,7 +366,7 @@
                                     callback: {
                                         message: 'รูปแบบ 0812345678',
                                         callback: function (value, validator, $field) {
-                                            return value.substring(0,1) == 0;
+                                            return value.substring(0,2) == 08 || value.substring(0,2) == 06 || value.substring(0,2) == 09;
                                         }
                                     }
                                 }
@@ -486,7 +486,7 @@
                                 callback: {
                                     message: 'รูปแบบ 0812345678',
                                     callback: function (value, validator, $field) {
-                                        return value.substring(0,1) == 0;
+                                        return value.substring(0,2) == 08 || value.substring(0,2) == 06 || value.substring(0,2) == 09;
                                     }
                                 }
                                 // ,callback: {

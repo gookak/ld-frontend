@@ -163,7 +163,7 @@
                 callback: {
                     message: 'รูปแบบ 0812345678',
                     callback: function (value, validator, $field) {
-                        return value.substring(0,1) == 0;
+                        return value.substring(0,2) == 08 || value.substring(0,2) == 06 || value.substring(0,2) == 09;
                     }
                 }
             }
