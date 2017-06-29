@@ -52,6 +52,34 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                <label for="address" class="col-md-4 control-label">ที่อยู่*</label>
+
+                                <div class="col-md-6">
+                                    <textarea id="address" class="form-control" name="address" required autofocus>{{ old('address') }}</textarea>
+
+                                    @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('postcode') ? ' has-error' : '' }}">
+                                <label for="postcode" class="col-md-4 control-label">รหัสไปรษณีย์*</label>
+
+                                <div class="col-md-6">
+                                    <input id="postcode" type="text" class="form-control" maxlength="5" name="postcode" value="{{ old('postcode') }}" required autofocus>
+
+                                    @if ($errors->has('postcode'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('postcode') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
                                 <label for="tel" class="col-md-4 control-label">เบอร์โทร*</label>
 

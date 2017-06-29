@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Response;
 use DB;
 use mPDF;
+use Carbon\Carbon;
+use App\Mylibs\Mylibs;
 
 class OrderController extends Controller
 {
@@ -109,6 +111,7 @@ class OrderController extends Controller
     public function pdf($orderId)
     {
         $user_id = Auth::id();
+        $name = Auth::user()->firstname.' '.Auth::user()->lastname;
         // $order = Order::find($orderId);
         $order = Order::where('user_id', $user_id )->where('id', $orderId)->firstOrFail();
 
@@ -118,6 +121,11 @@ class OrderController extends Controller
         $html = view('order.pdf', compact('order'))->render();
         $mpdf = new mPDF('th', 'A4', '', '', '15', '15', '45', '18');
         $mpdf->SetHTMLHeader(view('layouts_pdf.main')->render());
+        $mpdf->SetFooter('|{PAGENO}/{nbpg}|'
+            .' พิมพ์โดย '.$name
+            .'<br>'
+            .'วันที่พิมพ์ '.Carbon::now('asia/bangkok')->addYears(543)->format('d/m/Y H:i'));
+        // $mpdf->setFooter("หน้า {PAGENO}/{nb}");
         $mpdf->setDisplayMode('fullpage');
         $mpdf->WriteHTML(file_get_contents('css/pdf.css'),1);
         $mpdf->WriteHTML($html,2);
